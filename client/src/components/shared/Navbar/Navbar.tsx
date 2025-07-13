@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
@@ -12,6 +12,15 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import { useUIStore } from "@/store/useUIStore";
 export default function Navbar() {
+
+  const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (searchValue.trim()) {
+      router.push(`/search?title=${encodeURIComponent(searchValue.trim())}`);
+    }
+  };
   const {
     searchOpen,
     gridMenuOpen,
@@ -26,14 +35,14 @@ export default function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
- 
+
   const handleMobileToggle = () => {
     if (mobileOpen) {
-     
+
       closeAll();
       setMobileOpen(false);
     } else {
-    
+
       setMobileOpen(true);
     }
   };
@@ -90,6 +99,13 @@ export default function Navbar() {
                   type="text"
                   placeholder="Search entire store here..."
                   className="w-full bg-white h-10 pl-3 text-sm text-[#222] outline-none border-l-2 border-[#e51515]"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSearch();
+                    }
+                  }}
                 />
               </div>
 
@@ -357,7 +373,7 @@ export default function Navbar() {
         </ul>
       </div>
 
-   
+
 
     </div>
   );
