@@ -9,9 +9,9 @@ const seedProducts = async () => {
   try {
     await connectDB();
 
-    // Mövcud məhsulları sil
+  
     await Product.deleteMany({});
-    console.log("✅ Old products deleted");
+    console.log("Old products deleted");
 
     const flattenedProducts: any[] = [];
 
@@ -21,7 +21,7 @@ const seedProducts = async () => {
           yearGroup.products.forEach((p: ProductItem, index: number) => {
             flattenedProducts.push({
               ...p,
-              // Unikal id yaradırıq: mövcud id yerinə unikallaşdırılmış versiya
+            
               id: `${makeGroup.make.toLowerCase()}-${modelGroup.model.toLowerCase().replace(/\s+/g, '')}-${yearGroup.year}-${index + 1}`,
               make: makeGroup.make,
               model: modelGroup.model,
@@ -32,7 +32,7 @@ const seedProducts = async () => {
       });
     });
 
-    // Unikal id-lərin təkrarlanmadığını yoxlayaq (istəyə bağlı)
+   
     const idSet = new Set<string>();
     const duplicates = flattenedProducts.filter(p => {
       if(idSet.has(p.id)) return true;
@@ -41,14 +41,14 @@ const seedProducts = async () => {
     });
 
     if(duplicates.length > 0) {
-      console.warn("⚠️ Duplicate IDs found:", duplicates.map(d => d.id));
+      console.warn("Duplicate IDs found:", duplicates.map(d => d.id));
     } else {
-      console.log("✅ No duplicate IDs found");
+      console.log("No duplicate IDs found");
     }
 
-    // Yeni məhsulları DB-yə daxil et
+   
     await Product.insertMany(flattenedProducts);
-    console.log("✅ New products inserted");
+    console.log("New products inserted");
 
     process.exit(0)
   } catch (error) {

@@ -9,7 +9,7 @@ export function useSearchForm() {
 
   const handleMakeSelect = (make: string) => {
     setSelectedMake(make);
-    setSelectedModel(""); // Yeni marka seçiləndə model sıfırlansın
+    setSelectedModel(""); 
   };
 
   const handleModelSelect = (model: string) => {

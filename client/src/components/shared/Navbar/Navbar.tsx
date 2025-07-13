@@ -26,15 +26,14 @@ export default function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Mobil menyu açanda bütün dropdownları bağla
-
+ 
   const handleMobileToggle = () => {
     if (mobileOpen) {
-      // Mobil menyunu bağlayanda bütün açıq dropdownları bağla
+     
       closeAll();
       setMobileOpen(false);
     } else {
-      // Mobil menyunu aç
+    
       setMobileOpen(true);
     }
   };
@@ -358,7 +357,6 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* DROPDOWNLARI NAVBARIN İÇİNDƏ, AMMA MOBIL MENYUNUN XARİCİNDƏ GÖSTƏR */}
    
 
     </div>

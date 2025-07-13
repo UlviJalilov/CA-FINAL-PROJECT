@@ -16,7 +16,7 @@ export const useUIStore = create<UIState>((set, get) => ({
     searchOpen: false,
     gridMenuOpen: false,
     worldMenuOpen: false,
-    cartMenuOpen: false, // ✅
+    cartMenuOpen: false, 
 
     toggleSearch: () => {
         const { searchOpen } = get();

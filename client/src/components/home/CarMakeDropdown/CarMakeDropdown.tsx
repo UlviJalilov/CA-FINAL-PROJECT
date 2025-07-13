@@ -21,7 +21,7 @@ export default function CarMakeDropdown({ onSelect }: CarMakeDropdownProps) {
     if (make !== "Select Brand") {
       onSelect(make);
     } else {
-      onSelect(""); // Heç nə seçilməyibsə boş ötür
+      onSelect(""); 
     }
   };
 
