@@ -3,6 +3,7 @@ import BannerSlider from "@/components/home/BannerSlider/BannerSlider"
 import Navbar from "@/components/shared/Navbar/Navbar"
 import Footer from "@/components/shared/Footer/Footer"
 import SearchForm from "../SearchForm/SearchForm"
+import HeroSection from "@/sections/home/HeroSection/HeroSection"
 
 
 const HomeTemplate = () => {
@@ -12,7 +13,8 @@ const HomeTemplate = () => {
                 <AddBanner />
                 <BannerSlider />
                 <Navbar />
-                <SearchForm />               
+                <SearchForm />
+                <HeroSection />
             </main>
             <Footer />
         </>
