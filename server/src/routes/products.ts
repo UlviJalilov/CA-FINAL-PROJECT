@@ -5,10 +5,11 @@ const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const { make, model, year } = req.query as {
+    const { make, model, year, title } = req.query as {
       make?: string;
       model?: string;
       year?: string;
+      title?: string;
     };
 
     const query: any = {};
@@ -16,6 +17,7 @@ router.get("/", async (req: Request, res: Response) => {
     if (make) query.make = { $regex: `^${make}$`, $options: "i" };
     if (model) query.model = { $regex: `^${model}$`, $options: "i" };
     if (year) query.year = year;
+    if (title) query.title = { $regex: title, $options: "i" };
 
     const products = await Product.find(query);
 
