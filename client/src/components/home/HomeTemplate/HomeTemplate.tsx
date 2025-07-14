@@ -4,6 +4,7 @@ import Navbar from "@/components/shared/Navbar/Navbar"
 import Footer from "@/components/shared/Footer/Footer"
 import SearchForm from "../SearchForm/SearchForm"
 import HeroSection from "@/sections/home/HeroSection/HeroSection"
+import Collections from "../Collections/Collections"
 
 
 const HomeTemplate = () => {
@@ -15,6 +16,7 @@ const HomeTemplate = () => {
                 <Navbar />
                 <SearchForm />
                 <HeroSection />
+                <Collections />
             </main>
             <Footer />
         </>
