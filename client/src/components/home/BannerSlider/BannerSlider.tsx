@@ -90,6 +90,7 @@ export default function BannerSlider() {
                     src={src}
                     alt={`Slider Image ${index + 1}`}
                     fill
+                    quality={100}
                     priority
                     sizes="100vw"
                     className="object-cover"
