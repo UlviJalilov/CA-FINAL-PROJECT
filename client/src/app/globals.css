@@ -7,6 +7,10 @@ body {
   background-color: #14151b;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 .primary-font {
   font-family: "Oswald", sans-serif;
 }
