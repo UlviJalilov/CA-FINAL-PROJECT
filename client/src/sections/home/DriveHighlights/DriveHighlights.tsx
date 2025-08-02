@@ -68,6 +68,7 @@ const DriveHighlights = () => {
               quality={100}
               alt={item.title}
               className="object-cover"
+              priority={true}
             />
             <motion.div
               className="absolute inset-0 flex flex-col justify-center items-center text-center px-4"

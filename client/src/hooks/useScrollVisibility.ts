@@ -1,4 +1,3 @@
-// hooks/useScrollVisibility.ts
 import { useEffect, useState } from "react";
 
 export function useScrollVisibility() {

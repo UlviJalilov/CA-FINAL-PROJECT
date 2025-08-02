@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { FaHeart } from "react-icons/fa";
 import { FaSignal } from "react-icons/fa6";
 import { FaEye, FaRegStar } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { motion } from "framer-motion";
+import { useCart } from "@/context/CartContext";
 
 
 type Props = {
@@ -15,9 +15,23 @@ type Props = {
 };
 
 const OurProductCard = ({ product }: Props) => {
+
+  const { addToCart } = useCart();
+
+
+  const handleAddToCart = () => {
+    console.log("Adding product to cart:", product);
+    addToCart({
+      id: product._id,
+      title: product.title,
+      image: product.image,
+      price: product.price,
+    });
+  };
+
   return (
 
-    <div className="group border-2 border-[#21252c] rounded-[20px] w-full max-w-[320px] mx-auto overflow-hidden relativee">
+    <div className="group border-2 border-[#21252c] rounded-[20px] w-full max-w-[320px] mx-auto overflow-hidden min-h-[550px] flex flex-col">
 
       <div className="actions text-[#363c45] absolute top-5 left-5 flex flex-col gap-3 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 z-10">
 
@@ -105,9 +119,9 @@ const OurProductCard = ({ product }: Props) => {
           )}
         </div>
 
-        <Link
-          href="/"
-          className="group flex gap-3 py-4 mt-8 rounded-[25px] justify-center items-center bg-[#21252c] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300"
+        <button
+          className="group flex gap-3 w-full py-4 mt-8 rounded-[25px] justify-center items-center bg-[#21252c] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300"
+          onClick={handleAddToCart}
         >
           <motion.div
             className="text-[#838896] group-hover:text-white"
@@ -126,7 +140,7 @@ const OurProductCard = ({ product }: Props) => {
           <span className="text-[#838896] group-hover:text-white text-sm font-medium">
             ADD TO CART
           </span>
-        </Link>
+        </button>
       </div>
     </div>
 

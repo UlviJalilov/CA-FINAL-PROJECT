@@ -5,14 +5,14 @@ import Image from "next/image";
 export default function HeroSection() {
     return (
         <section className="relative container mx-auto items-center w-full px-4  overflow-hidden">
-           
+
             <h1 className="absolute pt-10 primary-font -top-10 left-1/2 -translate-x-1/2 text-[120px] font-medium text-[#1b1d22] opacity-90 select-none pointer-events-none uppercase leading-none">
                 History
             </h1>
 
             <div className="absolute top-3 left-1/2 -translate-x-1/2 translate-y-6 text-center z-10">
                 <p className="text-[30px] primary-font uppercase  text-[#fff]">
-                   WELCOME TO
+                    WELCOME TO
                 </p>
                 <h2 className="text-[15px] primary-font md:text-4xl font-bold uppercase text-white">
                     Aero Car Store
@@ -21,18 +21,21 @@ export default function HeroSection() {
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 mt-30 grid grid-cols-1 md:grid-cols-12 gap-15">
 
-               
+
                 <div className="md:col-span-6 flex justify-center items-center">
-                    <div className="relative w-full max-w-[700px]">
-                        <Image
-                            src="https://aero-theme.myshopify.com/cdn/shop/files/img1.png?v=1613507033"
-                            alt="Front Wheel"
-                            width={700}
-                            height={700}
-                            className="relative object-cover z-10"
-                            quality={100}
-                        />
+                    <div className="md:col-span-6 flex justify-center items-center">
+                        <div className="relative w-full max-w-[700px]">
+                            <Image
+                                src="https://aero-theme.myshopify.com/cdn/shop/files/img1.png?v=1613507033"
+                                alt="Front Wheel"
+                                width={700}
+                                height={700}
+                                className="object-cover z-10 animate-wheelMotion"
+                                quality={100}
+                            />
+                        </div>
                     </div>
+
                 </div>
 
                 <div className="md:col-span-6 flex flex-col justify-center text-white space-y-6">

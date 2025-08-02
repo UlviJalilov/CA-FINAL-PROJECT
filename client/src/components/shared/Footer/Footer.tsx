@@ -1,11 +1,197 @@
-import React from 'react'
+"use client"
 
-const Footer = () => {
+import Image from "next/image"
+import { FaFacebookF, FaTwitter, FaPinterestP, FaInstagram, FaGooglePlusG } from "react-icons/fa";
+import { IoLocation } from "react-icons/io5";
+import { IoMdPhonePortrait } from "react-icons/io";
+import { MdEmail } from "react-icons/md";
+import Link from "next/link"
+
+
+
+export default function Footer() {
   return (
-    <div>
-      <h1>This is footer</h1>
-    </div>
-  )
-}
+    <footer
+      className="bg-[#111217] border-t-2 border-[#e51515] w-full text-white text-sm"
+      style={{
+        minHeight: '540px',
+        backgroundImage: 'url(https://aero-theme.myshopify.com/cdn/shop/files/bkg_footer_c0f71867-38e3-492b-995f-7d0269b97db1.jpg?v=1625767911)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
 
-export default Footer
+      }}
+    >
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-5 gap-8 border-b py-25 border-[#1f2126]">
+
+         
+          <div className="md:col-span-2 flex flex-col gap-10 items-start justify-start">
+            <div className="logo w-[70px]">
+              <Image
+                src="https://aero-theme.myshopify.com/cdn/shop/files/logo-aero1_c79eb9d5-3b65-4c27-ac70-8b4c0c3ec086.png?v=1613507407"
+                alt="logo img"
+                width={100}
+                height={100}
+                quality={100}
+                priority={true}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <p className="text-[#5a6069] leading-relaxed font-medium break-normal">
+              We are a team of designers and developers who creates <br />
+              high quality premium Shopify themes.
+            </p>
+            <ul className="space-y-2 text-[#5a6069]">
+              <li className="flex justify-center gap-2 items-center">
+                <IoLocation size={16} className="text-[#e51515]" />
+                <strong className="text-white">
+                  Address :</strong> <strong className="text-white">No 40 Baria Sreet 133/2, NewYork, USA.</strong>
+              </li>
+              <li className="flex justify-start gap-2 items-center">
+                <IoMdPhonePortrait size={16} className="text-[#e51515]" />
+                <strong className="text-white">Phone :</strong> <strong className="text-white">(012) 800 456 789</strong>
+              </li>
+              <li className="flex justify-start gap-2 items-center">
+                <MdEmail size={16} className="text-[#e51515]" />
+                <strong className="text-white">Email :</strong> <strong className="text-white">support@masstechnologist</strong>
+              </li>
+            </ul>
+          </div>
+
+
+          <div className="md:col-span-1 border-l pl-5 border-[#5a6069]">
+            <h4 className="font-semibold primary-font mb-7">MAIN MENU</h4>
+            <ul className="space-y-4 text-[#5a6069]">
+              <li className="hover:text-[#e51515]">
+                <Link href="/">
+                  Home
+                </Link>
+              </li>
+
+              <li className="hover:text-[#e51515]">
+                <Link href="/shop">
+                  Shop
+                </Link>
+              </li>
+
+              <li className="hover:text-[#e51515]">
+                <Link href="/featured">
+                  Featured
+                </Link>
+              </li>
+
+              <li className="hover:text-[#e51515]">
+                <Link href="/layouts">
+                  Layouts
+                </Link>
+              </li>
+
+              <li className="hover:text-[#e51515]">
+                <Link href="/pages">
+                  Pages
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+
+          <div className="md:col-span-1 border-l pl-5 border-[#5a6069]">
+            <h4 className="font-semibold primary-font mb-7">ABOUT US</h4>
+            <ul className="space-y-4 text-[#5a6069]">
+              <li className="hover:text-[#e51515]">
+                <Link href="/contact">
+                  Contact US
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/policy">
+                  Refund Policy
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/policy">
+                  Shipping Policy
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/policy">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/service">
+                  Terms Of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-1 border-l pl-5 border-[#5a6069]">
+            <h4 className="font-semibold primary-font mb-7">NEED HELP</h4>
+            <ul className="space-y-4 text-[#5a6069]">
+              <li className="hover:text-[#e51515]">
+                <Link href="/search">
+                  Search
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/about">
+                  About Us
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/faqs">
+                  FAQs
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="blog">
+                  Our Blog
+                </Link>
+              </li>
+              <li className="hover:text-[#e51515]">
+                <Link href="/services">
+                  Services
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 py-15">
+          <div className="flex flex-col md:flex-row items-center gap-15 text-center md:text-left">
+            <p className="text-[#5a6069] text-[14px] font-medium">
+              Copyright © 2024 <span className="text-[#e51515]">MassTechnologist.Com</span>. All Rights Reserved.
+            </p>
+            <div className="flex gap-4 text-[#5a6069] text-base mt-4 md:mt-0">
+              <FaFacebookF className="hover:text-white transition" />
+              <FaTwitter className="hover:text-white transition" />
+              <FaPinterestP className="hover:text-white transition" />
+              <FaInstagram className="hover:text-white transition" />
+              <FaGooglePlusG className="hover:text-white transition" />
+            </div>
+          </div>
+
+          <div className="overflow-hidden w-[300px] mt-4 md:mt-0">
+            <Image
+              src="https://aero-theme.myshopify.com/cdn/shop/files/payment.png?v=1613507059"
+              alt="Payment Cards"
+              width={300}
+              height={300}
+              className="w-full h-full object-contain"
+              quality={100}
+              priority={true}
+            />
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+  );
+}

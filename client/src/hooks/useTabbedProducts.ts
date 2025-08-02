@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { fetchAllFeaturedProducts } from "@/admin/featuredProducts/service/featuredProductService";
-import { tabs } from "@/utils/filterProductsByTab/filterProductsByTab";
+import { tabs } from "@/utils/filterProductsByTab";
 
 export const useTabbedProducts = () => {
   const [products, setProducts] = useState<FeaturedProduct[]>([]);

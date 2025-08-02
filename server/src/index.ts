@@ -1,22 +1,35 @@
 import express from "express";
-import dotenv from "dotenv";
+
 import cors from "cors";
 import { connectDB } from "./config/db";
-import productsRouter from "./routes/products"; 
+import productRoutes from './routes/productRoutes';
+import authRoutes from "./routes/auth";
+import userRoutes from "./routes/user";
+import uploadRoutes from "./routes/uploadRoutes";
+import router from "./routes/carproducts";
+import featuredProductRoutes from './routes/featuredProductRoutes';
+// import paymentRoutes from "./routes/payment";  // burada import
+
+
+import dotenv from "dotenv";
 
 dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-connectDB(); 
+connectDB();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-app.use("/api/products", productsRouter);
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/upload", uploadRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/car-products", router);
+app.use("/api/featured-products", featuredProductRoutes);
+// app.use("/api/payment", paymentRoutes);
 
 app.get("/", (_, res) => {
   res.send("Backend server is running!");

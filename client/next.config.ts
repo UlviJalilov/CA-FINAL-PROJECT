@@ -5,7 +5,14 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "encrypted-tbn0.gstatic.com",
+        hostname: "example.com",
+        port: "",
+        pathname: "/**",
+      },
+
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
         port: "",
         pathname: "/**",
       },

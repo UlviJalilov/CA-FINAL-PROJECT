@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 
-const CloseableBanner = () => {
+const AdBanner = () => {
     const [visible, setVisible] = useState(true);
     const [shouldRender, setShouldRender] = useState(true);
 
@@ -41,4 +41,4 @@ const CloseableBanner = () => {
     );
 };
 
-export default CloseableBanner;
+export default AdBanner;

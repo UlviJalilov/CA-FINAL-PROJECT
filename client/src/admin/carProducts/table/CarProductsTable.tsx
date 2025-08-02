@@ -71,7 +71,7 @@ const CarProductsTable = ({ products, onDelete, onEdit }: Props) => {
               <div className="flex items-center justify-center gap-2">
                 <button
                   onClick={() => onEdit(product._id)}
-                  className="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded text-xs font-semibold transition cursor-pointer"
+                  className="bg-yellow-500 hover:bg-orange-500 text-white px-3 py-1 rounded text-xs font-semibold transition cursor-pointer"
                 >
                   Edit
                 </button>

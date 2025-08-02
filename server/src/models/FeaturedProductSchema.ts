@@ -1,29 +1,33 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IProduct extends Document {
+export interface IFeaturedProduct extends Document {
   title: string;
   price: number;
   oldPrice?: number;
-  discountPrice?: number;
-  description: string;
+  discountBtn?: string;
+  description?: string;
   rating: number;
   image: string;
+  hoverImage?: string;
   isFeatured?: boolean;
+  discountPercent?: number;
 }
 
-const ProductSchema: Schema = new Schema(
+const FeaturedProductSchema: Schema = new Schema(
   {
     title: { type: String, required: true },
     price: { type: Number, required: true },
     oldPrice: { type: Number, default: 0 },
-    discountPrice: { type: Number, default: 0 },
-    description: { type: String, required: true },
+    discountBtn: { type: String, required: false },
+    description: { type: String, required: false },
     rating: { type: Number, default: 0 },
     image: { type: String, required: true },
+    hoverImage: { type: String },
     isFeatured: { type: Boolean, default: false },
+    discountPercent: { type: Number, required: false }
   },
   { timestamps: true }
 );
 
-const Product = mongoose.models.Product || mongoose.model<IProduct>("Product", ProductSchema);
-export default Product;
+const FeaturedProduct = mongoose.models.FeaturedProduct || mongoose.model<IFeaturedProduct>("FeaturedProduct", FeaturedProductSchema);
+export default FeaturedProduct;

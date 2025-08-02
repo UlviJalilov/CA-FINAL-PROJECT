@@ -1,18 +1,17 @@
 import express from 'express';
 import {
-    createProduct,
-    getProducts,
+    createFeaturedProduct,
     getFeaturedProducts,
-    updateProduct,
-    deleteProduct,
-} from '../controllers/productController.js';
+    updateFeaturedProduct,
+    deleteFeaturedProduct
+} from '../controllers/featuredProductController';
 
 const router = express.Router();
 
-router.post('/', createProduct); // POST /api/products
-router.get('/', getProducts); // GET /api/products
-router.get('/featured', getFeaturedProducts); // GET /api/products/featured
-router.put('/:id', updateProduct); // PUT /api/products/:id
-router.delete('/:id', deleteProduct); // DELETE /api/products/:id
+router.post('/', createFeaturedProduct);
+router.get('/', getFeaturedProducts);
+router.get('/featured', getFeaturedProducts);
+router.put('/:id', updateFeaturedProduct);
+router.delete('/:id', deleteFeaturedProduct);
 
 export default router;

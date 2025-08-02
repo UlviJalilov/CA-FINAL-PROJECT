@@ -7,41 +7,35 @@ import Navbar from "@/components/shared/Navbar/Navbar";
 import SearchForm from "@/components/home/SearchForm/SearchForm";
 
 interface Product {
+  _id: string;
   make: string;
-  model: string;
-  year: string;
+  carModel: string;  
+  year: number;
   image: string;
   price: number;
   title: string;
   id: string;
 }
 
+const fetchProducts = async (params: { make?: string; model?: string; year?: string; title?: string }) => {
+  const queryParams = new URLSearchParams();
 
-const fetchProducts = async ({
-  make,
-  model,
-  year,
-  title,
-}: {
-  make: string;
-  model: string;
-  year: string;
-  title: string;
-}) => {
-  const params = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value && value.trim() !== "") {
+      
+      if (key === "model") {
+        queryParams.append("carModel", value);
+      } else {
+        queryParams.append(key, value);
+      }
+    }
+  });
 
-  if (make) params.append("make", make);
-  if (model) params.append("model", model);
-  if (year) params.append("year", year);
-  if (title) params.append("title", title);
-
-  const res = await fetch(
-    `http://localhost:3001/api/products?${params.toString()}`,
-    { cache: "no-store" }
-  );
+  const res = await fetch(`http://localhost:3001/api/car-products?${queryParams.toString()}`, { cache: "no-store" });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch products");
+    const errorData = await res.json();
+    throw new Error(errorData.message || "Failed to fetch products");
   }
 
   return res.json();
@@ -57,31 +51,19 @@ export default function SearchPage() {
 
   const { data: products = [], isLoading, error } = useQuery<Product[]>({
     queryKey: ["products", make, model, year, title],
-    queryFn: () =>
-      fetchProducts({
-        make,
-        model,
-        year,
-        title,
-      }),
+    queryFn: () => fetchProducts({ make, model, year, title }),
     enabled: !!make || !!model || !!year || !!title,
   });
-
-  console.log("products:", products);
 
   return (
     <>
       <Navbar />
       <SearchForm />
       {isLoading && <p className="p-10 text-center">Loading...</p>}
-      {error && (
-        <p className="p-10 text-center text-red-500">
-          Error fetching products
-        </p>
-      )}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-10">
+      {error && <p className="p-10 text-center text-red-500">{error.message}</p>}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-10  xl:grid-cols-4 gap-5">
         {products.map((p) => (
-          <CarProducts key={p.id} product={p} />
+          <CarProducts key={p._id} product={p} />
         ))}
       </div>
     </>

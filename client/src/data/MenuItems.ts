@@ -10,20 +10,21 @@ export const homeMenuItems = [
   "Home Jewellery Light",
 ];
 export const pagesMenuItems = [
-  "CONTACT US",
-  "BLOG",
-  "ARTICLE PAGE",
-  "FAQS",
-  "ABOUT US",
-  "SERVICES",
-  "GALLERY",
-  "CARD",
-  "CHECKOUT",
-  "WISHLIST",
-  "LOGIN",
-  "REGISTER",
-  "404"
+  { label: "CONTACT US", href: "/contact" },
+  { label: "BLOG", href: "/blog" },
+  { label: "ARTICLE PAGE", href: "/article" },
+  { label: "FAQS", href: "/faqs" },
+  { label: "ABOUT US", href: "/about" },
+  { label: "SERVICES", href: "/services" },
+  { label: "GALLERY", href: "/gallery" },
+  { label: "CARD", href: "/cart" },
+  { label: "CHECKOUT", href: "/checkout" },
+  { label: "WISHLIST", href: "/wishlist" },
+  { label: "LOGIN", href: "/login" },
+  { label: "REGISTER", href: "/register" },
+  { label: "404", href: "/404" }
 ];
+
 
 
 

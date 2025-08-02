@@ -41,7 +41,7 @@ const NewsSubscription = () => {
                         <input
                             type="email"
                             placeholder="Enter your email address here..."
-                            className="w-full py-4 px-5 rounded-full bg-[#1d1f24] text-white placeholder:text-[#5a6069] focus:outline-none"
+                            className="w-full focus:text-sm  py-4 px-5 placeholder:text-[13px] placeholder:font-medium rounded-full bg-[#1d1f24] text-white placeholder:text-[#5a6069] focus:outline-none"
                             value={email}
                             onChange={(e) => {
                                 setEmail(e.target.value);
@@ -54,7 +54,7 @@ const NewsSubscription = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-600 hover:bg-red-700 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-600 hover:bg-red-700 hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
                         >
                             <MdOutlineKeyboardArrowRight size={20} className="text-white" />
                         </button>

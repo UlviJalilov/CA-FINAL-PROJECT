@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import OurProductCard from "../OurProductCard/OurProductCard";
-import { filterProductsByTab, tabs } from "@/utils/filterProductsByTab/filterProductsByTab";
+import { filterProductsByTab, tabs } from "@/utils/filterProductsByTab";
 import { useTabbedProducts } from "@/hooks/useTabbedProducts";
 
 import { FaCar, FaCogs, FaGasPump } from "react-icons/fa";
@@ -39,7 +39,7 @@ const TabbedProductSlider = () => {
             <span className="text-yellow-400 text-xl rotate-12">
               <GiSteeringWheel />
             </span>
-            <h1 className="text-xl sm:text-2xl md:text-2xl font-bold uppercase tracking-wider">
+            <h1 className="text-xl tracking-wider uppercase primary-font font-bold text-white sm:text-2xl md:text-2xl text-center w-full">
               Our Products
             </h1>
             <span className="text-yellow-400 text-xl -rotate-12">

@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { motion } from 'framer-motion';
+import { bannerAnimations } from '@/utils/bannerAnimations';
 
 
 export default function BannerSlider() {
@@ -24,42 +25,9 @@ export default function BannerSlider() {
     "https://aero-theme.myshopify.com/cdn/shop/files/slider1-aero1-1920x846_1920x846.progressive.jpg?v=1613506944",
   ];
 
- const animationVariants = [
-  {
-    
-    initial: { opacity: 0, scale: 0.95 },
-    animate: { opacity: 1, scale: 1 },
-  },
-  {
-   
-    initial: { x: 100, scale: 1, opacity: 1 },
-    animate: { x: 0, scale: 1, opacity: 1 },
-  },
-
-{
-  initial: {
-    x: -600,
-    rotate: -25,
-    skewX: 30,
-    scale: 0.95,
-    opacity: 0.3,
-  },
-  animate: {
-    x: [-600, -400, -250, -100, -30, 0, -5, 0], 
-    rotate: [-25, -15, -10, -5, -2, 0],
-    skewX: [30, 20, 10, 5, 0],
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 1.6,
-      ease: [0.6, 0.01, 0, 0.95] as const 
-    },
-  },
-}
+  const animationVariants = bannerAnimations;
 
 
-
-];
 
   return (
     <div className="w-full overflow-hidden group relative">

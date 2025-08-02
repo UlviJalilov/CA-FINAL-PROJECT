@@ -2,6 +2,7 @@
 
 
 import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from "next/image"
 
@@ -29,7 +30,7 @@ export default function SocialFeeds() {
                         <span className="text-2xl md:text-xl animate-pulse">
                             <FaInstagram />
                         </span>
-                        <h1 className="text-xl text-white sm:text-2xl md:text-2xl">
+                        <h1 className="text-xl text-white sm:text-2xl md:text-2xl text-center w-full">
                             # AERO ON INSTAGRAM
                         </h1>
                         <span className="text-2xl md:text-xl animate-pulse">
@@ -52,15 +53,29 @@ export default function SocialFeeds() {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 ">
+            <div className="container mx-auto px-4">
                 <Swiper
-                    slidesPerView={5}
+                    slidesPerView={1} 
                     spaceBetween={0}
                     autoplay={true}
                     loop={true}
                     pagination={false}
                     modules={[Pagination, Autoplay]}
-                    className="mySwiper"
+                    className="mySwiper justify-center items-center flex"
+                    breakpoints={{
+                        640: {
+                            slidesPerView: 2, 
+                        },
+                        768: {
+                            slidesPerView: 3, 
+                        },
+                        1024: {
+                            slidesPerView: 4, 
+                        },
+                        1280: {
+                            slidesPerView: 5,
+                        },
+                    }}
                 >
                     {[
                         "https://aero-theme.myshopify.com/cdn/shop/files/lights.png?v=1725587910",
@@ -69,21 +84,28 @@ export default function SocialFeeds() {
                         "https://aero-theme.myshopify.com/cdn/shop/files/2148194066.jpg?v=1744762351",
                         "https://aero-theme.myshopify.com/cdn/shop/files/2147881282.jpg?v=1744762351",
                         "https://aero-theme.myshopify.com/cdn/shop/files/181.jpg?v=1744762351",
-                        "https://aero-theme.myshopify.com/cdn/shop/files/12264.jpg?v=1744762352"
-
+                        "https://aero-theme.myshopify.com/cdn/shop/files/12264.jpg?v=1744762352",
                     ].map((src, index) => (
-                        <SwiperSlide key={index} className="border-b border-[#21252c] pb-20">
-                            <div className="insta-card w-[250px]  overflow-hidden ">
+                        <SwiperSlide
+                            key={index}
+                            className="border-b border-[#21252c] pb-20 flex justify-center"
+                        >
+                            <a
+                                href="https://www.instagram.com/explore/search/keyword/?q=%23autoparts"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="insta-card block w-[250px] overflow-hidden mx-auto"
+                            >
                                 <Image
                                     src={src}
                                     alt={`social img ${index + 1}`}
-                                    width={200}
-                                    height={200}
+                                    width={250}
+                                    height={250}
                                     className="object-cover w-full h-full"
                                     quality={100}
-                                    priority={true}
+                                    priority
                                 />
-                            </div>
+                            </a>
                         </SwiperSlide>
                     ))}
                 </Swiper>

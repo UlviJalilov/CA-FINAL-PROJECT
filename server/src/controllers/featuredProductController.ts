@@ -3,6 +3,7 @@ import FeaturedProduct from "../models/FeaturedProductSchema";
 
 export const createFeaturedProduct = async (req: Request, res: Response) => {
   try {
+     console.log("Gələn product data:", req.body); 
     const product = new FeaturedProduct(req.body);
     const saved = await product.save();
     res.status(201).json(saved);

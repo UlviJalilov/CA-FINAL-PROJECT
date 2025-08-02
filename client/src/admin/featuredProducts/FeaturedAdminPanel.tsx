@@ -15,15 +15,15 @@ const FeaturedAdminPanel = () => {
   const [editingProduct, setEditingProduct] = useState<FeaturedProduct | null>(null);
   const [showProductForm, setShowProductForm] = useState(false);
 
-const { data: products = [], isLoading, isError, refetch } = useFeaturedProducts();
+  const { data: products = [], isLoading, isError, refetch } = useFeaturedProducts();
 
- 
+
   const handleDeleteProduct = async (id: string) => {
     if (!confirm("Are you sure you want to delete the product?")) return;
 
     try {
       await deleteFeaturedProduct(id);
-      await refetch(); 
+      await refetch();
       alert("Product successfully deleted");
     } catch (error) {
       console.error("Error while deleting:", error);
@@ -49,7 +49,7 @@ const { data: products = [], isLoading, isError, refetch } = useFeaturedProducts
         discountBtn: newOrUpdatedProduct.discountBtn || "",
         hoverImage: newOrUpdatedProduct.hoverImage || "",
         rating: newOrUpdatedProduct.rating || 0,
-        isFeatured: true,
+        isFeatured: newOrUpdatedProduct.isFeatured ?? false,
       };
 
       if (editingProduct?._id) {

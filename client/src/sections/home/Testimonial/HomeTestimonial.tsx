@@ -41,24 +41,41 @@ const TestimonialSlider = () => {
         {testimonials.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="h-full flex justify-center items-center">
-              <div className="flex flex-col items-center text-center w-[90%] sm:max-w-lg md:max-w-3xl">
-                <Image
-                  src={item.image}
-                  width={65}
-                  height={65}
-                  alt={item.name}
-                  quality={100}
-                  className="rounded-full object-cover border-2 border-white mb-4"
-                />
-                <div className="text-3xl md:text-4xl text-red-500 mb-2">“</div>
-                <p className="text-[#d2d2d2] text-sm md:text-[14px] leading-relaxed">
-                  {item.text}
-                </p>
-                <div className="text-3xl md:text-4xl text-red-500 mt-2">”</div>
-                <h4 className="text-sm md:text-[14px] primary-font uppercase text-white mt-3">
-                  {item.name}
-                </h4>
+              <div className="h-full flex justify-center items-center">
+                <div className="flex items-center justify-center gap-4 px-4 sm:px-8 w-full max-w-5xl">
+
+                 
+                  <span className="text-[100px] text-[#e51515] font-serif italic leading-none select-none">
+                    “
+                  </span>
+
+               
+                  <div className="flex flex-col items-center text-center max-w-3xl">
+                    <Image
+                      src={item.image}
+                      width={65}
+                      height={65}
+                      alt={item.name}
+                      quality={100}
+                      className="rounded-full object-cover border-2 border-white mb-10"
+                    />
+                    <p className="text-[#d2d2d2] text-sm md:text-[14px] leading-relaxed">
+                      {item.text}
+                    </p>
+                    <h4 className="text-sm md:text-[14px] primary-font uppercase text-white mt-10">
+                      {item.name}
+                    </h4>
+                  </div>
+
+                
+                  <span className="text-[100px] text-[#e51515] font-serif italic leading-none select-none scale-x-[-1]">
+                    “
+                  </span>
+
+                </div>
               </div>
+
+
             </div>
           </SwiperSlide>
         ))}

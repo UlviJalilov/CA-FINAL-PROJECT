@@ -63,12 +63,13 @@ const FeaturedProductFormModal: React.FC<ProductFormModalProps> = ({
         description: product.description || "",
         rating: product.rating?.toString() || "",
         image: product.image || "",
-        isFeatured: product.isFeatured || false,
+        isFeatured: Boolean(product.isFeatured),
         oldPrice: product.oldPrice?.toString() || "",
         discountBtn: product.discountBtn || "",
         hoverImage: product.hoverImage || "",
         discountPercent: product.discountPercent?.toString() || "",
       });
+
     } else {
       setFormData({
         title: "",
@@ -92,6 +93,7 @@ const FeaturedProductFormModal: React.FC<ProductFormModalProps> = ({
 
     if (type === "checkbox") {
       const target = e.target as HTMLInputElement;
+      console.log("Checkbox changed:", name, target.checked);
       setFormData((prev) => ({
         ...prev,
         [name]: target.checked,
@@ -106,10 +108,11 @@ const FeaturedProductFormModal: React.FC<ProductFormModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Submit zamanı formData.isFeatured:", formData.isFeatured);
 
     try {
       const newProductData: FeaturedProduct = {
-        _id: product?._id || "", 
+        _id: product?._id || "",
         title: formData.title,
         price: Number(formData.price),
         description: formData.description,
@@ -192,7 +195,7 @@ const FeaturedProductFormModal: React.FC<ProductFormModalProps> = ({
             value={formData.description}
             onChange={handleChange}
             rows={4}
-            required
+
             className="w-full px-4 py-2 bg-[#1e2026] border border-gray-700 rounded"
           />
 

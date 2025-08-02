@@ -3,7 +3,6 @@ import { useState } from "react";
 import { carData } from "@/data/carData";
 
 
-
 type CarMakeDropdownProps = {
   onSelect: (make: string) => void;
 };

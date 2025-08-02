@@ -29,10 +29,7 @@ const CartPage = () => {
   const subtotal = calculateSubtotal(cartItems);
   const [agreed, setAgreed] = useState(false);
 
-  // Toast konfiqurasiyası artıq lazım deyil, çıxardım
-  // useEffect(() => {
-  //   toast.configure();
-  // }, []);
+
 
   return (
     <div className="bg-white">

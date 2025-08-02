@@ -1,3 +1,4 @@
+"use client"
 import { useQuery } from "@tanstack/react-query";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { fetchAllFeaturedProducts } from "@/admin/featuredProducts/service/featuredProductService";
@@ -5,7 +6,7 @@ import { fetchAllFeaturedProducts } from "@/admin/featuredProducts/service/featu
 export const useFeaturedProducts = () => {
   const { data, isLoading, isError, refetch } = useQuery<FeaturedProduct[], Error>({
     queryKey: ["admin-featured-products"],
-    queryFn: fetchAllFeaturedProducts,
+    queryFn: () => fetchAllFeaturedProducts(false),
   });
 
   return {

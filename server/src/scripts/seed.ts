@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { connectDB } from "../config/db";
-import { Product } from "../models/product";
+import CarProduct from "../models/CarProductSchema";
 import { products, MakeGroup, ModelGroup, YearGroup, ProductItem } from "../data/carproducts";
 
 dotenv.config();
@@ -10,7 +10,7 @@ const seedProducts = async () => {
     await connectDB();
 
   
-    await Product.deleteMany({});
+    await CarProduct.deleteMany({});
     console.log("Old products deleted");
 
     const flattenedProducts: any[] = [];
@@ -24,7 +24,7 @@ const seedProducts = async () => {
             
               id: `${makeGroup.make.toLowerCase()}-${modelGroup.model.toLowerCase().replace(/\s+/g, '')}-${yearGroup.year}-${index + 1}`,
               make: makeGroup.make,
-              model: modelGroup.model,
+             carModel: modelGroup.model,
               year: yearGroup.year,
             });
           });
@@ -47,7 +47,7 @@ const seedProducts = async () => {
     }
 
    
-    await Product.insertMany(flattenedProducts);
+    await CarProduct.insertMany(flattenedProducts);
     console.log("New products inserted");
 
     process.exit(0)

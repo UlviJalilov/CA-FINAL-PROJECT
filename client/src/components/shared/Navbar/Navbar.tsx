@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+
 import Image from "next/image";
 import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
@@ -9,11 +9,22 @@ import { RiShoppingBagLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useUIStore } from "@/store/useUIStore";
-export default function Navbar() {
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { homeMenuItems, shopColumns, layoutColumns, pagesMenuItems } from "@/data/MenuItems";
+import { useFeaturedProducts } from "@/hooks/useFeaturedProducts";
+import { FeaturedProduct } from "@/types/FeaturedProduct";
+import { useRouter } from "next/navigation";
 
+
+export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
+
+  const { data: featuredProducts = [] } = useFeaturedProducts();
+
+  const firstFourFeatured = featuredProducts.slice(0, 4);
+
   const router = useRouter();
 
   const handleSearch = () => {
@@ -21,6 +32,7 @@ export default function Navbar() {
       router.push(`/search?title=${encodeURIComponent(searchValue.trim())}`);
     }
   };
+
   const {
     searchOpen,
     gridMenuOpen,
@@ -33,19 +45,29 @@ export default function Navbar() {
     closeAll,
   } = useUIStore();
 
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const worldRef = useRef<HTMLDivElement | null>(null);
+  const cartRef = useRef<HTMLDivElement | null>(null);
 
+  useOutsideClick(
+    [searchRef, gridRef, worldRef, cartRef],
+    closeAll,
+    searchOpen || gridMenuOpen || worldMenuOpen || cartMenuOpen
+  );
+
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleMobileToggle = () => {
     if (mobileOpen) {
-
       closeAll();
       setMobileOpen(false);
     } else {
-
       setMobileOpen(true);
     }
   };
+
+
   return (
     <div className="bg-[#22232b] text-[#fff] z-[999] primary-font border-b-[2px] border-[#e51515] h-[88px] relative">
       <div className="container flex justify-between items-center px-4 mx-auto h-full">
@@ -56,7 +78,9 @@ export default function Navbar() {
             src="https://aero-theme.myshopify.com/cdn/shop/files/logo-aero1.png?v=1613506944"
             alt="brand_logo"
             width={70}
-            height={90}
+            height={70}
+            quality={100}
+            priority={true}
           />
         </div>
 
@@ -64,24 +88,152 @@ export default function Navbar() {
         <div className="hidden md:flex flex-1 h-full">
           <nav className="flex justify-center items-center h-full w-full">
             <ul className="flex gap-1 text-[13px] font-medium h-full">
-              <li className="h-full">
+
+              {/*Home Dropdown*/}
+              <li className="h-full relative group">
                 <Link
                   href="/"
-                  className="flex items-center justify-center gap-1 h-full w-full bg-[#e51515] clip-diagonal px-7"
+                  className="flex items-center justify-center gap-1 h-full w-full transition-transform duration-300 ease-in-out hover:translate-x-2 bg-[#e51515] clip-diagonal px-7"
                 >
                   HOME <IoIosArrowDown size={12} />
                 </Link>
+
+                <div className="absolute top-full left-0 w-52 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <ul className="flex flex-col py-10 text-center text-black text-[13px] font-semibold">
+                    {homeMenuItems.map((item, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-3 hover:text-[#e51515] text-[#292929] transition-transform duration-300 ease-in-out hover:translate-x-2 text-[14px] cursor-pointer"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </li>
-              {["shop", "featured", "layouts", "pages"].map((item) => (
-                <li key={item} className="flex items-center group h-full">
-                  <Link
-                    href={`/${item}`}
-                    className="flex items-center justify-center gap-1 h-full w-full px-7 clip-diagonal transition-all duration-300"
-                  >
-                    {item.toUpperCase()} <IoIosArrowDown size={12} />
-                  </Link>
-                </li>
-              ))}
+
+              {/*Shop Dropdown*/}
+              <li className="h-full relative group">
+                <Link
+                  href="/shop"
+                  className="flex items-center justify-center gap-1 hover:bg-[#e51515] clip-diagonal h-full w-full px-7 cursor-pointer transition-transform duration-300 ease-in-out hover:translate-x-2"
+                >
+                  SHOP <IoIosArrowDown size={12} />
+                </Link>
+
+                <div className="absolute top-full left-1/2 px-4 w-[800px] bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 + scale-95 group-hover:scale-100 transform ease-out -translate-x-1/4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-10 py-10 text-[14px] text-[#292929] font-medium">
+                    {shopColumns.map((column, index) => (
+                      <div key={index} className="flex flex-col text-left">
+                        <h4 className="mb-8 text-[15px] text-[#292929] text-center font-medium">
+                          {column.title}
+                        </h4>
+                        <ul className="flex text-center flex-col space-y-4">
+                          {column.items.map((item, idx) => (
+                            <li
+                              key={idx}
+                              className="hover:text-[#e51515] text-[#292929] cursor-pointer transition-transform duration-300 ease-in-out hover:translate-x-2"
+                            >
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </li>
+
+              <li className="h-full relative group">
+                <Link
+                  href="/featured"
+                  className="flex items-center justify-center gap-1 hover:bg-[#e51515] clip-diagonal h-full w-full px-7 cursor-pointer transition-transform duration-300 ease-in-out hover:translate-x-2"
+                >
+                  FEATURED <IoIosArrowDown size={12} />
+                </Link>
+
+                <div className="absolute top-full left-1/2 px-4 w-[800px] bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 -translate-x-1/3 ">
+                  <div className="grid grid-cols-4 gap-6 px-10 py-10 text-[14px] text-[#292929] font-medium">
+                    {firstFourFeatured.map((product: FeaturedProduct) => (
+                      <div key={product._id} className="text-center cursor-pointer">
+                        <Image
+                          src={product.image}
+                          alt={product.title}
+                          width={200}
+                          height={200}
+                          className="mx-auto object-contain transition-transform duration-300 ease-in-out hover:scale-105 hover:opacity-90"
+                        />
+                        <p className="mt-2 hover:text-[#e51515]">{product.title}</p>
+                        <p className="text-[#e51515] mt-2">{product.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </li>
+
+              <li className="h-full relative group">
+                <Link
+                  href="/layouts"
+                  className="flex items-center justify-center gap-1 hover:bg-[#e51515] clip-diagonal h-full w-full px-7 cursor-pointer transition-transform duration-300 ease-in-out hover:translate-x-2"
+                >
+                  LAYOUTS <IoIosArrowDown size={12} />
+                </Link>
+
+                <div className="absolute top-full left-0 w-[500px] bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-10 py-10 text-[14px] text-[#292929] font-medium justify-items-center">
+                    {layoutColumns.map((column, index) => (
+                      <div key={index} className="flex flex-col items-center text-center">
+                        <h4 className="mb-8 text-[15px] text-[#292929] font-medium">
+                          {column.title}
+                        </h4>
+                        <ul className="flex flex-col items-center space-y-4">
+                          {column.items.map((item, idx) => (
+                            <li
+                              key={idx}
+                              className="hover:text-[#e51515] text-[#292929] cursor-pointer transition-transform duration-300 ease-in-out hover:translate-x-2"
+                            >
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </li>
+
+              <li className="h-full relative group">
+                <Link
+                  href="#"
+                  className="flex items-center justify-center gap-1 h-full w-full transition-transform duration-300 ease-in-out hover:translate-x-2 px-7"
+                >
+                  PAGES <IoIosArrowDown size={12} />
+                </Link>
+
+                <div className="absolute top-full left-0 w-52 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <ul className="flex flex-col py-10 text-center text-black text-[13px] font-semibold">
+                    {pagesMenuItems.map((item, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-3 hover:text-[#e51515] text-[#292929] transition-transform duration-300 ease-in-out hover:translate-x-2 text-[14px] cursor-pointer"
+                        onClick={() => {
+                          console.log("Navigating to:", item.href);
+                          router.push(item.href);
+                        }}
+                      >
+                        {item.label}
+                      </li>
+
+                    ))}
+
+                  </ul>
+
+                </div>
+              </li>
+
+
+
             </ul>
           </nav>
         </div>
@@ -90,7 +242,7 @@ export default function Navbar() {
         <div className="hidden md:flex h-full">
           <div className="flex justify-center items-center gap-5 h-full">
             {/* Search */}
-            <div className="relative h-full flex items-center">
+            <div className="relative h-full flex items-center " ref={searchRef}>
               <div
                 className={`absolute right-7 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out overflow-hidden ${searchOpen ? "w-[300px] opacity-100" : "w-0 opacity-0"
                   }`}
@@ -118,7 +270,7 @@ export default function Navbar() {
             </div>
 
             {/* Grid */}
-            <div className="relative">
+            <div className="relative" ref={gridRef}>
               <button
                 onClick={toggleGridMenu}
                 className="flex items-center text-white hover:text-[#e51515] transition-colors duration-300"
@@ -135,8 +287,17 @@ export default function Navbar() {
                         MY ACCOUNT <IoIosArrowDown className="inline ml-1" size={10} />
                       </p>
                       <ul className="space-y-3 text-[13px] pl-5 pt-3 text-gray-500">
-                        <li className="hover:text-[#e51515] cursor-pointer">Sign In</li>
-                        <li className="hover:text-[#e51515] cursor-pointer">Register</li>
+                        <li className="hover:text-[#e51515] cursor-pointer">
+                          <Link className="block w-full h-full" href="/login">
+                            {" "}
+                            Sign In
+                          </Link>
+                        </li>
+                        <li className="hover:text-[#e51515] cursor-pointer">
+                          <Link className="block w-full h-full" href="/register">
+                            Register
+                          </Link>
+                        </li>
                         <li className="hover:text-[#e51515] cursor-pointer">Wish List</li>
                         <li className="hover:text-[#e51515] cursor-pointer">Cart</li>
                       </ul>
@@ -164,7 +325,7 @@ export default function Navbar() {
             </div>
 
             {/* World */}
-            <div className="relative">
+            <div className="relative" ref={worldRef}>
               <button
                 onClick={toggleWorldMenu}
                 className="flex items-center text-white hover:text-[#e51515] transition-colors duration-300"
@@ -180,7 +341,7 @@ export default function Navbar() {
                       <p className="text-xs primary-font font-medium mb-2 text-[#22232b]">
                         Language: <span className="pl-2">English</span>
                       </p>
-                      <ul className="space-y-3 text-[13px] pt-1 text-gray-500">
+                      <ul className="space-y-3 text-[13px] text-gray-500">
                         <li className="hover:text-[#e51515] cursor-pointer">English</li>
                         <li className="hover:text-[#e51515] cursor-pointer">Français</li>
                       </ul>
@@ -210,7 +371,7 @@ export default function Navbar() {
             </div>
 
             {/* Cart */}
-            <div className="relative">
+            <div className="relative" ref={cartRef}>
               <button
                 onClick={toggleCartMenu}
                 className="flex items-center text-white hover:text-[#e51515] transition-colors duration-300"
@@ -372,9 +533,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-
-
-
     </div>
   );
 }

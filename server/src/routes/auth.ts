@@ -1,4 +1,4 @@
-// routes/auth.js
+
 
 import express from "express";
 import bcrypt from "bcryptjs";
@@ -7,7 +7,7 @@ import User from "../models/UserSchema";
 
 const router = express.Router();
 
-// Register route
+
 router.post("/register", async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
