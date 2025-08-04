@@ -12,12 +12,19 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { shippingRates, calculateShipping } from "@/utils/shipping";
 
+
+
 const Page = () => {
   const { cartItems } = useCart();
   const subtotal = calculateSubtotal(cartItems);
   const [shipping, setShipping] = useState(0);
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState("");
+
 
   const total = subtotal + shipping;
+
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -28,6 +35,8 @@ const Page = () => {
       firstName: "",
       lastName: "",
       address: "",
+
+
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -50,24 +59,68 @@ const Page = () => {
       lastName: Yup.string().required("Enter a last name"),
       address: Yup.string().required("Enter an address"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const result = calculateShipping(
         values.country,
         values.city,
         values.postalCode
       );
+
+      sessionStorage.setItem("lastOrder", JSON.stringify({
+        id: new Date().getTime(),
+        total: calculateSubtotal(cartItems) + shipping,
+        items: cartItems,
+      }));
+
+
       if ("error" in result) {
         toast.error(result.error);
         setShipping(0);
-      } else {
-        setShipping(result.cost);
-        toast.success(`Shipping cost: $${result.cost}`);
+        return;
       }
-    },
+
+      const selectedMethod = shippingMethods.find(
+        (method) => method.id === selectedShippingMethod
+      );
+
+      if (!selectedMethod) {
+        toast.error("Please select a valid shipping method.");
+        return;
+      }
+
+      setShipping(result.cost);
+      toast.success(`Shipping cost: $${result.cost}`);
+
+      try {
+        const response = await fetch("http://localhost:3001/api/payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            cartItems,
+            shippingMethod: {
+              label: selectedMethod.label,
+              price: selectedMethod.cost,
+            },
+          }),
+        });
+
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          toast.error("Something went wrong with payment.");
+        }
+      } catch (error) {
+        console.error("Stripe payment error:", error);
+        toast.error("Payment error occurred.");
+      }
+    }
+
   });
 
   const countries = useMemo(() => Object.keys(shippingRates), []);
   const cities = useMemo(
+
     () =>
       formik.values.country
         ? Object.keys(shippingRates[formik.values.country] || {})
@@ -75,9 +128,17 @@ const Page = () => {
     [formik.values.country]
   );
 
+
+
+  const shippingMethods = [
+    { id: "standard", label: "Standard Shipping (3-5 days)", cost: 5 },
+    { id: "express", label: "Express Shipping (1-2 days)", cost: 15 },
+    { id: "next", label: "Next Day Delivery", cost: 25 },
+  ];
+
   return (
     <div className="bg-white">
-      <div className="container min-h-screen mx-auto px-20">
+      <div className="container mx-auto  md:px-8 lg:px-20 min-h-screen max-w-screen-xl">
         <div className="flex justify-between border-b border-[#ccc] pb-4 items-center py-8">
           <h1 className="text-[23px]">
             Aero - Car Accessories Shopify Theme OS 2.0
@@ -91,7 +152,7 @@ const Page = () => {
           onSubmit={formik.handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2"
         >
-          {/* LEFT */}
+
           <div className="border-r border-gray-200 px-6 py-10">
             <section className="mb-7">
               <div className="flex justify-between items-center">
@@ -118,10 +179,10 @@ const Page = () => {
               )}
             </section>
 
-            <section className="mb-7">
+            <section className="mb-5">
               <h2 className="text-xl font-medium mb-1">Delivery</h2>
               <div className="space-y-4">
-                {/* Country */}
+
                 <div>
                   <label className="text-sm">Country/Region</label>
                   <select
@@ -145,7 +206,6 @@ const Page = () => {
                   )}
                 </div>
 
-                {/* Name Inputs */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <input
@@ -174,7 +234,7 @@ const Page = () => {
                   </div>
                 </div>
 
-                {/* Address */}
+
                 <div>
                   <input
                     name="address"
@@ -191,7 +251,6 @@ const Page = () => {
                   )}
                 </div>
 
-                {/* City & ZIP */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <select
@@ -230,10 +289,59 @@ const Page = () => {
                       </p>
                     )}
                   </div>
-                  <div></div>
                 </div>
               </div>
             </section>
+
+            <section>
+              <div className="mb-6 flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  id="saveInfo"
+                  name="saveInfo"
+                  className=" h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500"
+                />
+                <label htmlFor="saveInfo" className="text-sm font-medium text-gray-900">
+                  Save this information for next time
+                </label>
+              </div>
+            </section>
+
+            <section className="mt-6">
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">Shipping method</h2>
+
+              {formik.values.country && formik.values.city ? (
+                <div className="space-y-3">
+                  {shippingMethods.map((method) => (
+                    <label
+                      key={method.id}
+                      className={`flex items-center gap-3 border rounded-md px-4 py-3 cursor-pointer ${selectedShippingMethod === method.id
+                        ? "border-sky-500 bg-sky-50"
+                        : "border-gray-300"
+                        }`}
+                    >
+                      <input
+                        type="radio"
+                        name="shippingMethod"
+                        value={method.id}
+                        checked={selectedShippingMethod === method.id}
+                        onChange={() => {
+                          setSelectedShippingMethod(method.id);
+                          setShipping(method.cost);
+                        }}
+                        className="h-4 w-4 text-sky-600"
+                      />
+                      <span className="text-sm text-gray-800">{method.label}</span>
+                    </label>
+                  ))}
+                </div>
+              ) : (
+                <div className="bg-gray-100 text-sm text-gray-600 px-4 py-5 rounded-md">
+                  Enter your shipping address to view available shipping methods.
+                </div>
+              )}
+            </section>
+
 
             <section>
               <h2 className="text-xl font-semibold mb-1">Payment</h2>
@@ -243,51 +351,72 @@ const Page = () => {
               <button
                 type="submit"
                 className="w-full mt-4 primary-font tracking-wide hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 bg-[#e51515] text-white py-3"
+
               >
                 Pay Now
               </button>
             </section>
+
           </div>
 
-          {/* RIGHT */}
-          <div className="px-10 py-10">
+          <div className="px-12 py-10">
             <div className="space-y-6">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex items-center gap-4">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={200}
-                    height={200}
-                    className="w-16 h-16 object-cover"
-                  />
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold">{item.title}</p>
-                    <p className="text-sm text-gray-500">
-                      ${item.price.toFixed(2)}
-                    </p>
+                <div key={item.id} className="flex items-center gap-4 relative">
+                  <div className="relative w-[68px] h-[68px]">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="rounded-lg object-cover"
+                    />
+                    <span className="absolute top-0 right-0 bg-black/70 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                      {item.quantity ?? 1}
+                    </span>
                   </div>
-                  <span className="text-sm">x{item.quantity ?? 1}</span>
+
+                  <div className="flex-1 flex items-center justify-between">
+                    <p className="text-sm font-medium text-[#181b23]">{item.title}</p>
+                    <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+                  </div>
                 </div>
+
               ))}
 
-              <div className="space-y-2 text-sm">
+              <div className="space-y-4 text-sm">
+
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    placeholder="Discount code"
+                    className="border border-gray-300 rounded-lg px-4 py-3 w-full text-sm outline-none"
+                  />
+                  <button className="bg-gray-100 border border-gray-300 rounded-r px-4 text-sm text-gray-600">
+                    Apply
+                  </button>
+                </div>
+
                 <div className="flex justify-between">
                   <span className="secondary-font">Subtotal</span>
                   <span>${subtotal.toFixed(2)}</span>
                 </div>
+
+
                 <div className="flex justify-between">
                   <span className="secondary-font">Shipping</span>
                   <span>${shipping.toFixed(2)}</span>
                 </div>
+
+
                 <div className="flex justify-between font-semibold text-lg pt-2 border-t">
-                  <span>Total</span>
+                  <span className="text-[#181b23]">Total</span>
                   <span>
-                    <span className="text-[#5a6069] text-[12px]">USD</span> $
-                    {total.toFixed(2)}
+                    <span className="text-[#5a6069] text-[12px]">USD</span> ${total.toFixed(2)}
                   </span>
                 </div>
               </div>
+
+
             </div>
           </div>
         </form>

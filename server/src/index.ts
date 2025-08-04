@@ -7,9 +7,9 @@ import authRoutes from "./routes/auth";
 import userRoutes from "./routes/user";
 import uploadRoutes from "./routes/uploadRoutes";
 import router from "./routes/carproducts";
-import featuredProductRoutes from './routes/featuredProductRoutes';
-// import paymentRoutes from "./routes/payment";  // burada import
-
+import featuredProductRoutes from "./routes/FeaturedProductRoutes";
+import paymentRouter from "./routes/payment";
+import webhookRoute from "./routes/webhook"
 
 import dotenv from "dotenv";
 
@@ -29,7 +29,10 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/car-products", router);
 app.use("/api/featured-products", featuredProductRoutes);
-// app.use("/api/payment", paymentRoutes);
+app.use("/api/payment", paymentRouter);
+app.use("/api/webhook", webhookRoute);
+
+
 
 app.get("/", (_, res) => {
   res.send("Backend server is running!");
