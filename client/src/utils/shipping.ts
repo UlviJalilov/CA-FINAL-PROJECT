@@ -13,7 +13,6 @@ export const shippingRates: ShippingData = {
         Ismayilli: { postalCode: "3100", cost: 15 },
         Baku: { postalCode: "1000", cost: 10 },
         Shamakhi: { postalCode: "5600", cost: 13 },
-
     },
     Turkey: {
         Istanbul: { postalCode: "34000", cost: 18 },
@@ -38,7 +37,16 @@ export const shippingRates: ShippingData = {
     Uzbekistan: {
         Tashkent: { postalCode: "100000", cost: 16 },
         Samarkand: { postalCode: "140100", cost: 17 },
-        Bukhara	: { postalCode: "200100", cost: 18 },
+        Bukhara: { postalCode: "200100", cost: 18 },
+    },
+
+    China: {
+        Beijing: { postalCode: "100000", cost: 20 },
+        Shanghai: { postalCode: "200000", cost: 22 },
+        Guangzhou: { postalCode: "510000", cost: 25 },
+        Shenzhen: { postalCode: "518000", cost: 24 },
+        Chengdu: { postalCode: "610000", cost: 23 },
+        HonqKonq: { postalCode: "999077", cost: 23 },
     },
 };
 

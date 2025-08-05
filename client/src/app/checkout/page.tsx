@@ -92,20 +92,33 @@ const Page = () => {
       toast.success(`Shipping cost: $${result.cost}`);
 
       try {
-        const response = await fetch("http://localhost:3001/api/payment", {
+        console.log("Fetching:", `${process.env.NEXT_PUBLIC_API_URL}/payment`);
+
+       const response =  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify({
             cartItems,
             shippingMethod: {
               label: selectedMethod.label,
               price: selectedMethod.cost,
             },
+            email: formik.values.email,
+            shippingAddress: {
+              country: formik.values.country,
+              city: formik.values.city,
+              address: formik.values.address,
+              postalCode: formik.values.postalCode,
+            },
           }),
         });
 
+
         const data = await response.json();
         if (data.url) {
+          console.log("Payment response:", data);
           window.location.href = data.url;
         } else {
           toast.error("Something went wrong with payment.");
@@ -114,6 +127,7 @@ const Page = () => {
         console.error("Stripe payment error:", error);
         toast.error("Payment error occurred.");
       }
+
     }
 
   });
