@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
+import ScrollToTopButton from "@/components/shared/ScrollToTopButton/ScrollToTopButton";
 
 const schema = yup.object().shape({
     name: yup.string().required("Name is required"),
@@ -149,6 +150,8 @@ export default function ContactPage() {
                     </div>
                 </div>
             </div>
+
+            <ScrollToTopButton />
         </div>
 
     );

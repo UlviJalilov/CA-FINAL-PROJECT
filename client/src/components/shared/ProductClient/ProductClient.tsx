@@ -12,6 +12,7 @@ import { toast } from 'react-hot-toast';
 import TabComponent from "../TabComponent/TabComponent";
 import Link from "next/link"
 import RelatedProductsSlider from "../RelatedProductsSlider/RelatedProductsSlider";
+import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 
 
 import "swiper/css";
@@ -224,6 +225,7 @@ export default function ProductClient({ product }: Props) {
         <RelatedProductsSlider products={productsToShow} />
 
       </div>
+      <ScrollToTopButton />
     </>
   );
 }
