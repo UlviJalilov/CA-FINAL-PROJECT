@@ -63,7 +63,9 @@ export default function ContactPage() {
 
     return (
         <div>
+
             <ContactBanner />
+
             <div className="bg-white">
                 <div className="container mx-auto py-30 px-10 grid md:grid-cols-2 gap-8">
               
