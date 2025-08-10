@@ -14,6 +14,7 @@ import Brands from "@/sections/home/Brands/Brands"
 import SocialFeeds from "@/sections/home/SocialFeeds/SocialFeeds"
 import NewsSubscription from "@/sections/home/NewsSubscription/NewsSubscription"
 import ScrollToTopButton from "@/components/shared/ScrollToTopButton/ScrollToTopButton"
+import NewsletterModal from "../NewsletterModal/NewsletterModal"
 const HomeTemplate = () => {
 
   return (
@@ -35,6 +36,7 @@ const HomeTemplate = () => {
         <SocialFeeds />
         <NewsSubscription />
         <ScrollToTopButton />
+        <NewsletterModal />
       
       </main>
 

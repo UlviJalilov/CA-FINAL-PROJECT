@@ -1,5 +1,6 @@
 export interface FeaturedProduct {
   _id: string;
+  slug: string;
   title: string;
   price: number;
   oldPrice?: number;
@@ -10,5 +11,5 @@ export interface FeaturedProduct {
   image: string;
   hoverImage?: string;
   isFeatured: boolean;
-
+  gallery?: string[];
 }

@@ -7,7 +7,6 @@ import { BsGrid3X3Gap } from "react-icons/bs";
 import { GiWorld } from "react-icons/gi";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
-import { IoClose } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState, useRef } from "react";
 import { useUIStore } from "@/store/useUIStore";
@@ -16,16 +15,27 @@ import { homeMenuItems, shopColumns, layoutColumns, pagesMenuItems } from "@/dat
 import { useFeaturedProducts } from "@/hooks/useFeaturedProducts";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { useRouter } from "next/navigation";
+import { useCart } from '@/context/CartContext';
+import { IoClose } from "react-icons/io5";
+
+
+
 
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
+  
 
   const { data: featuredProducts = [] } = useFeaturedProducts();
+
 
   const firstFourFeatured = featuredProducts.slice(0, 4);
 
   const router = useRouter();
+  const { cartItems, removeFromCart  } = useCart();
+  console.log("Cart Items in Navbar:", cartItems);
+
+  const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
   const handleSearch = () => {
     if (searchValue.trim()) {
@@ -67,11 +77,14 @@ export default function Navbar() {
     }
   };
 
+  const handleRemove = (id: string) => {
+    removeFromCart(id); 
+  };
 
   return (
     <div className="bg-[#22232b] text-[#fff] z-[999] primary-font border-b-[2px] border-[#e51515] h-[88px] relative">
-      <div className="container flex justify-between items-center px-4 mx-auto h-full">
-        {/* LOGO */}
+      <div className="container  flex justify-between items-center px-4 mx-auto h-full">
+
         <div className="flex-shrink-0">
           <Image
             className="object-cover"
@@ -84,12 +97,12 @@ export default function Navbar() {
           />
         </div>
 
-        {/* DESKTOP NAV */}
+
         <div className="hidden md:flex flex-1 h-full">
           <nav className="flex justify-center items-center h-full w-full">
             <ul className="flex gap-1 text-[13px] font-medium h-full">
 
-              {/*Home Dropdown*/}
+
               <li className="h-full relative group">
                 <Link
                   href="/"
@@ -112,7 +125,7 @@ export default function Navbar() {
                 </div>
               </li>
 
-              {/*Shop Dropdown*/}
+
               <li className="h-full relative group">
                 <Link
                   href="/shop"
@@ -238,10 +251,10 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* RIGHT ICONS (DESKTOP) */}
+
         <div className="hidden md:flex h-full">
           <div className="flex justify-center items-center gap-5 h-full">
-            {/* Search */}
+
             <div className="relative h-full flex items-center " ref={searchRef}>
               <div
                 className={`absolute right-7 top-1/2 -translate-y-1/2 transition-all duration-300 ease-in-out overflow-hidden ${searchOpen ? "w-[300px] opacity-100" : "w-0 opacity-0"
@@ -269,7 +282,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Grid */}
+
             <div className="relative" ref={gridRef}>
               <button
                 onClick={toggleGridMenu}
@@ -370,31 +383,87 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Cart */}
+
             <div className="relative" ref={cartRef}>
               <button
                 onClick={toggleCartMenu}
                 className="flex items-center text-white hover:text-[#e51515] transition-colors duration-300"
               >
                 <RiShoppingBagLine size={20} />
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-2 -right-3 bg-white text-[#22232b] text-[11px] font-bold px-1.5 rounded-full">
+                    {totalQuantity}
+                  </span>
+                )}
               </button>
 
               {cartMenuOpen && (
-                <div className="absolute right-0 mt-3 w-80 bg-white rounded shadow-lg z-50">
-                  <div className="absolute -top-2 right-4 w-4 h-4 bg-white rotate-45 border-t border-l border-gray-200"></div>
-                  <div className="p-5 text-sm flex justify-center items-center secondary-font">
-                    <p className="text-xs primary-font text-[#444] font-medium text-center">
-                      Your Shopping Cart is Empty !
-                    </p>
-                  </div>
-                  <hr className="my-3 border-gray-200" />
+                <div className="absolute top-full right-0 mt-2 w-[90vw] max-w-[368px] overflow-hidden bg-white rounded shadow-lg p-5 z-[1100] text-sm">
+                  {cartItems.length === 0 ? (
+                    <p className="text-center text-[#444] font-medium">Your Shopping Cart is Empty!</p>
+                  ) : (
+                    <div>
+                      {cartItems.map((item, index) => (
+                        <div key={`${item.id}-${index}`} className="flex items-center mb-4 relative">
+                          <Image
+                            src={item.image}
+                            alt={item.title}
+                            className="w-20 h-20 object-cover rounded mr-4"
+                            width={200}
+                            height={200}
+                          />
+                          <div className="flex-1">
+                            <h4 className="text-black text-sm font-medium">{item.title}</h4>
+                            <p className="text-[#e51515] font-bold text-sm">
+                              {item.quantity} × ${item.price.toFixed(2)}
+                            </p>
+                          </div>
+
+                         
+                          <button
+                            onClick={() => handleRemove(item.id)}
+                            className="absolute bottom-3 right-0 text-gray-500 hover:text-red-600 text-sm p-1"
+                          >
+                            <IoClose size={18} className="hover:text-[#e51515]" />
+                          </button>
+                        </div>
+                      ))}
+
+                      <div className="flex justify-between mt-4 text-black font-medium">
+                        <span className="text-[12px] text-[#22232b]">SUBTOTAL:</span>
+                        <span className="text-[18px]">
+                          $
+                          {cartItems
+                            .reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)
+                            .toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="mt-4 bg-[#22232b] flex justify-center items-center p-10 -m-5 ">
+                        <div className="flex  justify-between gap-4">
+                          <Link href="/cart">
+                            <button
+                              onClick={() => closeAll()}
+                              className="bg-white text-[#3e3d43] px-8 py-3 hover:bg-[#e51515] hover:text-white hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 rounded-full text-sm"
+                            >
+                              View Cart
+                            </button>
+                          </Link>
+                          <Link href="/checkout" className=" bg-white text-[#3e3d43] px-8 py-3 hover:bg-[#e51515] hover:text-white hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 rounded-full text-sm">
+                            Checkout
+                          </Link>
+                        </div>
+                      </div>
+
+                    </div>
+                  )}
                 </div>
               )}
+
             </div>
           </div>
         </div>
 
-        {/* MOBILE HAMBURGER BUTTON */}
+
         <div className="md:hidden">
           <button onClick={handleMobileToggle} className="text-white focus:outline-none">
             {mobileOpen ? <IoClose size={28} /> : <RxHamburgerMenu size={28} />}
@@ -423,7 +492,7 @@ export default function Navbar() {
             </li>
           ))}
 
-          {/* MOBILE ICONS WITH DROPDOWN */}
+
           <li className="flex justify-center gap-6 mt-4 relative z-[1000]">
             {/* Search */}
             <div className="relative">
@@ -523,10 +592,66 @@ export default function Navbar() {
                 aria-label="Toggle Cart"
               >
                 <RiShoppingBagLine size={20} />
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-[#e51515] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                    {totalQuantity}
+                  </span>
+                )}
               </button>
+
               {cartMenuOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[90vw] max-w-[368px] bg-white rounded shadow-lg p-5 z-[1100] text-sm">
-                  <p className="text-center text-[#444] font-medium">Your Shopping Cart is Empty!</p>
+                  {cartItems.length === 0 ? (
+                    <p className="text-center text-[#444] font-medium">Your Shopping Cart is Empty!</p>
+                  ) : (
+                    <>
+                      {cartItems.map((item) => (
+                        <div key={item.id} className="flex items-center mb-4">
+                          <div className="w-16 h-16 overflow-hidden rounded mr-3">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              width={64}
+                              height={64}
+                              className="object-cover w-full h-full"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="text-[13px] font-bold uppercase leading-tight text-black">
+                              {item.title}
+                            </h4>
+                            <p className="text-[13px] text-gray-600">
+                              {item.quantity} ×{" "}
+                              <span className="text-[#e51515] font-bold">${item.price.toFixed(2)}</span>
+                            </p>
+                          </div>
+                          {/* İstəsən buraya silmə iconu da əlavə edə bilərsən */}
+                        </div>
+                      ))}
+
+                      <div className="border-t pt-4 mt-4 flex justify-between text-sm font-medium">
+                        <span className="text-gray-600">SUBTOTAL :</span>
+                        <span className="text-black font-bold">
+                          $
+                          {cartItems
+                            .reduce(
+                              (total, item) => total + (item.price * (item.quantity || 1)),
+                              0
+                            )
+                            .toFixed(2)}
+                        </span>
+                      </div>
+
+                      <div className="mt-4 flex gap-2">
+                        <button className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 text-[13px] font-semibold">
+                          VIEW CART
+                        </button>
+                        <button className="w-full bg-[#e51515] text-white py-2 rounded hover:bg-red-600 text-[13px] font-semibold">
+                          CHECKOUT
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
             </div>

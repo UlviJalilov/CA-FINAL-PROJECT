@@ -3,19 +3,20 @@ import Link from "next/link"
 
 const Detailcrumb = ({ title }: { title: string }) => {
   return (
-    <div>
-      <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-        <ol className="list-reset flex">
-          <li className="flex text-white gap-4 font-medium text-[16px] items-center justify-center">
+    <div className="w-full flex justify-center items-center p-5">
+      <nav aria-label="Breadcrumb" className="text-white">
+        <ol className="flex gap-2 items-center">
+          <li className="font-medium text-[16px]">
             <Link className="hover:text-[#e51515]" href="/">
               Home
             </Link>
-            <span>/</span>
-            <span>{title}</span>
           </li>
+          <li>/</li>
+          <li className="font-medium text-[16px]">{title}</li>
         </ol>
       </nav>
     </div>
+
   )
 }
 

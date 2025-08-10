@@ -5,7 +5,7 @@ import { ReactNode, useState } from "react";
 import { CartProvider } from "@/context/CartContext";
 import AdBanner from "@/components/home/AdBanner/AdBanner";
 import Footer from "@/components/shared/Footer/Footer";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 
 import "./globals.css";
@@ -21,17 +21,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <AdBanner />
             <main>{children}</main>
             <Footer />
-            <ToastContainer
+            <Toaster
               position="top-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  borderRadius: '15px',
+                  background: '#e51515',
+                  color: '#fff',
+                  fontSize: '15px',
+                  padding: '15px 16px',
+                },
+                iconTheme: {
+                  primary: '#e51515',
+                  secondary: '#fff',
+                },
+              }}
             />
           </CartProvider>
         </QueryClientProvider>

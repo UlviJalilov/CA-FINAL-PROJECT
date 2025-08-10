@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-
 import { connectDB } from "./config/db";
 import productRoutes from './routes/productRoutes';
 import authRoutes from "./routes/auth";
@@ -13,6 +12,7 @@ import featuredProductRoutes from "./routes/FeaturedProductRoutes";
 import paymentRouter from "./routes/payment";
 import webhookRoute from "./routes/webhook";
 import orderRoute from "./routes/orderRoutes"
+import detailProduct from "./routes/detailproducts"
 
 dotenv.config();
 
@@ -26,7 +26,7 @@ app.use(cors());
 
 app.use(
   "/api/webhook",
-  express.raw({ type: "application/json" }), 
+  express.raw({ type: "application/json" }),
   webhookRoute
 );
 
@@ -41,6 +41,7 @@ app.use("/api/car-products", carProductRoutes);
 app.use("/api/featured-products", featuredProductRoutes);
 app.use("/api/payment", paymentRouter);
 app.use("/api/orders", orderRoute);
+app.use("/api/detailproducts", detailProduct)
 
 app.get("/", (_, res) => {
   res.send("Backend server is running!");
