@@ -208,7 +208,7 @@ const FeaturedProductCard = ({ product }: Props) => {
               <span className="text-[#e51515] font-medium text-[15px]">
                 €{product.price.toFixed(2)}
               </span>
-              {product.oldPrice && product.oldPrice > 0 && (
+              {typeof product.oldPrice === "number" && product.oldPrice > 0 && (
                 <span className="line-through text-gray-400 text-sm">
                   €{product.oldPrice.toFixed(2)}
                 </span>
