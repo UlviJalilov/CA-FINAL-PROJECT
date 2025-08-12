@@ -4,9 +4,41 @@ import React from "react";
 import WishlistBanner from "@/components/shared/WishlistBanner/WishlistBanner";
 import Image from "next/image";
 import { useWishlist } from "@/context/WishlistContext";
+import { FeaturedProduct } from "@/types/FeaturedProduct";
+import toast from "react-hot-toast";
+import { useCart } from "@/context/CartContext";
+
+
 
 const WishlistPage = () => {
     const { wishlist, removeFromWishlist } = useWishlist();
+      const { addToCart } = useCart();
+
+  const handleAddToCart = (item: FeaturedProduct) => {
+    addToCart({
+      id: item._id,
+      title: item.title,
+      image: item.image,
+      price: item.price,
+      quantity: 1,
+    });
+
+    toast.success("Congratulations! Your item has been added.", {
+      style: {
+        borderRadius: "15px",
+        background: "#e51515",
+        color: "#fff",
+        fontSize: "15px",
+        padding: "15px 16px",
+      },
+      iconTheme: {
+        primary: "#e51515",
+        secondary: "#fff",
+      },
+    });
+  };
+
+    
 
     return (
         <div>
@@ -52,7 +84,8 @@ const WishlistPage = () => {
                                     €{item.price.toFixed(2)}
                                 </td>
                                 <td className="p-3 border border-[#ccc] text-center">
-                                    <button className="bg-[#181b23] text-white primary-font rounded-full px-6 py-3 font-semibold text-[12px] hover:bg-[#e51515] transition">
+                                    <button
+                                    onClick={() => handleAddToCart(item)} className="bg-[#181b23] text-white primary-font rounded-full px-6 py-3 font-semibold text-[12px] hover:bg-[#e51515] transition">
                                         ADD TO CART
                                     </button>
                                 </td>
