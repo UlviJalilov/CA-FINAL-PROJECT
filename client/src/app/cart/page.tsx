@@ -8,7 +8,7 @@ import { shippingRates } from '@/utils/shipping';
 import { useShipping } from '@/hooks/useShipping';
 import { calculateSubtotal } from '@/utils/cartUtils';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 
 import ScrollToTopButton from '@/components/shared/ScrollToTopButton/ScrollToTopButton';
 const CartPage = () => {
