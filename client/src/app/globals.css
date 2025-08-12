@@ -246,7 +246,7 @@ li.group:hover a {
   user-select: none;
 }
 
-/* Yan xəttlər */
+
 .related-products-header h2::before,
 .related-products-header h2::after {
   content: "";
@@ -259,7 +259,7 @@ li.group:hover a {
   border-radius: 2px;
 }
 
-/* Kiçik üçlü xətlər */
+
 .related-products-header h2::before {
   left: -110px;
   box-shadow:
@@ -274,7 +274,7 @@ li.group:hover a {
     -24px 0 0 #555;
 }
 
-/* Alt yazı */
+
 .related-products-header p {
   font-size: 13px;
   color: #777;
