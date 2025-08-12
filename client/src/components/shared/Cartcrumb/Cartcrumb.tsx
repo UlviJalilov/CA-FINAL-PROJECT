@@ -12,7 +12,7 @@ const Cartcrumb = () => {
                     </Link>
                     <span>/</span>
                     <Link href="/cart">
-                        Your Shopping Cart
+                        Wishlist
                     </Link>
                 </li>
 
