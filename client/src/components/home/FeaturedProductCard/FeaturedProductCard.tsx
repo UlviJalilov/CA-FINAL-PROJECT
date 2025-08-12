@@ -10,7 +10,6 @@ import { FaRegStar, FaHeart, FaEye } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaSignal } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
