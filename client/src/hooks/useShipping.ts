@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { shippingRates, calculateShipping } from "@/utils/shipping";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 export function useShipping() {
   const [selectedCountry, setSelectedCountry] = useState('');
