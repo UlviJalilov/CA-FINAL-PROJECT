@@ -7,6 +7,9 @@ import AdBanner from "@/components/home/AdBanner/AdBanner";
 import Footer from "@/components/shared/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { WishlistProvider } from "@/context/WishlistContext";
+
+
 
 import "./globals.css";
 
@@ -18,21 +21,23 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <CartProvider>
-            <AdBanner />
-            <main>{children}</main>
-            <Footer />
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
+            <WishlistProvider>
+              <AdBanner />
+              <main>{children}</main>
+              <Footer />
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+            </WishlistProvider>
           </CartProvider>
         </QueryClientProvider>
       </body>
