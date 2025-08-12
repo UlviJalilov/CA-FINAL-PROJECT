@@ -13,7 +13,7 @@ export const pagesMenuItems = [
   { label: "CONTACT US", href: "/contact" },
   { label: "BLOG", href: "/blog" },
   { label: "ARTICLE PAGE", href: "/article" },
-  { label: "FAQS", href: "/faqs" },
+  { label: "FAQS", href: "/faq" },
   { label: "ABOUT US", href: "/about" },
   { label: "SERVICES", href: "/services" },
   { label: "GALLERY", href: "/gallery" },
