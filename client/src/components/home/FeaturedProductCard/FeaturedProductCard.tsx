@@ -10,9 +10,11 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { IoClose } from "react-icons/io5";
 import { easeIn, easeOut } from "framer-motion";
+
 
 
 const Dialog = dynamic(() => import("@mui/material/Dialog"), { ssr: false });
@@ -33,6 +35,8 @@ const FeaturedProductCard = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
 
   const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist();
+
 
   useEffect(() => {
     setMounted(true);
@@ -44,6 +48,7 @@ const FeaturedProductCard = ({ product }: Props) => {
   const handleClose = () => setOpen(false);
 
   const handleAddToCart = () => {
+    
     addToCart({
       id: product._id,
       title: product.title,
@@ -67,6 +72,28 @@ const FeaturedProductCard = ({ product }: Props) => {
     });
   };
 
+  const handleAddToWishlist = (product: FeaturedProduct) => {
+  addToWishlist(product);
+
+  toast.success("Product added to wishlist..", {
+    style: {
+      borderRadius: "15px",
+      background: "#e51515",
+      color: "#fff",
+      fontSize: "15px",
+      padding: "15px 16px",
+    },
+    iconTheme: {
+      primary: "#e51515",
+      secondary: "#fff",
+    },
+  });
+};
+
+
+
+
+
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value);
     if (val > 0) setQuantity(val);
@@ -84,13 +111,16 @@ const FeaturedProductCard = ({ product }: Props) => {
         <div className="relative">
           <FaHeart
             size={21}
+            onClick={() => handleAddToWishlist(product)}
             className="cursor-pointer hover:text-[#e51515] transition relative peer"
           />
+          
           <div className="absolute left-7 top-1/2 -translate-y-1/2 bg-[#e51515] text-[12px] font-medium text-[#fff] px-2 py-[2px] rounded shadow-md whitespace-nowrap opacity-0 peer-hover:opacity-100 peer-hover:translate-y-1 transition-all duration-300 z-20">
             Add to Wishlist
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -ml-[5px] w-0 h-0 border-t-[5px] border-b-[5px] border-r-[5px] border-t-transparent border-b-transparent border-r-[#e51515]" />
           </div>
         </div>
+        
 
         <Link href={`/product/${product.slug}`}>
           <div className="relative cursor-pointer">
@@ -196,11 +226,11 @@ const FeaturedProductCard = ({ product }: Props) => {
         </span>
       </button>
 
-     
+
       <AnimatePresence>
         {open && (
-          <Dialog open={open} onClose={handleClose} maxWidth="md"   fullWidth>
-            
+          <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+
             <motion.div
               className="!p-5 bg-[#fff] text-black relative rounded-lg"
               variants={modalVariants}
