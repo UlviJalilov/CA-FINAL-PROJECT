@@ -9,8 +9,8 @@ type Props = {
 };
 
 export default async function ProductDetailPage({ params }: Props) {
-    const { slug } = await params; 
-    const product = await getProductBySlug(slug);
+    const awaitedParams = await params;
+    const product = await getProductBySlug(awaitedParams.slug);
 
     if (!product) {
         return notFound();

@@ -9,8 +9,8 @@ import { useShipping } from '@/hooks/useShipping';
 import { calculateSubtotal } from '@/utils/cartUtils';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
+import ScrollToTopButton from '@/components/shared/ScrollToTopButton/ScrollToTopButton';
 const CartPage = () => {
   const { cartItems } = useCart();
 
@@ -232,6 +232,8 @@ const CartPage = () => {
           </div>
         </div>
       )}
+
+       <ScrollToTopButton />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// utils/scrollToTop.ts
 export function scrollToTop(duration = 1000) {
   const start = window.scrollY;
   const startTime = performance.now();

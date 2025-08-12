@@ -7,6 +7,8 @@ import "swiper/css/navigation";
 import FeaturedProductCard from "@/components/home/FeaturedProductCard/FeaturedProductCard";
 import { useFeaturedProducts } from "@/hooks/useFeaturedProducts";
 import { FaStar ,FaBolt, FaGem, FaHeart } from "react-icons/fa";
+import { Toaster } from 'react-hot-toast';
+
 
 const FeaturedSlider = () => {
   const { data: products, isLoading, isError } = useFeaturedProducts();
@@ -41,7 +43,6 @@ const FeaturedSlider = () => {
             </span>
           </div>
 
-       
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-[#5a6069] text-[15px] md:text-base font-medium leading-relaxed">
               Discover our carefully selected featured products that combine quality and style to elevate your vehicle.
@@ -57,6 +58,8 @@ const FeaturedSlider = () => {
           </div>
         </div>
       </div>
+
+      <Toaster position="top-right" reverseOrder={false} />
 
 
       <Swiper

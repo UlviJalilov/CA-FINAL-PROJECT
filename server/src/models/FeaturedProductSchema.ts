@@ -24,7 +24,9 @@ const FeaturedProductSchema: Schema = new Schema(
     image: { type: String, required: true },
     hoverImage: { type: String },
     isFeatured: { type: Boolean, default: false },
-    discountPercent: { type: Number, required: false }
+    discountPercent: { type: Number, required: false },
+    slug: { type: String, required: false, unique: true, index: true }, 
+
   },
   { timestamps: true }
 );

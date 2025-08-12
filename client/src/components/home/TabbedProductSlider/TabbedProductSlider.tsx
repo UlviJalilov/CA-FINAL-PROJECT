@@ -6,9 +6,11 @@ import "swiper/css";
 import OurProductCard from "../OurProductCard/OurProductCard";
 import { filterProductsByTab, tabs } from "@/utils/filterProductsByTab";
 import { useTabbedProducts } from "@/hooks/useTabbedProducts";
-
+import { Toaster } from 'react-hot-toast';
 import { FaCar, FaCogs, FaGasPump } from "react-icons/fa";
 import { GiSteeringWheel } from "react-icons/gi";
+import { Autoplay, Navigation } from "swiper/modules";
+
 
 const TabbedProductSlider = () => {
   const {
@@ -85,6 +87,9 @@ const TabbedProductSlider = () => {
         })}
       </div>
 
+      <Toaster position="top-right" reverseOrder={false} />
+
+
       <div
         className={`transition-opacity duration-500 ${animating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
           }`}
@@ -93,6 +98,9 @@ const TabbedProductSlider = () => {
           <Swiper
             spaceBetween={30}
             slidesPerView={1}
+            modules={[Autoplay, Navigation]}
+            loop={true}
+            autoplay={{ delay: 4000 }}
             breakpoints={{
               640: { slidesPerView: 2 },
               1024: { slidesPerView: 4 },

@@ -1,21 +1,19 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { motion, AnimatePresence, easeIn, easeOut } from "framer-motion";
+import { toast } from "react-hot-toast";
 import { FaRegStar, FaHeart, FaEye } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaSignal } from "react-icons/fa6";
-import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "react-hot-toast";
-import Link from "next/link";
-import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
+import { IoClose } from "react-icons/io5";
+
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
-import { IoClose } from "react-icons/io5";
-import { easeIn, easeOut } from "framer-motion";
-
-
 
 const Dialog = dynamic(() => import("@mui/material/Dialog"), { ssr: false });
 
@@ -37,7 +35,6 @@ const FeaturedProductCard = ({ product }: Props) => {
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -48,7 +45,6 @@ const FeaturedProductCard = ({ product }: Props) => {
   const handleClose = () => setOpen(false);
 
   const handleAddToCart = () => {
-
     addToCart({
       id: product._id,
       title: product.title,
@@ -72,11 +68,11 @@ const FeaturedProductCard = ({ product }: Props) => {
     });
   };
 
-  const handleAddToWishlist = (product: FeaturedProduct) => {
-    const exists = wishlist.some((item) => item._id === product._id);
+  const handleAddToWishlist = (prod: FeaturedProduct) => {
+    const exists = wishlist.some((item) => item._id === prod._id);
 
     if (exists) {
-      removeFromWishlist(product._id);
+      removeFromWishlist(prod._id);
       toast.success("Product removed from wishlist.", {
         style: {
           borderRadius: "15px",
@@ -91,7 +87,7 @@ const FeaturedProductCard = ({ product }: Props) => {
         },
       });
     } else {
-      addToWishlist(product);
+      addToWishlist(prod);
       toast.success("Product added to wishlist.", {
         style: {
           borderRadius: "15px",
@@ -108,9 +104,6 @@ const FeaturedProductCard = ({ product }: Props) => {
     }
   };
 
-
-
-
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value);
     if (val > 0) setQuantity(val);
@@ -124,27 +117,25 @@ const FeaturedProductCard = ({ product }: Props) => {
 
   return (
     <div className="group border-2 border-[#21252c] rounded-[20px] w-full sm:w-[340px] md:w-[360px] lg:w-[380px] overflow-hidden relative">
+      {/* ACTION BUTTONS */}
       <div className="actions text-[#363c45] absolute top-5 left-5 flex flex-col gap-3 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 z-10">
+        {/* Wishlist */}
         <div className="relative">
           <FaHeart
             size={21}
             onClick={() => handleAddToWishlist(product)}
             className="cursor-pointer hover:text-[#e51515] transition relative peer"
           />
-
           <div className="absolute left-7 top-1/2 -translate-y-1/2 bg-[#e51515] text-[12px] font-medium text-[#fff] px-2 py-[2px] rounded shadow-md whitespace-nowrap opacity-0 peer-hover:opacity-100 peer-hover:translate-y-1 transition-all duration-300 z-20">
             Add to Wishlist
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -ml-[5px] w-0 h-0 border-t-[5px] border-b-[5px] border-r-[5px] border-t-transparent border-b-transparent border-r-[#e51515]" />
           </div>
         </div>
 
-
+        {/* View Details */}
         <Link href={`/product/${product.slug}`}>
           <div className="relative cursor-pointer">
-            <FaSignal
-              size={21}
-              className="hover:text-[#f29101] transition relative peer"
-            />
+            <FaSignal size={21} className="hover:text-[#f29101] transition relative peer" />
             <div className="absolute left-7 top-1/2 -translate-y-1/2 bg-[#e51515] text-[12px] font-medium text-[#fff] px-2 py-[2px] rounded shadow-md whitespace-nowrap opacity-0 peer-hover:opacity-100 peer-hover:translate-y-1 transition-all duration-300 z-20">
               View Details
               <div className="absolute left-0 top-1/2 -translate-y-1/2 -ml-[5px] w-0 h-0 border-t-[5px] border-b-[5px] border-r-[5px] border-t-transparent border-b-transparent border-r-[#e51515]" />
@@ -152,6 +143,7 @@ const FeaturedProductCard = ({ product }: Props) => {
           </div>
         </Link>
 
+        {/* Quick View */}
         <div className="relative">
           <FaEye
             size={21}
@@ -165,6 +157,7 @@ const FeaturedProductCard = ({ product }: Props) => {
         </div>
       </div>
 
+      {/* PRODUCT IMAGE & INFO */}
       <Link href={`/product/${product.slug}`}>
         <div>
           <div className="featured-img group relative w-full h-[350px] flex justify-center items-center overflow-hidden rounded-2xl border-2 border-transparent hover:border-[#e51515] transition-colors duration-500 shadow-lg hover:shadow-[#e51515]">
@@ -175,17 +168,15 @@ const FeaturedProductCard = ({ product }: Props) => {
               quality={100}
               className="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:blur-sm group-hover:scale-105"
             />
-
             {product.hoverImage && (
               <Image
                 src={product.hoverImage}
-                alt={product.title + " Hover"}
+                alt={`${product.title} Hover`}
                 fill
                 quality={100}
                 className="object-cover w-full h-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out scale-95 group-hover:scale-100"
               />
             )}
-
             {product.discountBtn && (
               <span className="absolute top-3 right-3 bg-[#e51515] text-white text-xs px-3 py-1 rounded-full font-semibold z-10 shadow-md">
                 {product.discountBtn}
@@ -195,7 +186,7 @@ const FeaturedProductCard = ({ product }: Props) => {
 
           <div className="featured-content py-7 p-4">
             <div className="stars border-b border-[#2a2c32] pb-4 flex items-center">
-              {Array.from({ length: 5 }, (_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <FaRegStar key={i} className="text-[#f29101]" />
               ))}
             </div>
@@ -217,7 +208,7 @@ const FeaturedProductCard = ({ product }: Props) => {
               <span className="text-[#e51515] font-medium text-[15px]">
                 €{product.price.toFixed(2)}
               </span>
-              {typeof product.oldPrice === "number" && product.oldPrice > 0 && (
+              {product.oldPrice && product.oldPrice > 0 && (
                 <span className="line-through text-gray-400 text-sm">
                   €{product.oldPrice.toFixed(2)}
                 </span>
@@ -227,6 +218,7 @@ const FeaturedProductCard = ({ product }: Props) => {
         </div>
       </Link>
 
+      {/* ADD TO CART BUTTON */}
       <button
         className="group w-[300px] flex mx-auto gap-3 py-4 mb-5 rounded-[25px] justify-center items-center bg-[#21252c] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300"
         onClick={handleAddToCart}
@@ -243,25 +235,22 @@ const FeaturedProductCard = ({ product }: Props) => {
         </span>
       </button>
 
-
+      {/* QUICK VIEW MODAL */}
       <AnimatePresence>
         {open && (
           <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-
             <motion.div
               className="!p-5 bg-[#fff] text-black relative rounded-lg"
               variants={modalVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              key="modal"
-
             >
               <button
                 onClick={handleClose}
                 className="absolute top-3 right-3 text-black hover:text-[#e51515]"
               >
-                <IoClose className="hover:text-[#e51515]" size={25} />
+                <IoClose size={25} />
               </button>
 
               <div className="flex flex-col md:flex-row gap-6">
@@ -276,7 +265,7 @@ const FeaturedProductCard = ({ product }: Props) => {
                   {product.hoverImage && (
                     <Image
                       src={product.hoverImage}
-                      alt={product.title + " Hover"}
+                      alt={`${product.title} Hover`}
                       fill
                       className="object-cover rounded-lg absolute top-0 left-0 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
                     />
@@ -299,13 +288,13 @@ const FeaturedProductCard = ({ product }: Props) => {
                           €{product.oldPrice.toFixed(2)}
                         </span>
                       )}
-
                       {product.discountPercent && (
                         <span className="bg-yellow-400 text-black px-2 py-1 rounded text-xs font-semibold">
                           -{product.discountPercent}%
                         </span>
                       )}
                     </div>
+
                     <div className="flex items-center gap-4 mt-10">
                       <input
                         type="number"

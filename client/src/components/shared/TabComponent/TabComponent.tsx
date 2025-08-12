@@ -1,7 +1,6 @@
-// components/TabComponent.tsx
 "use client";
 import { IoIosStarOutline } from "react-icons/io";
-import {SlidersHorizontal} from "lucide-react"
+import { SlidersHorizontal } from "lucide-react"
 
 import React, { useState } from "react";
 
@@ -111,7 +110,7 @@ export default function TabComponent() {
                         <div>
                             <h2 className="pt-10 text-[#181b23] text-[17px] secondary-font font-medium">Be the first to <span className="border-b">write a review</span></h2>
                         </div>
-                        <div className="flex items-center gap-2  justify-center"> 
+                        <div className="flex items-center gap-2  justify-center">
                             <button className="border border-[#ccc] h-[40px] secondary-font text-[17px] px-4 py-2">
                                 Write a review
                             </button>
@@ -123,14 +122,62 @@ export default function TabComponent() {
                 )}
 
                 {activeTab === "text" && (
-                    <div>
-                        <p>Here you can add your TEXT TAB content.</p>
+                    <div className="flex justify-center items-center">
+                        <p className="text-[#5a6069] text-[14px] font-medium">You can write any text to be displayed either here if you want it to show on all products or create a custom metafield for products where you can add text information specific for each product.</p>
                     </div>
                 )}
 
                 {activeTab === "html" && (
                     <div>
-                        <p>Here you can add your HTML TAB content.</p>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full border-collapse  border-gray-200 text-left">
+                                <thead>
+                                    <tr className="border-b-2 text-[#5a6069] text-[14px] font-semibold border-gray-200">
+                                        <th className="py-3 px-4 ">Part</th>
+                                        <th className="py-3 px-4 ">Size</th>
+                                        <th className="py-3 px-4 ">Diameter</th>
+                                        <th className="py-3 px-4 ">Width</th>
+                                        <th className="py-3 px-4 ">Height</th>
+                                        <th className="py-3 px-4 ">Weight</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Car Tire</td>
+                                        <td className="py-3 px-4">17</td>
+                                        <td className="py-3 px-4">215 mm</td>
+                                        <td className="py-3 px-4">17</td>
+                                        <td className="py-3 px-4">25</td>
+                                        <td className="py-3 px-4">8 kg</td>
+                                    </tr>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Alloy Wheel</td>
+                                        <td className="py-3 px-4">18</td>
+                                        <td className="py-3 px-4">225 mm</td>
+                                        <td className="py-3 px-4">18</td>
+                                        <td className="py-3 px-4">24</td>
+                                        <td className="py-3 px-4">7.5 kg</td>
+                                    </tr>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Brake Disc</td>
+                                        <td className="py-3 px-4">12</td>
+                                        <td className="py-3 px-4">280 mm</td>
+                                        <td className="py-3 px-4">12</td>
+                                        <td className="py-3 px-4">15</td>
+                                        <td className="py-3 px-4">3 kg</td>
+                                    </tr>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Exhaust Pipe</td>
+                                        <td className="py-3 px-4">Standard</td>
+                                        <td className="py-3 px-4">200 mm</td>
+                                        <td className="py-3 px-4">150 mm</td>
+                                        <td className="py-3 px-4">40</td>
+                                        <td className="py-3 px-4">5 kg</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 )}
             </div>
