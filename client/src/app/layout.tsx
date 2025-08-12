@@ -11,6 +11,7 @@ import { WishlistProvider } from "@/context/WishlistContext";
 
 
 
+
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
