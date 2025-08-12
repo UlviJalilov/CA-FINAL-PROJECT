@@ -7,11 +7,16 @@ import AdBanner from "@/components/home/AdBanner/AdBanner";
 import Footer from "@/components/shared/Footer/Footer";
 import { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
+import { usePathname } from "next/navigation";
 
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
+    const pathname = usePathname();
+
+
+    const hideFooter = pathname.startsWith("/admin/dashboard");
 
   return (
     <html lang="en">
@@ -20,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <CartProvider>
             <AdBanner />
             <main>{children}</main>
-            <Footer />
+            {!hideFooter && <Footer />}
             <Toaster
               position="top-right"
               toastOptions={{
