@@ -35,7 +35,7 @@ const FeaturedProductCard = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
 
   const { addToCart } = useCart();
-  const { addToWishlist } = useWishlist();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const FeaturedProductCard = ({ product }: Props) => {
   const handleClose = () => setOpen(false);
 
   const handleAddToCart = () => {
-    
+
     addToCart({
       id: product._id,
       title: product.title,
@@ -73,23 +73,40 @@ const FeaturedProductCard = ({ product }: Props) => {
   };
 
   const handleAddToWishlist = (product: FeaturedProduct) => {
-  addToWishlist(product);
+    const exists = wishlist.some((item) => item._id === product._id);
 
-  toast.success("Product added to wishlist..", {
-    style: {
-      borderRadius: "15px",
-      background: "#e51515",
-      color: "#fff",
-      fontSize: "15px",
-      padding: "15px 16px",
-    },
-    iconTheme: {
-      primary: "#e51515",
-      secondary: "#fff",
-    },
-  });
-};
-
+    if (exists) {
+      removeFromWishlist(product._id);
+      toast.success("Product removed from wishlist.", {
+        style: {
+          borderRadius: "15px",
+          background: "#333",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#333",
+          secondary: "#fff",
+        },
+      });
+    } else {
+      addToWishlist(product);
+      toast.success("Product added to wishlist.", {
+        style: {
+          borderRadius: "15px",
+          background: "#e51515",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#e51515",
+          secondary: "#fff",
+        },
+      });
+    }
+  };
 
 
 
@@ -114,13 +131,13 @@ const FeaturedProductCard = ({ product }: Props) => {
             onClick={() => handleAddToWishlist(product)}
             className="cursor-pointer hover:text-[#e51515] transition relative peer"
           />
-          
+
           <div className="absolute left-7 top-1/2 -translate-y-1/2 bg-[#e51515] text-[12px] font-medium text-[#fff] px-2 py-[2px] rounded shadow-md whitespace-nowrap opacity-0 peer-hover:opacity-100 peer-hover:translate-y-1 transition-all duration-300 z-20">
             Add to Wishlist
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -ml-[5px] w-0 h-0 border-t-[5px] border-b-[5px] border-r-[5px] border-t-transparent border-b-transparent border-r-[#e51515]" />
           </div>
         </div>
-        
+
 
         <Link href={`/product/${product.slug}`}>
           <div className="relative cursor-pointer">
