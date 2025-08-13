@@ -26,7 +26,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <AdBanner />
               <main>{children}</main>
               <Footer />
-               <Footer />
             <Toaster
               position="top-right"
               toastOptions={{
