@@ -29,7 +29,9 @@ export default function SuccessPage() {
   return (
     <section className="min-h-[60vh] flex items-center justify-center py-20 bg-gray-50">
       <div className="text-center max-w-2xl mx-auto bg-white p-10 rounded-lg shadow">
+
         <h1 className="text-3xl font-bold text-green-600 mb-4">Thank You!</h1>
+
         <p className="text-lg text-gray-700 mb-6">Your order has been successfully completed.</p>
 
         <div className="text-left mb-4 space-y-2 text-sm">
