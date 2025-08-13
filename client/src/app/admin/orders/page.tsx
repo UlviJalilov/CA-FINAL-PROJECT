@@ -13,8 +13,11 @@ export default async function OrdersPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Orders</h1>
+      <h1 className="text-2xl uppercase primary-font font-bold mb-4 text-transparent bg-clip-text 
+               bg-gradient-to-r from-[#FFD700] to-[#A78BFA] drop-shadow-lg">
+        Orders
+      </h1>
       <OrdersTable orders={orders} />
     </div>
-  );
+  ); 
 }
