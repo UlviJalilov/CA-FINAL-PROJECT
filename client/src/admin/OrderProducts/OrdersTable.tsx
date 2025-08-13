@@ -20,12 +20,12 @@ interface OrdersTableProps {
 }
 
 const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
-console.log(orders.length > 0 ? orders[0].total : 'orders boşdur');
+    console.log(orders.length > 0 ? orders[0].total : 'orders boşdur');
 
     return (
-        <div className="overflow-x-auto rounded-lg shadow mt-6 bg-white">
-            <table className="min-w-full text-sm text-left text-gray-700">
-                <thead className="bg-green-600 text-white">
+        <div className="overflow-x-auto rounded-lg shadow-md bg-gradient-to-r from-[#0b0f1e] to-[#101728] text-gray-200">
+            <table className="min-w-full text-sm text-left">
+                <thead className="bg-gradient-to-r from-[#4FD1C5] to-[#A78BFA] text-white">
                     <tr>
                         <th className="p-4">Order ID</th>
                         <th className="p-4">Email</th>
@@ -36,25 +36,23 @@ console.log(orders.length > 0 ? orders[0].total : 'orders boşdur');
                     </tr>
                 </thead>
                 <tbody>
-                    
                     {orders.map((order, idx) => (
-                        
-                        
                         <tr
                             key={order._id}
-                            className={idx % 2 === 0 ? "bg-gray-50" : "bg-white"}
+                            className={
+                                idx % 2 === 0
+                                    ? "bg-[#111827] hover:bg-[#1e293b] transition-colors duration-300"
+                                    : "bg-[#0f172a] hover:bg-[#1e293b] transition-colors duration-300"
+                            }
                         >
                             <td className="p-4">{order.orderId}</td>
                             <td className="p-4">{order.email}</td>
-                            <td className="p-4">
-                            ${(order.total / 100).toFixed(2)}
-                                
-                            </td>
+                            <td className="p-4">${(order.total / 100).toFixed(2)}</td>
                             <td className="p-4 capitalize">
                                 <span
                                     className={`px-2 py-1 rounded-full text-xs font-semibold ${order.paymentStatus === "paid"
-                                        ? "bg-green-100 text-green-700"
-                                        : "bg-red-100 text-red-700"
+                                            ? "bg-green-100 text-green-700"
+                                            : "bg-red-100 text-red-700"
                                         }`}
                                 >
                                     {order.paymentStatus}
@@ -65,14 +63,13 @@ console.log(orders.length > 0 ? orders[0].total : 'orders boşdur');
                                     ? `${order.shipping.city}, ${order.shipping.country}`
                                     : "N/A"}
                             </td>
-                            <td className="p-4">
-                                {new Date(order.createdAt).toLocaleDateString()}
-                            </td>
+                            <td className="p-4">{new Date(order.createdAt).toLocaleDateString()}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
+
 
     );
 };
