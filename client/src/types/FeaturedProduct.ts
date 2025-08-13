@@ -11,5 +11,4 @@ export interface FeaturedProduct {
   hoverImage?: string;
   isFeatured: boolean;
   slug: string
-
 }
