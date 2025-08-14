@@ -130,7 +130,54 @@ export default function TabComponent() {
 
                 {activeTab === "html" && (
                     <div>
-                        <p>Here you can add your HTML TAB content.</p>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full border-collapse  border-gray-200 text-left">
+                                <thead>
+                                    <tr className="border-b-2 text-[#5a6069] text-[14px] font-semibold border-gray-200">
+                                        <th className="py-3 px-4 ">Part</th>
+                                        <th className="py-3 px-4 ">Size</th>
+                                        <th className="py-3 px-4 ">Diameter</th>
+                                        <th className="py-3 px-4 ">Width</th>
+                                        <th className="py-3 px-4 ">Height</th>
+                                        <th className="py-3 px-4 ">Weight</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Car Tire</td>
+                                        <td className="py-3 px-4">17</td>
+                                        <td className="py-3 px-4">215 mm</td>
+                                        <td className="py-3 px-4">17</td>
+                                        <td className="py-3 px-4">25</td>
+                                        <td className="py-3 px-4">8 kg</td>
+                                    </tr>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Alloy Wheel</td>
+                                        <td className="py-3 px-4">18</td>
+                                        <td className="py-3 px-4">225 mm</td>
+                                        <td className="py-3 px-4">18</td>
+                                        <td className="py-3 px-4">24</td>
+                                        <td className="py-3 px-4">7.5 kg</td>
+                                    </tr>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Brake Disc</td>
+                                        <td className="py-3 px-4">12</td>
+                                        <td className="py-3 px-4">280 mm</td>
+                                        <td className="py-3 px-4">12</td>
+                                        <td className="py-3 px-4">15</td>
+                                        <td className="py-3 px-4">3 kg</td>
+                                    </tr>
+                                    <tr className="border-b text-[#5a6069] text-[13px] font-medium border-gray-200">
+                                        <td className="py-3 px-4">Exhaust Pipe</td>
+                                        <td className="py-3 px-4">Standard</td>
+                                        <td className="py-3 px-4">200 mm</td>
+                                        <td className="py-3 px-4">150 mm</td>
+                                        <td className="py-3 px-4">40</td>
+                                        <td className="py-3 px-4">5 kg</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 )}
             </div>
