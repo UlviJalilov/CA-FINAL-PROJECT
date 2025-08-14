@@ -7,10 +7,10 @@ import DetailBanner from "../DetailBanner/DetailBanner";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFeaturedProducts } from "@/hooks/useFeaturedProducts";
-import { useCart } from "@/context/CartContext"; 
+import { useCart } from "@/context/CartContext";
 import { toast } from 'react-hot-toast';
 import Link from "next/link"
-
+import TabComponent from "../TabComponent/TabComponent";
 
 import "swiper/css";
 
@@ -178,7 +178,7 @@ export default function ProductClient({ product }: Props) {
               </div>
             </div>
 
-            <Link href = "/checkout">
+            <Link href="/checkout">
               <button className="w-full bg-[#e51515] primary-font text-white hover:text-gray-700 font-medium py-2.5 rounded-[30px] text-[16px] hover:bg-gray-200 mb-6">
                 BUY IT NOW
               </button>
@@ -200,6 +200,8 @@ export default function ProductClient({ product }: Props) {
             </div>
           </div>
         </div>
+
+        <TabComponent />
       </div>
     </>
   );
