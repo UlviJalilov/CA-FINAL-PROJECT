@@ -1,7 +1,7 @@
 // components/TabComponent.tsx
 "use client";
 import { IoIosStarOutline } from "react-icons/io";
-import {SlidersHorizontal} from "lucide-react"
+import { SlidersHorizontal } from "lucide-react"
 
 import React, { useState } from "react";
 
@@ -111,7 +111,7 @@ export default function TabComponent() {
                         <div>
                             <h2 className="pt-10 text-[#181b23] text-[17px] secondary-font font-medium">Be the first to <span className="border-b">write a review</span></h2>
                         </div>
-                        <div className="flex items-center gap-2  justify-center"> 
+                        <div className="flex items-center gap-2  justify-center">
                             <button className="border border-[#ccc] h-[40px] secondary-font text-[17px] px-4 py-2">
                                 Write a review
                             </button>
@@ -123,8 +123,8 @@ export default function TabComponent() {
                 )}
 
                 {activeTab === "text" && (
-                    <div>
-                        <p>You can write any text to be displayed either here if you want it to show on all products or create a custom metafield for products where you can add text information specific for each product.</p>
+                    <div className="flex justify-center items-center">
+                        <p className="text-[#5a6069] text-[14px] font-medium">You can write any text to be displayed either here if you want it to show on all products or create a custom metafield for products where you can add text information specific for each product.</p>
                     </div>
                 )}
 
