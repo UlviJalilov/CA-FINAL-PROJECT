@@ -124,7 +124,7 @@ export default function TabComponent() {
 
                 {activeTab === "text" && (
                     <div>
-                        <p className="text-[]">You can write any text to be displayed either here if you want it to show on all products or create a custom metafield for products where you can add text information specific for each product.</p>
+                        <p>You can write any text to be displayed either here if you want it to show on all products or create a custom metafield for products where you can add text information specific for each product.</p>
                     </div>
                 )}
 
