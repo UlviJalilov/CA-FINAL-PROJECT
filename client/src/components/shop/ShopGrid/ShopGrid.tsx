@@ -187,7 +187,7 @@ export default function ShopGrid({ products }: Props) {
               </button>
 
               <div className="flex flex-col md:flex-row gap-6">
-                {/* Left: Image */}
+             
                 <div className="w-full md:w-1/2 relative h-[300px] md:h-[400px] group rounded-lg overflow-hidden">
                   <Image
                     src={selectedProduct.image}
