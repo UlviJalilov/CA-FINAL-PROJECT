@@ -15,7 +15,7 @@ export default function RelatedProductsSlider({ products }: Props) {
     }
 
     return (
-        <div className="container mx-auto px-10">
+        <div className="container mx-auto pb-20 px-10">
             <div className="related-products-header py-15 pb-3">
                 <h2 className="primary-font">RELATED PRODUCTS</h2>
                 <p>Order online and have your products delivered to your closest store for free</p>
