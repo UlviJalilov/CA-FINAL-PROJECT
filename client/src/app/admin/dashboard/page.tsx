@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useCarProducts } from "@/admin/carProducts/hook/useCarProducts";
 import { useFeaturedProducts } from "@/hooks/useFeaturedProducts";
+import { useEffect, useState } from "react";
 
 export default function AdminDashboardPage() {
   const [orders, setOrders] = useState([]);
   const { data: carProducts = [] } = useCarProducts();
   const { data: featuredProducts = [] } = useFeaturedProducts();
-
+  const [loading, setLoading] = useState(true);
 
   interface Order {
     _id: string;
@@ -19,20 +19,28 @@ export default function AdminDashboardPage() {
   }
 
   useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) return; 
+
     const getOrders = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
           cache: "no-store",
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         setOrders(data);
       } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     getOrders();
   }, []);
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-white">Loading...</div>;
 
   return (
     <div className="space-y-10">
@@ -41,18 +49,9 @@ export default function AdminDashboardPage() {
       </h1>
 
       <div className="grid grid-cols-3 gap-6">
-        <StatCard
-          title="Total Orders"
-          value={orders.length}
-        />
-        <StatCard
-          title="Total Products"
-          value={carProducts.length}
-        />
-        <StatCard
-          title="Featured Products"
-          value={featuredProducts.length}
-        />
+        <StatCard title="Total Orders" value={orders.length} />
+        <StatCard title="Total Products" value={carProducts.length} />
+        <StatCard title="Featured Products" value={featuredProducts.length} />
       </div>
 
       <div className="mt-12">
@@ -71,11 +70,7 @@ export default function AdminDashboardPage() {
               {orders.slice(0, 5).map((order: Order, idx) => (
                 <tr
                   key={order._id}
-                  className={
-                    idx % 2 === 0
-                      ? "bg-[#111827] hover:bg-[#1e293b] transition-colors"
-                      : "bg-[#0f172a] hover:bg-[#1e293b] transition-colors"
-                  }
+                  className={idx % 2 === 0 ? "bg-[#111827] hover:bg-[#1e293b] transition-colors" : "bg-[#0f172a] hover:bg-[#1e293b] transition-colors"}
                 >
                   <td className="py-3 px-4">{order.orderId || order._id.slice(-5)}</td>
                   <td className="py-3 px-4">{order.email}</td>
@@ -88,15 +83,12 @@ export default function AdminDashboardPage() {
         </div>
       </div>
     </div>
-
   );
 }
 
 const StatCard = ({ title, value }: { title: string; value: number }) => (
   <div className="bg-gradient-to-r from-[#0f172a] to-[#1e293b] p-6 rounded-xl shadow-lg shadow-[#7f63f4]/50 hover:shadow-[#FFD700]/60 transition-all duration-300">
-    <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#A78BFA] drop-shadow-md">
-      {title}
-    </h3>
+    <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#A78BFA] drop-shadow-md">{title}</h3>
     <p className="text-3xl font-bold mt-2 text-white">{value}</p>
   </div>
 );
