@@ -8,7 +8,7 @@ export default function AdminDashboardPage() {
   const [orders, setOrders] = useState([]);
   const { data: carProducts = [] } = useCarProducts();
   const { data: featuredProducts = [] } = useFeaturedProducts();
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   interface Order {
     _id: string;
@@ -40,7 +40,6 @@ export default function AdminDashboardPage() {
     getOrders();
   }, []);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-white">Loading...</div>;
 
   return (
     <div className="space-y-10">
