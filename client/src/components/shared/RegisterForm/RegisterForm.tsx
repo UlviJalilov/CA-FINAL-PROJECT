@@ -38,11 +38,11 @@ const RegisterForm: FC = () => {
                     return;
                 }
 
-                // qeydiyyat uğurludursa login səhifəsinə yönləndir
+               
                 router.push("/login");
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (err) {
-                setError("Server xətası baş verdi.");
+                setError("A server error occurred.");
             }
         },
     });
