@@ -30,12 +30,18 @@ const modalVariants = {
 export default function ShopGrid({ products }: Props) {
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
-
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<FeaturedProduct | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [activeView, setActiveView] = useState("grid");
 
+  const gridClasses: Record<string, string> = {
+    grid: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3",
+    gridLarge: "grid-cols-1 sm:grid-cols-2 md:grid-cols-4",
+    list: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
+    listLarge: "grid-cols-1",
+  };
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -81,104 +87,128 @@ export default function ShopGrid({ products }: Props) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 grid grid-cols-12 gap-6">
-      {/* LEFT FILTER PANEL */}
+    <div className="container mx-auto px-10 py-6 grid grid-cols-12 gap-6">
+
       <div className="col-span-3 bg-white p-4 rounded shadow">
         <h3 className="font-semibold mb-4">Filter By Year, Make, Model</h3>
       </div>
 
-    
+
       <div className="col-span-9 flex flex-col gap-6">
-     
-        <div className="w-full flex items-center justify-between  rounded-md px-4 text-sm">
-          <ProductFilterBar />
+
+        <div className="w-full flex items-center justify-between rounded-md text-sm">
+          <ProductFilterBar activeView={activeView} onViewChange={setActiveView} />
         </div>
-   
-        <div className="grid grid-cols-3 gap-6">
-          {products.map((product) => (
-            <div
-              key={product._id}
-              className="group relative rounded-[20px] w-full max-w-[320px] mx-auto overflow-hidden min-h-[540px] flex flex-col border border-[#ccc]"
-            >
-           
-              <div className="actions text-[#363c45] absolute top-5 left-5 flex flex-col gap-3 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-400 z-10">
-                <div className="relative">
-                  <FaHeart
-                    onClick={() => handleAddToWishlist(product)}
-                    size={21}
-                    className="cursor-pointer hover:text-[#e51515] transition peer"
-                  />
+
+
+
+        <div className={`grid ${gridClasses[activeView]} gap-6`}>
+          <AnimatePresence>
+            {products.map((product) => (
+              <motion.div
+                key={product._id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className={`group relative rounded-[20px] overflow-hidden border border-[#ccc] w-full
+          ${activeView === "list"
+                    ? "flex flex-col h-[400px]"
+                    : activeView === "listLarge"
+                      ? "flex flex-row items-stretch min-h-[260px]"
+                      : activeView === "gridLarge"
+                        ? "flex flex-col h-[470px]"
+                        : "flex flex-col h-auto"
+                  }
+        `}
+              >
+                {/* Actions */}
+                <div className="actions text-[#363c45] absolute top-5 left-5 flex flex-col gap-3 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-400 z-10">
+                  <div className="relative">
+                    <FaHeart
+                      onClick={() => handleAddToWishlist(product)}
+                      size={21}
+                      className="cursor-pointer hover:text-[#e51515] transition peer"
+                    />
+                  </div>
+
+                  <Link href={`/product/${product.slug}`}>
+                    <div className="relative cursor-pointer">
+                      <FaSignal size={21} className="hover:text-[#f29101] transition peer" />
+                    </div>
+                  </Link>
+
+                  <div className="relative">
+                    <FaEye
+                      size={21}
+                      className="cursor-pointer hover:text-[#0af] transition peer"
+                      onClick={(e) => handleQuickViewClick(product, e)}
+                    />
+                  </div>
                 </div>
 
-                <Link href={`/product/${product.slug}`}>
-                  <div className="relative cursor-pointer">
-                    <FaSignal size={21} className="hover:text-[#f29101] transition peer" />
+                {/* Image */}
+                <Link
+                  href={`/product/${product.slug}`}
+                  className={`relative block overflow-hidden ${activeView === "list" ? "w-full h-[180px] md:h-[220px]" : activeView === "listLarge" ? "w-2/5 h-full" : "w-full h-[200px] md:h-[290px]"}`}
+                >
+                  <div className="featured-img relative w-full h-full">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      quality={100}
+                      className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    />
+                    {product.hoverImage && (
+                      <Image
+                        src={product.hoverImage}
+                        alt={product.title + " Hover"}
+                        fill
+                        quality={100}
+                        className="object-cover w-full h-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
+                      />
+                    )}
                   </div>
                 </Link>
 
-                <div className="relative">
-                  <FaEye
-                    size={21}
-                    className="cursor-pointer hover:text-[#0af] transition peer"
-                    onClick={(e) => handleQuickViewClick(product, e)}
-                  />
+                {/* Content */}
+                <div className="featured-content p-4 flex flex-col">
+                  <div className="stars border-b border-[#ccc] pb-4 flex items-center gap-1">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <FaRegStar size={15} key={i} className="text-[#f29101]" />
+                    ))}
+                  </div>
+
+                  <h2 className="text-[12px] text-[#181b23] font-medium primary-font border-b border-[#ccc] pt-4 pb-4">
+                    {product.title}
+                  </h2>
+
+                  <div className="flex items-center gap-2 pt-4">
+                    <span className="text-[#e51515] font-medium primary-font text-[15px]">
+                      €{product.price.toFixed(2)}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="group flex gap-3 w-full py-4 mt-8 rounded-[25px] justify-center items-center bg-[#efefef] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 text-[#838896] hover:text-white"
+                  >
+                    <FiShoppingCart />
+                    <span className="text-[12px] primary-font font-medium">ADD TO CART</span>
+                  </button>
                 </div>
-              </div>
-
-             
-              <Link href={`/product/${product.slug}`}>
-                <div className="featured-img relative w-full h-[290px] flex justify-center items-center overflow-hidden rounded-t-[20px] group">
-                  <Image
-                    src={product.image}
-                    alt={product.title}
-                    fill
-                    quality={100}
-                    className="object-cover w-full h-full transition-transform duration-800 ease-in-out group-hover:scale-105 group-hover:blur-sm"
-                  />
-                  {product.hoverImage && (
-                    <Image
-                      src={product.hoverImage}
-                      alt={product.title + " Hover"}
-                      fill
-                      quality={100}
-                      className="object-cover w-full h-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-800 ease-in-out"
-                    />
-                  )}
-                </div>
-              </Link>
-
-            
-              <div className="featured-content py-5 p-4 flex flex-col flex-1">
-                <div className="stars border-b border-[#ccc] pb-4 flex items-center gap-1">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <FaRegStar size={15} key={i} className="text-[#f29101]" />
-                  ))}
-                </div>
-
-                <h2 className="text-[12px] text-[#181b23] font-medium primary-font border-b border-[#ccc] pt-4 pb-4">
-                  {product.title}
-                </h2>
-
-                <div className="flex items-center gap-2 pt-4">
-                  <span className="text-[#e51515] font-medium primary-font text-[15px]">
-                    €{product.price.toFixed(2)}
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => handleAddToCart(product)}
-                  className="group flex gap-3 w-full py-4 mt-8 rounded-[25px] justify-center items-center bg-[#efefef] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 text-[#838896] hover:text-white"
-                >
-                  <FiShoppingCart />
-                  <span className="text-[12px] primary-font font-medium">ADD TO CART</span>
-                </button>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
+
+
       </div>
 
-   
+
+
       <AnimatePresence>
         {open && selectedProduct && (
           <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
@@ -254,6 +284,5 @@ export default function ShopGrid({ products }: Props) {
         )}
       </AnimatePresence>
     </div>
-
   );
 }
