@@ -17,11 +17,11 @@ const LoginForm = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Email düzgün deyil")
-        .required("Email vacibdir"),
+        .email("The email is not valid")
+        .required("Email is importnant"),
       password: Yup.string()
-        .min(6, "Minimum 6 simvol")
-        .required("Şifrə vacibdir"),
+        .min(6, "Minimum 6 characters")
+        .required("Password is important"),
     }),
     onSubmit: async (values) => {
       try {
@@ -34,17 +34,16 @@ const LoginForm = () => {
         const data = await res.json();
 
         if (!res.ok) {
-          setError(data.message || "Xəta baş verdi");
+          setError(data.message || "An error occurred.");
           return;
         }
 
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("user", JSON.stringify(data.user));
 
-        router.push("/");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        router.push("/admin/dashboard");        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        setError("Server xətası baş verdi.");
+        setError("A server error occurred.");
       }
     },
   });
@@ -58,7 +57,7 @@ const LoginForm = () => {
           </h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full max-w-6xl">
-          
+
             <div className="border h-[250px] text-[#181b23] border-gray-200 p-6  rounded-md flex flex-col justify-between ">
               <div>
                 <h2 className="text-2xl tracking-wide primary-font font-bold mb-2">
@@ -82,7 +81,7 @@ const LoginForm = () => {
               </Link>
             </div>
 
-           
+
             <div className="border border-gray-200 p-8 rounded-md">
               <h2 className="text-2xl text-[#181b23] primary-font font-semibold mb-2">
                 Returning Customer
@@ -92,7 +91,7 @@ const LoginForm = () => {
               </p>
 
               <form className="space-y-5" onSubmit={formik.handleSubmit}>
-               
+
                 <div>
                   <label className="block text-sm text-[#5a6069] font-medium">
                     Email
