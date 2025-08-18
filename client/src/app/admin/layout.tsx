@@ -2,18 +2,41 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { IoHome } from "react-icons/io5";
 import { FaChartBar } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      router.replace("/login"); 
+      return;
+    }
+    setLoading(false); 
+  }, [router]);
 
   const linkClasses = (path: string) =>
     `flex items-center gap-3 px-6 py-3 whitespace-nowrap rounded-xl transition duration-300 shadow-lg shadow-[#7f63f4]/70 ${pathname === path
       ? "bg-[#7f63f4] text-[#0f0c1c] font-semibold"
       : "bg-[#161f5e] hover:bg-[#7f63f4] hover:text-[#0f0c1c]"
     }`;
+
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white">
+        Checking authorization...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex bg-gradient-to-b from-[#0a0f1f] via-[#050a16] to-[#000000] text-gray-200 font-sans">
