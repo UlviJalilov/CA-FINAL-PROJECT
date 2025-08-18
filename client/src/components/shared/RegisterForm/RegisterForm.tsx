@@ -34,11 +34,11 @@ const RegisterForm: FC = () => {
                 const data = await res.json();
 
                 if (!res.ok) {
-                    setError(data.message || "Xəta baş verdi");
+                    setError(data.message || "An error occurred.");
                     return;
                 }
 
-               
+              
                 router.push("/login");
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (err) {
