@@ -17,14 +17,16 @@ import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { useRouter } from "next/navigation";
 import { useCart } from '@/context/CartContext';
 import { IoClose } from "react-icons/io5";
-
-
-
+import { usePathname } from "next/navigation";
 
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
-  
+
+  const pathname = usePathname();
+
+  const isHome = pathname === "/";
+
 
   const { data: featuredProducts = [] } = useFeaturedProducts();
 
@@ -106,7 +108,8 @@ export default function Navbar() {
               <li className="h-full relative group">
                 <Link
                   href="/"
-                  className="flex items-center justify-center gap-1 h-full w-full transition-transform duration-300 ease-in-out hover:translate-x-2 bg-[#e51515] clip-diagonal px-7"
+                  className={`flex items-center justify-center gap-1 h-full w-full transition-transform duration-300 ease-in-out hover:translate-x-2 px-7 ${isHome ? "bg-[#e51515] clip-diagonal" : ""
+                    }`}
                 >
                   HOME <IoIosArrowDown size={12} />
                 </Link>

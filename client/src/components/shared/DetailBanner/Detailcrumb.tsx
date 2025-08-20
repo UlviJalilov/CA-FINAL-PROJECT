@@ -3,10 +3,13 @@ import Link from "next/link"
 
 const Detailcrumb = ({ title }: { title: string }) => {
   return (
-    <div className="w-full flex justify-center items-center p-5">
-      <nav aria-label="Breadcrumb" className="text-white">
-        <ol className="flex gap-2 items-center">
-          <li className="font-medium text-[16px]">
+    <div>
+      <nav
+        className="text-sm text-gray-500 mb-4"
+        aria-label="Breadcrumb"
+      >
+        <ol className="list-reset flex flex-wrap justify-center text-center">
+          <li className="flex flex-wrap gap-2 sm:gap-4 text-white font-medium text-[16px] items-center justify-center">
             <Link className="hover:text-[#e51515]" href="/">
               Home
             </Link>
@@ -15,6 +18,7 @@ const Detailcrumb = ({ title }: { title: string }) => {
           <li className="font-medium text-[16px]">{title}</li>
         </ol>
       </nav>
+
     </div>
 
   )

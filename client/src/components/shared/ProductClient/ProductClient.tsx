@@ -102,8 +102,7 @@ export default function ProductClient({ product }: Props) {
                 {productsToShow.map((item) => (
                   <SwiperSlide key={item._id}>
                     <div
-                      className={`w-[130px] h-[130px] bg-[#f5f5f5] rounded-[20px] p-1 cursor-pointer transition-all duration-300 ${item.image === mainImage ? "border border-red-500" : ""
-                        }`}
+                      className={`w-[130px] h-[130px] bg-[#f5f5f5] rounded-[20px] p-1 cursor-pointer transition-all duration-300 ${item.image === mainImage ? "border border-red-500" : ""}`}
                       onClick={() => handleImageClick(item.image)}
                     >
                       <Image

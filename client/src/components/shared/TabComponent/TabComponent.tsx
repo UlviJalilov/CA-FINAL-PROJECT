@@ -21,7 +21,7 @@ export default function TabComponent() {
 
     return (
         <div className="container pt-12 mx-auto px-10">
-            {/* Tabs headers */}
+
             <div className="flex gap-15 border-b border-gray-300 mb-10">
                 {tabs.map((tab) => (
                     <button
@@ -37,7 +37,7 @@ export default function TabComponent() {
                 ))}
             </div>
 
-            {/* Tabs content */}
+
             <div>
                 {activeTab === "description" && (
                     <div className="text-[#5a6069] space-y-4">
@@ -98,27 +98,32 @@ export default function TabComponent() {
                 )}
 
                 {activeTab === "reviews" && (
-                    <div className="flex items-center justify-between">
-                        <div className="flex text-[25px] text-[#EBBF20] items-center">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        {/* Ulduzlar */}
+                        <div className="flex text-[25px] text-[#EBBF20] items-center justify-center sm:justify-start">
                             <IoIosStarOutline />
                             <IoIosStarOutline />
                             <IoIosStarOutline />
                             <IoIosStarOutline />
                             <IoIosStarOutline />
-
                         </div>
+
+                     
                         <div>
-                            <h2 className="pt-10 text-[#181b23] text-[17px] secondary-font font-medium">Be the first to <span className="border-b">write a review</span></h2>
+                            <h2 className="pt-2 sm:pt-10 text-[#181b23] text-[17px] secondary-font font-medium text-center sm:text-left">
+                                Be the first to <span className="border-b">write a review</span>
+                            </h2>
                         </div>
                         <div className="flex items-center gap-2  justify-center">
                             <button className="border border-[#ccc] h-[40px] secondary-font text-[17px] px-4 py-2">
                                 Write a review
                             </button>
-                            <button className="border border-[#ccc]  h-[40px] px-2 py-1">
+                            <button className="border border-[#ccc] h-[40px] px-2 py-1">
                                 <SlidersHorizontal size={20} />
                             </button>
                         </div>
                     </div>
+
                 )}
 
                 {activeTab === "text" && (
@@ -177,7 +182,6 @@ export default function TabComponent() {
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 )}
             </div>

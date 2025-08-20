@@ -6,7 +6,6 @@ import { useCart } from "@/context/CartContext";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-
 interface Product {
   _id: string;
   image: string;

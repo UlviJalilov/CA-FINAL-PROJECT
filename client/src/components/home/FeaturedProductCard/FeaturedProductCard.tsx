@@ -103,6 +103,7 @@ const FeaturedProductCard = ({ product }: Props) => {
     }
   };
 
+
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value);
     if (val > 0) setQuantity(val);
