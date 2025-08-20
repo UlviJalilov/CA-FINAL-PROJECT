@@ -19,12 +19,13 @@ const SearchForm = () => {
 
     const router = useRouter();
 
-    const handleSearch = () => {
-        router.push(
-            `/search?make=${encodeURIComponent(selectedMake)}&model=${encodeURIComponent(selectedModel)}&year=${encodeURIComponent(selectedYear)}`
-        );
-    };
-
+   const handleSearch = () => {
+  router.push(
+    `/search?make=${encodeURIComponent(selectedMake)}&model=${encodeURIComponent(
+      selectedModel
+    )}&year=${encodeURIComponent(selectedYear)}&from=home`
+  );
+};
     return (
         <div className="py-30 secondary-font">
             <div className="flex bg-[#292929] rounded-[6px] mx-auto w-[460px] py-3 justify-center items-center">

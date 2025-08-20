@@ -12,6 +12,10 @@ export default async function ShopPage() {
         cache: "no-store",
     });
 
+    const resCars = await fetch("http://localhost:3001/api/car-products", { cache: "no-store" });
+    const carProducts: FeaturedProduct[] = await resCars.json();
+
+
     const products: FeaturedProduct[] = await res.json();
 
     const images: string[] = products.map((p) => p.image);
@@ -20,7 +24,7 @@ export default async function ShopPage() {
         <div className='bg-white'>
             <ShopBanner />
             <CategorySection images={images} />
-            <ShopGrid products={products} />
+            <ShopGrid products={products} carProducts={carProducts} />
         </div>
     );
 }
