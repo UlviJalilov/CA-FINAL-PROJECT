@@ -358,8 +358,8 @@ export default function Navbar() {
                         Language: <span className="pl-2">English</span>
                       </p>
                       <ul className="space-y-3 text-[13px] text-gray-500">
-                        <li className="hover:text-[#e51515] cursor-pointer">English</li>
-                        <li className="hover:text-[#e51515] cursor-pointer">Français</li>
+                        <li onClick={() => router.push("/en")} className="hover:text-[#e51515] cursor-pointer">English</li>
+                        <li onClick={() => router.push("/fr")} className="hover:text-[#e51515] cursor-pointer">Français</li>
                       </ul>
                     </div>
                     <hr className="my-3 border-gray-200" />

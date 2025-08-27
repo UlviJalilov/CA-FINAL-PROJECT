@@ -35,7 +35,7 @@ export const products: MakeGroup[] = [
                 id: "toyota-corolla-2025-1",
                 title: "Toyota Corolla 2025",
                 image: "https://i.ytimg.com/vi/BJfbAhDwMqw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAdzBFboUFDhmOx5V_TfiwCb-MAKg",
-                price: 150.900,
+                price: 150900,
               },
               {
                 id: "toyota-corolla-2025-2",

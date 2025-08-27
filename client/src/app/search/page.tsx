@@ -3,11 +3,11 @@
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import ShopGrid from "@/components/shop/ShopGrid/ShopGrid";
-import Navbar from "@/components/shared/Navbar/Navbar";
 import SearchForm from "@/components/home/SearchForm/SearchForm";
 import { CarProducts } from "@/components/home/CarProducts/CarProducts";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import CategorySection from "@/components/shop/CategorySection/CategorySection";
+import ShopBanner from '@/components/shop/ShopBanner/ShopBanner';
 
 
 interface CarProduct {
@@ -41,7 +41,7 @@ const fetchCarProducts = async (params: { make?: string; model?: string; year?: 
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const source = searchParams.get("source");
-  
+
 
   const from = searchParams.get("from");
   const make = searchParams.get("make") || "";
@@ -55,7 +55,11 @@ export default function SearchPage() {
     enabled: !!make || !!model || !!year || !!title,
   });
 
-  const mappedProducts: FeaturedProduct[] = products.map((p) => ({
+  const mappedProducts: (FeaturedProduct & {
+    make?: string;
+    carModel?: string;
+    year?: string | number;
+  })[] = products.map((p) => ({
     _id: p._id,
     title: p.title,
     price: p.price,
@@ -67,14 +71,18 @@ export default function SearchPage() {
     description: p.description,
     oldPrice: 0,
     discountBtn: "",
+    inStock: true,
+    make: p.make,          
+    carModel: p.carModel,  
   }));
+
 
   const images: string[] = products.map((p) => p.image);
 
 
   return (
     <div className={from === "shop" ? "bg-white min-h-screen" : "bg-[#0F111A] min-h-screen"}>
-      <Navbar />
+      {from === "shop" && <ShopBanner />}
       {source === "home" && <SearchForm />}
       {from === "shop" && <CategorySection images={images} />}
       {isLoading && <p className="p-10 text-center">Loading...</p>}
@@ -88,7 +96,16 @@ export default function SearchPage() {
         </div>
       )}
 
-      {from === "shop" && mappedProducts.length > 0 && <ShopGrid products={mappedProducts} />}
+      {from === "shop" && mappedProducts.length > 0 && (
+       <ShopGrid
+  products={[]} // heç nə
+  carProducts={mappedProducts} // bütün maşın məhsulları
+  from={from}
+  make={make}
+  model={model}
+  year={year}
+/>
+      )}
     </div>
   );
 }

@@ -6,12 +6,15 @@ import { FiShoppingCart } from "react-icons/fi";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
+
 import { toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { IoClose } from "react-icons/io5";
 import { easeIn, easeOut } from "framer-motion";
 import Link from "next/link"
+
 
 const Dialog = dynamic(() => import("@mui/material/Dialog"), { ssr: false });
 
@@ -30,6 +33,8 @@ const OurProductCard = ({ product }: Props) => {
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+
 
 
   useEffect(() => {
@@ -64,6 +69,42 @@ const OurProductCard = ({ product }: Props) => {
     });
   };
 
+  const handleAddToWishlist = (prod: FeaturedProduct) => {
+    const exists = wishlist.some((item) => item._id === prod._id);
+
+    if (exists) {
+      removeFromWishlist(prod._id);
+      toast.success("Product removed from wishlist.", {
+        style: {
+          borderRadius: "15px",
+          background: "#333",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#333",
+          secondary: "#fff",
+        },
+      });
+    } else {
+      addToWishlist(prod);
+      toast.success("Product added to wishlist.", {
+        style: {
+          borderRadius: "15px",
+          background: "#e51515",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#e51515",
+          secondary: "#fff",
+        },
+      });
+    }
+  };
+
   const handleOpen = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -79,7 +120,8 @@ const OurProductCard = ({ product }: Props) => {
       <div className="group border-2 border-[#21252c] rounded-[20px] w-full max-w-[320px] mx-auto overflow-hidden min-h-[550px] flex flex-col relative">
         <div className="actions text-[#363c45] absolute top-5 left-5 flex flex-col gap-3 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 z-10">
           <div className="relative">
-            <FaHeart size={21} className="cursor-pointer hover:text-[#e51515] transition peer" />
+            <FaHeart
+              onClick={() => handleAddToWishlist(product)} size={21} className="cursor-pointer hover:text-[#e51515] transition peer" />
             <div className="absolute left-7 top-1/2 -translate-y-1/2 bg-[#e51515] text-[12px] font-medium text-white px-2 py-[2px] rounded shadow-md whitespace-nowrap opacity-0 peer-hover:opacity-100 peer-hover:translate-y-1 transition-all duration-300 z-20">
               Add to Wishlist
               <div className="absolute left-0 top-1/2 -translate-y-1/2 -ml-[5px] w-0 h-0 border-y-[5px] border-r-[5px] border-y-transparent border-r-[#e51515]" />
@@ -109,31 +151,33 @@ const OurProductCard = ({ product }: Props) => {
           </div>
         </div>
 
-        <div className="featured-img group relative w-full h-[290px] flex justify-center items-center overflow-hidden rounded-2xl border-2 border-transparent hover:border-yellow-400 transition-colors duration-500 shadow-lg hover:shadow-yellow-500/40">
-          <Image
-            src={product.image}
-            alt={product.title}
-            fill
-            quality={100}
-            className="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:blur-sm group-hover:scale-105"
-          />
-          {product.hoverImage && (
+        <Link href={`/product/${product.slug}`}>
+          <div className="featured-img group relative w-full h-[290px] flex justify-center items-center overflow-hidden rounded-2xl border-2 border-transparent hover:border-yellow-400 transition-colors duration-500 shadow-lg hover:shadow-yellow-500/40">
             <Image
-              src={product.hoverImage}
-              alt={product.title + " Hover"}
+              src={product.image}
+              alt={product.title}
               fill
               quality={100}
-              className="object-cover w-full h-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-8 transition-all duration-700 ease-in-out"
-              style={{ transformOrigin: "left center" }}
+              className="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:blur-sm group-hover:scale-105"
             />
-          )}
+            {product.hoverImage && (
+              <Image
+                src={product.hoverImage}
+                alt={product.title + " Hover"}
+                fill
+                quality={100}
+                className="object-cover w-full h-full absolute top-0 left-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-8 transition-all duration-700 ease-in-out"
+                style={{ transformOrigin: "left center" }}
+              />
+            )}
 
-          {product.discountBtn && (
-            <span className="absolute top-3 right-3 bg-red-600 text-white text-xs px-3 py-1 rounded-full font-semibold z-10 shadow-md">
-              {product.discountBtn}
-            </span>
-          )}
-        </div>
+            {product.discountBtn && (
+              <span className="absolute top-3 right-3 bg-red-600 text-white text-xs px-3 py-1 rounded-full font-semibold z-10 shadow-md">
+                {product.discountBtn}
+              </span>
+            )}
+          </div>
+        </Link>
 
         <div className="featured-content py-5 p-4">
           <div className="stars border-b border-[#2a2c32] pb-4 flex items-center">

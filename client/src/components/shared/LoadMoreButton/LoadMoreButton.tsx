@@ -3,37 +3,24 @@
 import { FiLoader } from "react-icons/fi";
 import { motion } from "framer-motion";
 
-interface LoadMoreButtonProps {
+type LoadMoreButtonProps = {
   total: number;
   visibleCount: number;
-  setVisibleCount: (fn: (prev: number) => number) => void;
+  onLoadMore: () => void; 
   loading: boolean;
-  setLoading: (value: boolean) => void;
-  step?: number;
-}
+};
 
 export default function LoadMoreButton({
   total,
   visibleCount,
-  setVisibleCount,
+  onLoadMore,
   loading,
-  setLoading,
-  step = 6,
 }: LoadMoreButtonProps) {
-  const handleClick = () => {
-    setLoading(true);
-
-    setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + step, total));
-      setLoading(false);
-    }, 800); 
-  };
-
   if (visibleCount >= total) return null;
 
   return (
     <button
-      onClick={handleClick}
+      onClick={onLoadMore}
       disabled={loading}
       className="px-6 py-3 flex items-center gap-2 rounded-[25px] text-[12px] font-medium uppercase primary-font bg-[#efefef] hover:bg-[#e51515] text-[#6c6f7a] hover:text-white transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
     >

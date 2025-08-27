@@ -8,14 +8,14 @@ const Detailcrumb = ({ title }: { title: string }) => {
         className="text-sm text-gray-500 mb-4"
         aria-label="Breadcrumb"
       >
-        <ol className="list-reset flex flex-wrap justify-center text-center">
+        <ol className="list-reset gap-3 flex flex-wrap justify-center text-center">
           <li className="flex flex-wrap gap-2 sm:gap-4 text-white font-medium text-[16px] items-center justify-center">
             <Link className="hover:text-[#e51515]" href="/">
               Home
             </Link>
           </li>
-          <li>/</li>
-          <li className="font-medium text-[16px]">{title}</li>
+          <li className='text-[#fff]'>/</li>
+          <li className="font-medium text-[16px] text-[#fff]">{title}</li>
         </ol>
       </nav>
 

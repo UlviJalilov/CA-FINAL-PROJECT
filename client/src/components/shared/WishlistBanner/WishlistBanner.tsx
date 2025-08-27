@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from "next/image"
-import Cartcrumb from '../Cartcrumb/Cartcrumb'
 import Navbar from '../Navbar/Navbar'
+import WishlistCrumb from './WishlistCrumb'
 
 
 const WishlistBanner = () => {
@@ -10,7 +10,7 @@ const WishlistBanner = () => {
             <div>
                 <div className="relative w-full h-[500px]">
                     <Image
-                        src="https://aero-theme.myshopify.com/cdn/shop/t/39/assets/collection_top.jpg?v=117586586586651228491725589094"
+                        src="https://aero-theme.myshopify.com/cdn/shop/files/slider2-aero2-1920x933_1920x846.progressive.jpg?v=1613507125"
                         alt="Register Banner Img"
                         layout="fill"
                         objectFit="cover"
@@ -19,8 +19,7 @@ const WishlistBanner = () => {
                     />
                     <div className='absolute inset-0 flex justify-center flex-col gap-5 items-center'>
                         <h1 className='text-white text-center text-5xl font-medium primary-font'>WISHLIST</h1>
-                        <Cartcrumb />
-
+                       <WishlistCrumb />
                     </div>
 
                 </div>

@@ -25,7 +25,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-5 gap-8 border-b py-25 border-[#1f2126]">
 
-         
+
           <div className="md:col-span-2 flex flex-col gap-10 items-start justify-start">
             <div className="logo w-[70px]">
               <Image
@@ -166,12 +166,103 @@ export default function Footer() {
               Copyright © 2024 <span className="text-[#e51515]">MassTechnologist.Com</span>. All Rights Reserved.
             </p>
             <div className="flex gap-4 text-[#5a6069] text-base mt-4 md:mt-0">
-              <FaFacebookF className="hover:text-white transition" />
-              <FaTwitter className="hover:text-white transition" />
-              <FaPinterestP className="hover:text-white transition" />
-              <FaInstagram className="hover:text-white transition" />
-              <FaGooglePlusG className="hover:text-white transition" />
+              <div className="relative group">
+                <a
+                  href="https://www.facebook.com/shopify"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition cursor-pointer"
+                >
+                  <FaFacebookF />
+                </a>
+                <span
+                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 px-2 py-1 
+    text-white bg-red-600 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap
+    before:content-[''] before:absolute before:-top-2 before:left-1/2 before:-translate-x-1/2 
+    before:border-4 before:border-transparent before:border-b-red-600"
+                >
+                  Aero - Car Accessories Shopify <br /> Theme OS 2.0 on Facebook
+                </span>
+              </div>
+
+              <div className="relative group">
+                <a
+                  href="https://x.com/shopify"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition cursor-pointer"
+                >
+                  <FaTwitter />
+                </a>
+                <span
+                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 px-2 py-1 
+    text-white bg-red-600 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap
+    before:content-[''] before:absolute before:-top-2 before:left-1/2 before:-translate-x-1/2 
+    before:border-4 before:border-transparent before:border-b-red-600"
+                >
+                  Aero - Car Accessories Shopify <br /> Theme OS 2.0 on Facebook
+                </span>
+              </div>
+
+              <div className="relative group">
+                <a
+                  href="https://www.pinterest.com/shopify/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition cursor-pointer"
+                >
+                  <FaPinterestP />
+                </a>
+                <span
+                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 px-2 py-1 
+    text-white bg-red-600 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap
+    before:content-[''] before:absolute before:-top-2 before:left-1/2 before:-translate-x-1/2 
+    before:border-4 before:border-transparent before:border-b-red-600"
+                >
+                  Aero - Car Accessories Shopify <br /> Theme OS 2.0 on Facebook
+                </span>
+              </div>
+
+              <div className="relative group">
+                <a
+                  href="https://www.instagram.com/shopify/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition cursor-pointer"
+                >
+                  <FaInstagram />
+                </a>
+                <span
+                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 px-2 py-1 
+    text-white bg-red-600 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap
+    before:content-[''] before:absolute before:-top-2 before:left-1/2 before:-translate-x-1/2 
+    before:border-4 before:border-transparent before:border-b-red-600"
+                >
+                  Aero - Car Accessories Shopify <br /> Theme OS 2.0 on Facebook
+                </span>
+              </div>
+
+               <div className="relative group">
+                <a
+                  href="https://workspaceupdates.googleblog.com/2023/04/new-community-features-for-google-chat-and-an-update-currents%20.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition cursor-pointer"
+                >
+                  <FaGooglePlusG />
+                </a>
+                <span
+                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 px-2 py-1 
+    text-white bg-red-600 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap
+    before:content-[''] before:absolute before:-top-2 before:left-1/2 before:-translate-x-1/2 
+    before:border-4 before:border-transparent before:border-b-red-600"
+                >
+                  Aero - Car Accessories Shopify <br /> Theme OS 2.0 on Facebook
+                </span>
+              </div>
+
             </div>
+
           </div>
 
           <div className="overflow-hidden w-[300px] mt-4 md:mt-0">

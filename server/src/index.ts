@@ -13,6 +13,7 @@ import paymentRouter from "./routes/payment";
 import webhookRoute from "./routes/webhook";
 import orderRoute from "./routes/orderRoutes"
 import detailProduct from "./routes/detailproducts"
+import reviews from "./routes/reviews"
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use("/api/featured-products", featuredProductRoutes);
 app.use("/api/payment", paymentRouter);
 app.use("/api/orders", orderRoute);
 app.use("/api/detailproducts", detailProduct)
+app.use("/api/reviews", reviews)
 
 app.get("/", (_, res) => {
   res.send("Backend server is running!");

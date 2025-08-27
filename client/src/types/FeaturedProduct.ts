@@ -12,4 +12,11 @@ export interface FeaturedProduct {
   hoverImage?: string;
   isFeatured: boolean;
   gallery?: string[];
+  category?: string;
+  inStock: boolean;
+  make?: string;
+  carModel?: string;
+  year?: string | number;
+  type: string;
+
 }

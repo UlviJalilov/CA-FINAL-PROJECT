@@ -6,7 +6,6 @@ import { FeaturedProduct } from "@/types/FeaturedProduct";
 
 
 
-
 export default async function ShopPage() {
     const res = await fetch("http://localhost:3001/api/featured-products", {
         cache: "no-store",
@@ -25,6 +24,7 @@ export default async function ShopPage() {
             <ShopBanner />
             <CategorySection images={images} />
             <ShopGrid products={products} carProducts={carProducts} />
+            
         </div>
     );
 }

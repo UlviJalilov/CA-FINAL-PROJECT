@@ -1,13 +1,25 @@
 "use client";
 import { IoIosStarOutline } from "react-icons/io";
-import { SlidersHorizontal } from "lucide-react"
+import ReviewModal from "../ReviewModal/ReviewModal";
+import Image from "next/image"
+import React, { useState, useEffect } from "react";
+import { MdOutlineDateRange } from "react-icons/md";
 
-import React, { useState } from "react";
 
 type Tab = {
     id: string;
     label: string;
 };
+
+interface ReviewData {
+    firstName: string;
+    lastName: string;
+    image: string | null;
+    stars: number;
+    experience: string;
+    createdAt?: string;
+
+}
 
 const tabs: Tab[] = [
     { id: "description", label: "DESCRIPTION" },
@@ -18,6 +30,14 @@ const tabs: Tab[] = [
 
 export default function TabComponent() {
     const [activeTab, setActiveTab] = useState<string>("description");
+    const [reviewData, setReviewData] = useState<ReviewData[]>([]);
+    useEffect(() => {
+        fetch("http://localhost:3001/api/reviews")
+            .then(res => res.json())
+            .then(data => setReviewData(data))
+            .catch(err => console.error(err));
+    }, []);
+
 
     return (
         <div className="container pt-12 mx-auto px-10">
@@ -98,32 +118,81 @@ export default function TabComponent() {
                 )}
 
                 {activeTab === "reviews" && (
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        {/* Ulduzlar */}
-                        <div className="flex text-[25px] text-[#EBBF20] items-center justify-center sm:justify-start">
-                            <IoIosStarOutline />
-                            <IoIosStarOutline />
-                            <IoIosStarOutline />
-                            <IoIosStarOutline />
-                            <IoIosStarOutline />
-                        </div>
+                    <div className="flex flex-col gap-4">
+                        {reviewData.length > 0 ? (
+                            <>
+                                {reviewData.map((review, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="flex flex-col sm:flex-row items-center gap-4 p-5 border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
+                                    >
 
-                     
-                        <div>
-                            <h2 className="pt-2 sm:pt-10 text-[#181b23] text-[17px] secondary-font font-medium text-center sm:text-left">
-                                Be the first to <span className="border-b">write a review</span>
-                            </h2>
-                        </div>
-                        <div className="flex items-center gap-2  justify-center">
-                            <button className="border border-[#ccc] h-[40px] secondary-font text-[17px] px-4 py-2">
-                                Write a review
-                            </button>
-                            <button className="border border-[#ccc] h-[40px] px-2 py-1">
-                                <SlidersHorizontal size={20} />
-                            </button>
-                        </div>
+                                        <div className="w-18 h-18 rounded-full overflow-hidden border border-gray-300 shadow-sm">
+                                            <Image
+                                                src={review.image || "/placeholder.png"}
+                                                alt="User"
+                                                className="w-full h-full object-cover object-center"
+                                                width={70}
+                                                height={70}
+                                                quality={100}
+                                            />
+                                        </div>
+
+
+                                        <div className="flex-1">
+                                            <p className="font-semibold text-lg text-gray-800">
+                                                {review.firstName} {review.lastName}
+                                            </p>
+                                            <p className="text-yellow-400 text-lg mt-1">
+                                                {"⭐".repeat(review.stars)}
+                                            </p>
+                                            <p className="mt-2 text-gray-700 leading-relaxed">
+                                                {review.experience}
+                                            </p>
+                                            <p className="text-sm mt-1 flex items-center gap-2 text-gray-500">
+                                                <MdOutlineDateRange size={16} />
+
+                                                {review.createdAt ? new Date(review.createdAt).toLocaleString() : "No date"}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+
+
+                                <div className="flex items-center gap-2 justify-center mt-4">
+                                    <ReviewModal
+                                        setReviewData={(newReview) =>
+                                            setReviewData((prev) => [...prev, newReview])
+                                        }
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div className="flex text-[25px] text-[#EBBF20] items-center justify-center sm:justify-start">
+                                    <IoIosStarOutline />
+                                    <IoIosStarOutline />
+                                    <IoIosStarOutline />
+                                    <IoIosStarOutline />
+                                    <IoIosStarOutline />
+                                </div>
+
+                                <div>
+                                    <h2 className="pt-2 sm:pt-10 text-[#181b23] text-[17px] secondary-font font-medium text-center sm:text-left">
+                                        Be the first to <span className="border-b">write a review</span>
+                                    </h2>
+                                </div>
+
+                                <div className="flex items-center gap-2 justify-center">
+                                    <ReviewModal
+                                        setReviewData={(newReview) =>
+                                            setReviewData((prev) => [...prev, newReview])
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
-
                 )}
 
                 {activeTab === "text" && (

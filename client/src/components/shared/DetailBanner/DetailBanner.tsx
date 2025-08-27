@@ -13,7 +13,7 @@ const DetailBanner = ({ title }: DetailBannerProps) => {
       <div>
         <div className="relative w-full h-[500px]">
           <Image
-            src="https://aero-theme.myshopify.com/cdn/shop/t/39/assets/collection_top.jpg?v=117586586586651228491725589094"
+            src="https://aero-theme.myshopify.com/cdn/shop/files/slider3-aero4-1920x943_1920x846.progressive.jpg?v=1613507330"
             alt="Register Banner Img"
             layout="fill"
             objectFit="cover"

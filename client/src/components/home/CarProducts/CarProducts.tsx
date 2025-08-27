@@ -30,6 +30,9 @@ export function CarProducts({ product }: { product: Product }) {
     });
   };
 
+  const formattedPrice = '$' + product.price.toLocaleString('de-DE', { minimumFractionDigits: 0 });
+
+
   const renderStars = () => {
     const stars = [];
     const rating = product.rating ?? 0;
@@ -148,7 +151,7 @@ export function CarProducts({ product }: { product: Product }) {
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            ${product.price.toFixed(2)}
+            {formattedPrice}
           </motion.p>
         </div>
 
