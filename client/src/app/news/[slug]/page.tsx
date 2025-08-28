@@ -1,3 +1,5 @@
+
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { articles } from "@/data/articles";
@@ -30,7 +32,9 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
 
     return (
         <div>
-          <NewsBanner title={article.title} />
+        
+        
+            <NewsBanner title={article.title} />
 
             <div className="bg-white py-20">
                 <div className="max-w-[1200px] mx-auto py-8 grid grid-cols-1 lg:grid-cols-12 gap-28">
@@ -60,8 +64,63 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                                     </p>
                                 </div>
                             </div>
+
                         </div>
+
+                        <div className="border-b border-gray-200 pb-20 mt-5">
+                            <h3 className="text-[22px] text-[#181b23] primary-font font-medium uppercase mb-8">Leave a Comment</h3>
+                            <p className="text-sm text-gray-500 mb-10">Your email address will not be published.</p>
+
+                            <form className="space-y-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
+                                        <input
+                                            type="text"
+                                            className="w-full border outline-none border-gray-300 p-3 text-sm rounded-md focus:outline-none "
+                                            placeholder="Your Name"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">Email address *</label>
+                                        <input
+                                            type="email"
+                                            className="w-full border border-gray-300 p-3 text-sm rounded-md focus:outline-none "
+                                            placeholder="Email address"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                    <textarea
+                                        rows={6}
+                                        className="w-full border border-gray-300 p-3 text-sm rounded-md focus:outline-none "
+                                        placeholder="Message"
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <div>
+                                    <button
+                                        type="submit"
+                                        className="bg-black text-white tracking-wide text-sm primary-font font-medium px-6 py-3 rounded-md hover:bg-gray-800 transition"
+                                    >
+                                        Post Comment
+                                    </button>
+                                </div>
+
+                                <p className="text-sm text-gray-500 mt-4">
+                                    Please note, comments must be approved before they are published.
+                                </p>
+                            </form>
+                        </div>
+
                     </div>
+
 
 
 

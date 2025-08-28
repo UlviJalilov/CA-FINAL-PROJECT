@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import NewsBanner from '@/components/shared/NewsCrumb/banner'
 import Image from "next/image"
@@ -5,6 +7,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
 import Link from 'next/link';
 import { articles } from "@/data/articles";
+
 
 
 
