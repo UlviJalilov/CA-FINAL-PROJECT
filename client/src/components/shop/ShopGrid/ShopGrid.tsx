@@ -115,7 +115,7 @@ export default function ShopGrid({ products,
             return product.category === category;
           });
 
-      // ✅ BURANI DƏYİŞDİK
+     
       if (isCar && (selectedCategories.length === 0 || selectedCategories.includes("Cars"))) {
         return categoryMatch;
       }
