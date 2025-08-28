@@ -42,16 +42,18 @@ export default function BannerSlider() {
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         >
           {sliderImages.map((src, index) => {
-            const { initial, animate,  } = animationVariants[index] || animationVariants[0];
+            const { initial, animate, } = animationVariants[index] || animationVariants[0];
 
             return (
               <SwiperSlide key={index}>
                 <motion.div
-                  key={activeIndex + '-' + index} 
+                  key={activeIndex + '-' + index}
                   initial={initial}
                   animate={animate}
+                  transition={{
+                    duration: 5, ease: "easeInOut",
+                  }}
                   
-                  transition={{ duration: 5, ease: "easeInOut" }} 
                   className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]"
                 >
                   <Image

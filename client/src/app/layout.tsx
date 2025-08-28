@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
   const pathname = usePathname();
 
-  const hideFooter = pathname.startsWith("/admin/dashboard");
+  const hideFooter = pathname.startsWith("/admin/dashboard") || pathname.startsWith("/checkout");
 
   return (
     <html lang="en">

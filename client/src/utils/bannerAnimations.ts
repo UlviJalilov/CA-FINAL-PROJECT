@@ -16,17 +16,17 @@ export const bannerAnimations = [
       opacity: 0.2,
     },
     animate: {
-      x: [-1200, -800, -400, -150, -50, 0, -10, 0],
-      y: [0, 10, -8, 5, -3, 0], 
-      rotate: [-50, -35, -20, -5, 0, 5, -3, 0], 
-      scale: [0.9, 0.96, 1.02, 1, 1.01, 1],
-      opacity: [0.2, 0.5, 0.7, 0.9, 1],
-      transition: {
-        duration: 2.0,
-        ease: [0.65, 0, 0.35, 1],
-      },
+      x: [-1200, -600, -100, 0, 10, 0],
+      y: [0, -20, 5, 0, -5, 0],
+      rotate: [-45, -10, 5, 0, -2, 0],
+      scale: [0.8, 1.05, 1, 1.02, 1, 1],
+      opacity: [0, 0.5, 0.8, 1, 1, 1],
     },
-   
+    transition: {
+      duration: 5,
+      ease: [0.65, 0, 0.35, 1],
+    },
+
     whileHover: {
       rotate: [-2, 2, -1, 1, 0],
       transition: { duration: 0.6, repeat: Infinity, repeatType: "loop" },

@@ -20,10 +20,7 @@ const Page = () => {
   const [shipping, setShipping] = useState(0);
   const [selectedShippingMethod, setSelectedShippingMethod] = useState("");
 
-
   const total = subtotal + shipping;
-
-
 
 
   const formik = useFormik({
@@ -94,7 +91,7 @@ const Page = () => {
       try {
         console.log("Fetching:", `${process.env.NEXT_PUBLIC_API_URL}/payment`);
 
-       const response =  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -364,11 +361,27 @@ const Page = () => {
               </p>
               <button
                 type="submit"
-                className="w-full mt-4 primary-font tracking-wide hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 bg-[#e51515] text-white py-3"
+                className="w-full mt-4 mb-10 primary-font tracking-wide hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300 bg-[#e51515] text-white py-3"
 
               >
                 Pay Now
               </button>
+
+              <div className="border-t border-gray-200 pt-4 flex flex-wrap gap-6 text-sm text-blue-600">
+                <a href="#" className="hover:underline">
+                  Refund policy
+                </a>
+                <a href="#" className="hover:underline">
+                  Privacy policy
+                </a>
+                <a href="#" className="hover:underline">
+                  Terms of service
+                </a>
+                <a href="#" className="hover:underline">
+                  Cancellations
+                </a>
+              </div>
+
             </section>
 
           </div>
