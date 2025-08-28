@@ -17,7 +17,7 @@ export const articles = [
         id: 2,
         title: "Claritas Est Etiam Processus Dynamicus.",
         slug: "claritas-est-etiam-processus-dynamicus",
-        image: "https://aero-theme.myshopify.com/cdn/shop/articles/post1-270x334_b462aee1-714d-4ba8-866a-acba7f09ca18.jpg?v=1629927100",
+        image: "https://aero-theme.myshopify.com/cdn/shop/files/12264.jpg?v=1744762352",
         date: "24/02/2018",
         author: "Aero-Theme Admin",
         excerpt: "Lorem ipsum dolor sit amet. Integer adipiscing erat llentesque s sollicitudin pellentesque et non erat. Lorem ipsum dolor sit amet. Integer adipiscing erat eget risus Lorem ipsum dolor. Lorem ipsum",
