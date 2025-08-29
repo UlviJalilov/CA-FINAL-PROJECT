@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from "next/link"
 
-const Cartcrumb = () => {
+const GalleryCrumb = () => {
     return (
         <div>
             <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
@@ -11,8 +11,8 @@ const Cartcrumb = () => {
                             Home
                         </Link>
                         <span>/</span>
-                        <Link href="/cart">
-                            Your Shopping Cart
+                        <Link href="/gallery">
+                            Gallery
                         </Link>
                     </li>
 
@@ -22,4 +22,4 @@ const Cartcrumb = () => {
     )
 }
 
-export default Cartcrumb
+export default GalleryCrumb
