@@ -22,11 +22,8 @@ import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
-
   const pathname = usePathname();
-
   const isHome = pathname === "/";
-
 
   const { data: featuredProducts = [] } = useFeaturedProducts();
 
@@ -34,14 +31,14 @@ export default function Navbar() {
   const firstFourFeatured = featuredProducts.slice(0, 4);
 
   const router = useRouter();
-  const { cartItems, removeFromCart  } = useCart();
+  const { cartItems, removeFromCart } = useCart();
   console.log("Cart Items in Navbar:", cartItems);
 
   const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
   const handleSearch = () => {
     if (searchValue.trim()) {
-      router.push(`/search?title=${encodeURIComponent(searchValue.trim())}`);
+      router.push(`/search?title=${encodeURIComponent(searchValue.trim())}&from=home`);
     }
   };
 
@@ -80,7 +77,7 @@ export default function Navbar() {
   };
 
   const handleRemove = (id: string) => {
-    removeFromCart(id); 
+    removeFromCart(id);
   };
 
   return (
@@ -418,11 +415,12 @@ export default function Navbar() {
                           <div className="flex-1">
                             <h4 className="text-black text-sm font-medium">{item.title}</h4>
                             <p className="text-[#e51515] font-bold text-sm">
-                              {item.quantity} × ${item.price.toFixed(2)}
+                              {item.quantity} × ${item.price.toLocaleString('de-DE', { minimumFractionDigits: 0 })}
+
                             </p>
                           </div>
 
-                         
+
                           <button
                             onClick={() => handleRemove(item.id)}
                             className="absolute bottom-3 right-0 text-gray-500 hover:text-red-600 text-sm p-1"
@@ -438,7 +436,7 @@ export default function Navbar() {
                           $
                           {cartItems
                             .reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)
-                            .toFixed(2)}
+                            .toLocaleString('de-DE', { minimumFractionDigits: 0 })}
                         </span>
                       </div>
                       <div className="mt-4 bg-[#22232b] flex justify-center items-center p-10 -m-5 ">

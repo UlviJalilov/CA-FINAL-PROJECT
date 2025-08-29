@@ -72,8 +72,9 @@ export default function SearchPage() {
     oldPrice: 0,
     discountBtn: "",
     inStock: true,
-    make: p.make,          
-    carModel: p.carModel,  
+    make: p.make,
+    carModel: p.carModel,
+    type: "someDefaultValue",
   }));
 
 
@@ -89,7 +90,9 @@ export default function SearchPage() {
       {error && <p className="p-10 text-center text-red-500">{error.message}</p>}
 
       {from === "home" && products.length > 0 && (
+        
         <div className="grid grid-cols-1 py-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-10 xl:grid-cols-4 gap-5">
+          
           {products.map((p) => (
             <CarProducts key={p._id} product={p} />
           ))}
@@ -97,14 +100,14 @@ export default function SearchPage() {
       )}
 
       {from === "shop" && mappedProducts.length > 0 && (
-       <ShopGrid
-  products={[]} // heç nə
-  carProducts={mappedProducts} // bütün maşın məhsulları
-  from={from}
-  make={make}
-  model={model}
-  year={year}
-/>
+        <ShopGrid
+          products={[]}
+          carProducts={mappedProducts}
+          from={from}
+          make={make}
+          model={model}
+          year={year}
+        />
       )}
     </div>
   );

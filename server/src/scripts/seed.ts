@@ -8,8 +8,6 @@ dotenv.config();
 const seedProducts = async () => {
   try {
     await connectDB();
-
-  
     await CarProduct.deleteMany({});
     console.log("Old products deleted");
 

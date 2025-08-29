@@ -55,9 +55,11 @@ const CartItemRow = ({ item }: Props) => {
           </button>
         </div>
       </td>
-      <td className="p-3 border text-[#5a6069] border-[#ccc]">${item.price.toFixed(2)}</td>
+      <td className="p-3 border text-[#5a6069] border-[#ccc]">${item.price.toLocaleString('de-DE', { minimumFractionDigits: 0 })}
+      </td>
       <td className="p-3 border text-[#5a6069] border-[#ccc]">
-        ${(item.price * (item.quantity ?? 1)).toFixed(2)}
+        ${(item.price * (item.quantity ?? 1)).toLocaleString('de-DE', { minimumFractionDigits: 0 })}
+
       </td>
     </tr>
   );

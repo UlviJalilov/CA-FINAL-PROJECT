@@ -5,6 +5,8 @@ import { IoStar, IoStarOutline } from "react-icons/io5";
 import { useCart } from "@/context/CartContext";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+
 
 interface Product {
   _id: string;
@@ -21,12 +23,26 @@ export function CarProducts({ product }: { product: Product }) {
 
 
   const handleAddToCart = () => {
-    console.log("Adding product to cart:", product);
     addToCart({
       id: product._id,
       title: product.title,
       image: product.image,
       price: product.price,
+      
+    });
+
+    toast.success("Congratulations! Your item has been added.", {
+      style: {
+        borderRadius: "15px",
+        background: "#e51515",
+        color: "#fff",
+        fontSize: "15px",
+        padding: "15px 16px",
+      },
+      iconTheme: {
+        primary: "#e51515",
+        secondary: "#fff",
+      },
     });
   };
 

@@ -10,6 +10,8 @@ import {
   updateFeaturedProduct,
   deleteFeaturedProduct,
 } from "@/admin/featuredProducts/service/featuredProductService";
+import { toast } from "react-hot-toast";
+
 
 const FeaturedAdminPanel = () => {
   const [editingProduct, setEditingProduct] = useState<FeaturedProduct | null>(null);
@@ -24,10 +26,36 @@ const FeaturedAdminPanel = () => {
     try {
       await deleteFeaturedProduct(id);
       await refetch();
-      alert("Product successfully deleted");
+
+      toast.success("Product successfully deleted", {
+        style: {
+          borderRadius: "15px",
+          background: "#e51515",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#e51515",
+          secondary: "#fff",
+        },
+      });
     } catch (error) {
       console.error("Error while deleting:", error);
-      alert("An error occurred during deletion");
+
+      toast.error("An error occurred during deletion", {
+        style: {
+          borderRadius: "15px",
+          background: "#e51515",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#e51515",
+          secondary: "#fff",
+        },
+      });
     }
   };
 
@@ -50,6 +78,9 @@ const FeaturedAdminPanel = () => {
         hoverImage: newOrUpdatedProduct.hoverImage || "",
         rating: newOrUpdatedProduct.rating || 0,
         isFeatured: newOrUpdatedProduct.isFeatured ?? false,
+        slug: newOrUpdatedProduct.title.trim().toLowerCase().replace(/\s+/g, "-"),
+        inStock: true,
+        type: "featured",
       };
 
       if (editingProduct?._id) {
@@ -62,12 +93,38 @@ const FeaturedAdminPanel = () => {
 
       await refetch();
       setShowProductForm(false);
-      alert("Featured product saved successfully");
+
+      toast.success("Featured product saved successfully!", {
+        style: {
+          borderRadius: "15px",
+          background: "#e51515",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#e51515",
+          secondary: "#fff",
+        },
+      });
     } catch (err) {
       console.error("Create/Update error:", err);
-      alert("An error occurred");
+      toast.error(" An error occurred while saving the product.", {
+        style: {
+          borderRadius: "15px",
+          background: "#e51515",
+          color: "#fff",
+          fontSize: "15px",
+          padding: "15px 16px",
+        },
+        iconTheme: {
+          primary: "#e51515",
+          secondary: "#fff",
+        },
+      });
     }
   };
+
 
   if (isLoading) return <p>Loading featured products...</p>;
   if (isError) return <p>Error loading featured products.</p>;

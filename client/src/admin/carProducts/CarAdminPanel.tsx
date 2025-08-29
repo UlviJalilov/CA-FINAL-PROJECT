@@ -9,6 +9,8 @@ import {
     createCarProduct,
     updateCarProduct,
 } from "../carProducts/service/carProductService";
+import { toast } from "react-hot-toast";
+
 
 const CarAdminPanel = () => {
     const [editingProduct, setEditingProduct] = useState<CarProduct | null>(null);
@@ -60,10 +62,37 @@ const CarAdminPanel = () => {
 
             await refetch();
             setShowProductForm(false);
-            alert("Car Product saved successfully");
+
+            toast.success("Car product saved successfully", {
+                style: {
+                    borderRadius: "15px",
+                    background: "#e51515",
+                    color: "#fff",
+                    fontSize: "15px",
+                    padding: "15px 16px",
+                },
+                iconTheme: {
+                    primary: "#e51515",
+                    secondary: "#fff",
+                },
+            });
+
         } catch (err) {
             console.error("Create/Update error:", err);
-            alert("An error occurred");
+
+            toast.error("An error occurred while saving the car product", {
+                style: {
+                    borderRadius: "15px",
+                    background: "#e51515",
+                    color: "#fff",
+                    fontSize: "15px",
+                    padding: "15px 16px",
+                },
+                iconTheme: {
+                    primary: "#e51515",
+                    secondary: "#fff",
+                },
+            });
         }
     };
 

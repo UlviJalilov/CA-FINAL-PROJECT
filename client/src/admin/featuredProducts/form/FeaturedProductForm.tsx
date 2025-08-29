@@ -123,7 +123,11 @@ const FeaturedProductFormModal: React.FC<ProductFormModalProps> = ({
         discountBtn: formData.discountBtn,
         hoverImage: formData.hoverImage,
         discountPercent: formData.discountPercent ? Number(formData.discountPercent) : undefined,
+        slug: formData.title.trim().toLowerCase().replace(/\s+/g, "-"),
+        inStock: true,
+        type: "featured",
       };
+
 
       await onSubmit(newProductData);
 

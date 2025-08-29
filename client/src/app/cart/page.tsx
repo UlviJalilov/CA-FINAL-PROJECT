@@ -189,7 +189,8 @@ const CartPage = () => {
                   <td className="p-2 text-right font-semibold text-[#5a6069] border-r border-gray-300">
                     Subtotal:
                   </td>
-                  <td className="p-2 text-right text-base text-[#5a6069]">${subtotal.toFixed(2)}</td>
+                  <td className="p-2 text-right text-base text-[#5a6069]">${subtotal.toLocaleString('de-DE', { minimumFractionDigits: 0 })}
+                  </td>
                 </tr>
 
                 <tr className="border-b border-gray-300">
@@ -233,7 +234,7 @@ const CartPage = () => {
         </div>
       )}
 
-       <ScrollToTopButton />
+      <ScrollToTopButton />
     </div>
   );
 };
