@@ -9,7 +9,7 @@ const page = () => {
       <div>
         <div className="related-products-header px-20 py-15 pb-3">
          
-            <h2 className="primary-font text-xl font-bold">
+            <h2 className="primary-font text-[#181b23] text-xl font-bold">
               OUR TEAM
             </h2>
          
