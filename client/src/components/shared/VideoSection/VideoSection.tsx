@@ -14,7 +14,6 @@ export default function VideoSection() {
                 className="object-cover"
                 quality={100}
             />
-
          
             <button
                 onClick={() => setOpen(true)}
