@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from "next/link"
 
-const Cartcrumb = () => {
+const ServicesBreadcrumb = () => {
     return (
         <div>
             <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
@@ -12,7 +12,7 @@ const Cartcrumb = () => {
                         </Link>
                         <span>/</span>
                         <Link href="/cart">
-                         Services
+                            Your Shopping Cart
                         </Link>
                     </li>
 
@@ -22,4 +22,4 @@ const Cartcrumb = () => {
     )
 }
 
-export default Cartcrumb
+export default ServicesBreadcrumb
