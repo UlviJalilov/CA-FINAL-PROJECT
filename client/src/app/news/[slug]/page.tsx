@@ -37,10 +37,10 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
             <div className="bg-white py-10 sm:py-16 lg:py-20">
                 <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-28">
 
-                    {/* MAIN CONTENT */}
+                   
                     <div className="lg:col-span-8 flex flex-col gap-11">
 
-                        {/* ARTICLE */}
+                      
                         <div className="flex flex-col sm:flex-row gap-6 border-b border-gray-200 pb-10 sm:pb-20">
                             <div className="flex-shrink-0 w-full sm:w-[220px] md:w-[270px] h-[250px] sm:h-[300px] md:h-[330px] relative">
                                 <Image
@@ -67,7 +67,7 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                             </div>
                         </div>
 
-                        {/* COMMENT FORM */}
+                      
                         <div className="border-b border-gray-200 pb-10 sm:pb-20 mt-5">
                             <h3 className="text-[20px] sm:text-[22px] text-[#181b23] primary-font font-medium uppercase mb-6">
                                 Leave a Comment
@@ -131,10 +131,10 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                         </div>
                     </div>
 
-                    {/* SIDEBAR */}
+                 
                     <aside className="lg:col-span-4 flex ml-8  flex-col gap-8 mt-10 lg:mt-0">
 
-                        {/* SEARCH */}
+                       
                         <div className="relative w-full sm:w-[280px]">
                             <input
                                 type="text"
@@ -147,7 +147,7 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                             />
                         </div>
 
-                        {/* PAGES */}
+                       
                         <div>
                             <h3 className="font-medium text-[#181b23] primary-font mb-6 text-[20px] sm:text-[22px]">
                                 Home
@@ -167,7 +167,7 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                             </ul>
                         </div>
 
-                        {/* RECENT ARTICLES */}
+                      
                         <div className="mt-5">
                             <h3 className="font-medium primary-font text-[20px] sm:text-[22px] text-[#181b23] mb-3 sm:mb-6">
                                 Recent Articles
@@ -185,7 +185,7 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
                             ))}
                         </div>
 
-                        {/* TAGS */}
+                      
                         <div className="mt-4">
                             <h3 className="font-medium primary-font text-[20px] sm:text-[22px] text-[#181b23] mb-3 sm:mb-4">
                                 Tags Cloud
