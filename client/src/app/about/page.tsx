@@ -1,4 +1,5 @@
 import AboutBanner from '@/components/shared/AboutCrumb/banner'
+import ScrollToTopButton from '@/components/shared/ScrollToTopButton/ScrollToTopButton'
 import TeamSection from '@/components/shared/TeamSection/TeamSection'
 
 const page = () => {
@@ -16,6 +17,7 @@ const page = () => {
           <p className='text-[12px] leading-tight'>A separate template for team/about us page. You can add multiple message box blocks, video blocks and team member blocks. There can be member blocks for single, two, three and four members.</p>
         </div>
         <TeamSection />
+        <ScrollToTopButton />
       </div>
     </div>
   )
