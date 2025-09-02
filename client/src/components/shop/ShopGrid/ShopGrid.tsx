@@ -86,10 +86,10 @@ export default function ShopGrid({ products,
 
       if (category === "Cars") {
         if (!isSelected) {
-          // Cars seçilirsə bütün maşınları göstər
+         
           setVisibleCarCount(carProducts.length);
         } else {
-          // Cars çıxarılanda sıfırla
+         
           setVisibleCarCount(0);
         }
       }
