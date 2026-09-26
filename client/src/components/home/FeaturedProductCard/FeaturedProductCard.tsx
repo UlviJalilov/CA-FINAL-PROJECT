@@ -220,17 +220,22 @@ const FeaturedProductCard = ({ product }: Props) => {
 
       {/* ADD TO CART BUTTON */}
       <button
-        className="group w-[300px] flex mx-auto gap-3 py-4 mb-5 rounded-[25px] justify-center items-center bg-[#21252c] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300"
+        className="cart-button group/cart relative z-20 w-[300px] cursor-pointer flex mx-auto gap-3 py-4 mb-5 rounded-[25px] justify-center items-center bg-[#21252c] hover:bg-[#e51515] hover:shadow-[0_4px_20px_rgba(229,21,21,0.6)] transition-all duration-300"
         onClick={handleAddToCart}
       >
         <motion.div
-          className="text-[#838896] group-hover:text-white"
+          className="text-[#838896] group-hover/cart:text-white"
           animate={{ y: [0, -3, 0] }}
-          transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+          transition={{
+            duration: 0.6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
         >
           <FiShoppingCart />
         </motion.div>
-        <span className="text-[#838896] primary-font group-hover:text-white text-[13px] font-medium">
+
+        <span className="text-[#838896] primary-font group-hover/cart:text-white text-[13px] font-medium">
           ADD TO CART
         </span>
       </button>
@@ -308,7 +313,7 @@ const FeaturedProductCard = ({ product }: Props) => {
                           handleAddToCart();
                           handleClose();
                         }}
-                        className="py-2 px-12 bg-[#e51515] hover:bg-[#ff1f1f] transition text-white font-semibold h-10 rounded"
+                        className="py-2 px-12 bg-[#e51515] hover:bg-[#ff1f1f] transition text-white font-semibold h-10 rounded cursor-pointer"
                       >
                         Add to Cart
                       </button>

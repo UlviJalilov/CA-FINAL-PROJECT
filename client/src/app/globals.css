@@ -122,6 +122,9 @@ body {
   transform: rotate(45deg) scale(1.2);
 }
 
+.mySwiper .swiper-wrapper{
+  transition-timing-function: linear !important;
+}
 
 .ad-banner {
   transition: all 0.3s ease;

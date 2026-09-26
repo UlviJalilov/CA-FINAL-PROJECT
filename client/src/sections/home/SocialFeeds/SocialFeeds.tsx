@@ -1,7 +1,6 @@
 'use client'
 
 
-import { FaInstagram, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from "next/image"
@@ -27,15 +26,11 @@ export default function SocialFeeds() {
                     <div className="absolute bottom-0 right-0 w-1 h-16 bg-yellow-500"></div>
 
                     <div className="flex items-center gap-3 justify-center text-yellow-400 tracking-widest font-bold uppercase primary-font mb-4">
-                        <span className="text-2xl md:text-xl animate-pulse">
-                            <FaInstagram />
-                        </span>
+                       
                         <h1 className="text-xl text-white sm:text-2xl md:text-2xl text-center w-full">
                             # AERO ON INSTAGRAM
                         </h1>
-                        <span className="text-2xl md:text-xl animate-pulse">
-                            <FaInstagram />
-                        </span>
+                        
                     </div>
 
                     <div className="max-w-2xl mx-auto text-center">
@@ -45,10 +40,7 @@ export default function SocialFeeds() {
                     </div>
 
                     <div className="flex justify-center gap-6 mt-6 text-yellow-400 text-xl">
-                        <FaFacebookF title="Facebook" className="hover:scale-110 transition cursor-pointer" />
-                        <FaTwitter title="Twitter" className="hover:scale-110 transition cursor-pointer" />
-                        <FaYoutube title="YouTube" className="hover:scale-110 transition cursor-pointer" />
-                        <FaInstagram title="Instagram" className="hover:scale-110 transition cursor-pointer" />
+                      
                     </div>
                 </div>
             </div>

@@ -1,3 +1,5 @@
+import dns from "node:dns";
+
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -14,6 +16,8 @@ import webhookRoute from "./routes/webhook";
 import orderRoute from "./routes/orderRoutes"
 import detailProduct from "./routes/detailproducts"
 import reviews from "./routes/reviews"
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 dotenv.config();
 

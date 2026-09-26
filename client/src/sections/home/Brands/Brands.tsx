@@ -1,10 +1,8 @@
 "use client"
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FaCheckCircle, FaHandshake, FaUserShield, FaStar } from "react-icons/fa";
-
 import Image from 'next/image';
-import { Navigation, Pagination, } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import 'swiper/css';
 import "swiper/css/navigation";
@@ -23,15 +21,11 @@ export default function Brands() {
                     <div className="absolute bottom-0 right-0 w-1 h-16 bg-yellow-500"></div>
 
                     <div className="flex items-center gap-3 justify-center text-yellow-400 tracking-widest font-bold uppercase primary-font mb-4">
-                        <span className="text-2xl md:text-xl animate-pulse">
-                            <FaCheckCircle />
-                        </span>
+
                         <h1 className="text-xl text-white sm:text-2xl md:text-2xl text-center w-full">
                             LOGO BRANDS & CLIENTS
                         </h1>
-                        <span className="text-2xl md:text-xl animate-pulse">
-                            <FaCheckCircle />
-                        </span>
+
                     </div>
 
                     <div className="max-w-2xl mx-auto text-center">
@@ -40,12 +34,7 @@ export default function Brands() {
                         </p>
                     </div>
 
-                    <div className="flex justify-center gap-6 mt-6 text-yellow-400 text-xl">
-                        <FaHandshake title="Partnership" className="hover:scale-110 transition cursor-pointer" />
-                        <FaUserShield title="Security" className="hover:scale-110 transition cursor-pointer" />
-                        <FaStar title="Featured" className="hover:scale-110 transition cursor-pointer" />
-                        <FaCheckCircle title="Verified" className="hover:scale-110 transition cursor-pointer" />
-                    </div>
+
                 </div>
             </div>
             <div className="container mx-auto px-4">
@@ -53,9 +42,13 @@ export default function Brands() {
                     slidesPerView={5}
                     spaceBetween={20}
                     navigation={true}
-                    modules={[Pagination, Navigation]}
+                    modules={[Pagination, Navigation, Autoplay]}
                     className="mySwiper"
                     loop={true}
+                    autoplay={{
+                        delay: 0,
+                        disableOnInteraction: false,
+                    }}
                     breakpoints={{
                         320: {
                             slidesPerView: 2,

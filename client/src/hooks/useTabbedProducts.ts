@@ -14,6 +14,13 @@ export const useTabbedProducts = () => {
     const getProducts = async () => {
       try {
         const data = await fetchAllFeaturedProducts();
+        console.table(
+          data.map((product) => ({
+            id: product._id,
+            title: product.title,
+            isFeatured: product.isFeatured,
+          }))
+        );
         setProducts(data);
       } catch (error) {
         console.error("Failed to fetch featured products:", error);

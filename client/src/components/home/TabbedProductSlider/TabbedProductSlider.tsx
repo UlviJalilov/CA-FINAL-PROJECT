@@ -7,10 +7,7 @@ import OurProductCard from "../OurProductCard/OurProductCard";
 import { filterProductsByTab, tabs } from "@/utils/filterProductsByTab";
 import { useTabbedProducts } from "@/hooks/useTabbedProducts";
 import { Toaster } from 'react-hot-toast';
-import { FaCar, FaCogs, FaGasPump } from "react-icons/fa";
-import { GiSteeringWheel } from "react-icons/gi";
 import { Autoplay, Navigation } from "swiper/modules";
-
 
 const TabbedProductSlider = () => {
   const {
@@ -38,15 +35,11 @@ const TabbedProductSlider = () => {
           <div className="absolute bottom-0 right-0 w-1 h-16 bg-yellow-400"></div>
 
           <div className="flex items-center gap-3 justify-center text-white tracking-widest primary-font mb-4">
-            <span className="text-yellow-400 text-xl rotate-12">
-              <GiSteeringWheel />
-            </span>
+            
             <h1 className="text-xl tracking-wider uppercase primary-font font-bold text-white sm:text-2xl md:text-2xl text-center w-full">
               Our Products
             </h1>
-            <span className="text-yellow-400 text-xl -rotate-12">
-              <FaCar />
-            </span>
+            
           </div>
 
           <div className="max-w-2xl mx-auto text-center">
@@ -55,12 +48,6 @@ const TabbedProductSlider = () => {
             </p>
           </div>
 
-          <div className="flex justify-center gap-6 mt-6 text-yellow-400 text-xl">
-            <FaCogs title="Performance" className="hover:scale-110 animate-pulse transition" />
-            <FaGasPump title="Fuel System" className="hover:scale-110 animate-pulse transition" />
-            <GiSteeringWheel title="Control" className="hover:scale-110 animate-pulse transition" />
-            <FaCar title="Style" className="hover:scale-110 transition animate-pulse" />
-          </div>
         </div>
       </div>
 
@@ -88,7 +75,6 @@ const TabbedProductSlider = () => {
       </div>
 
       <Toaster position="top-right" reverseOrder={false} />
-
 
       <div
         className={`transition-opacity duration-500 ${animating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"

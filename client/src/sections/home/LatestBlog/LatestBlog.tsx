@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FaPenNib, FaNewspaper, FaEdit, FaGem, FaHeart, FaStar } from "react-icons/fa";
+import { FaEdit, } from "react-icons/fa";
 
 
 
@@ -17,15 +17,11 @@ const LatestBlog = () => {
                     <div className="absolute bottom-0 right-0 w-1 h-16 bg-yellow-500"></div>
 
                     <div className="flex items-center gap-3 justify-center text-yellow-400 tracking-widest font-bold uppercase primary-font mb-4">
-                        <span className="text-2xl md:text-xl animate-pulse">
-                            <FaPenNib />
-                        </span>
+
                         <h1 className="text-xl text-white sm:text-2xl md:text-2xl text-center w-full">
                             Latest Blog Insights
                         </h1>
-                        <span className="text-2xl md:text-xl animate-pulse">
-                            <FaNewspaper />
-                        </span>
+
                     </div>
 
                     <div className="max-w-2xl mx-auto text-center">
@@ -34,12 +30,6 @@ const LatestBlog = () => {
                         </p>
                     </div>
 
-                    <div className="flex justify-center gap-6 mt-6 text-yellow-400 text-xl">
-                        <FaEdit title="Author's Pick" className="hover:scale-110 transition cursor-pointer" />
-                        <FaGem title="In-Depth" className="hover:scale-110 transition cursor-pointer" />
-                        <FaHeart title="Readers' Favorite" className="hover:scale-110 transition cursor-pointer" />
-                        <FaStar title="Editor's Choice" className="hover:scale-110 transition cursor-pointer" />
-                    </div>
                 </div>
             </div>
 

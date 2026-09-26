@@ -1,32 +1,24 @@
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 
 
-export const tabs = ["Wheels", "Sounds", "Featured", "Home Page"];
-
-
-const homePageIds = [
-    "688607dfdd321373a1d6e393",
-    "688616e8dd321373a1d6e415",
-    "6886206bdd321373a1d6e491",
-    "68862638dd321373a1d6e4cb",
-];
+export const tabs = ["Wheels", "Sounds", "Featured",];
 
 const wheelsIds = [
-    "68814a530780e114897c0ba5",
-    "68815ab80780e114897c0c40",
-    "68815a230780e114897c0c2d",
-    "688159370780e114897c0c09",
+    "6aac29e7b18a9d966c7b87ad",
+    "6aac38bcb18a9d966c7b8801",
+    "6aac17d2b18a9d966c7b8792",
+    "6aac35adb18a9d966c7b87ec",
     "6881477e0780e114897c0b79",
     "688142030780e114897c0b5a",
 ];
 
 const soundsIds = [
-    "688616e8dd321373a1d6e415",
-    "68815b890780e114897c0c57",
-    "688157ad0780e114897c0bee",
-    "688142030780e114897c0b5a",
-    "688607dfdd321373a1d6e393",
-    "68815a230780e114897c0c2d",
+    "6aaae10f567baf73a4beb447",
+    "6aac3c8bb18a9d966c7b8811",
+    "6aac2de5b18a9d966c7b87c0",
+    "6aac3bb1b18a9d966c7b8808",
+    "6aac300ab18a9d966c7b87d7",
+    "6aac35adb18a9d966c7b87ec",
 ];
 
 export function filterProductsByTab(
@@ -36,8 +28,6 @@ export function filterProductsByTab(
     switch (activeTab.toLowerCase()) {
         case "featured":
             return products.filter((p) => p.isFeatured);
-        case "home page":
-            return products.filter((p) => homePageIds.includes(p._id));
         case "wheels":
             return products
                 .filter((p) => wheelsIds.includes(p._id))

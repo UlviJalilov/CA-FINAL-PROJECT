@@ -6,7 +6,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import FeaturedProductCard from "@/components/home/FeaturedProductCard/FeaturedProductCard";
 import { useFeaturedProducts } from "@/hooks/useFeaturedProducts";
-import { FaStar ,FaBolt, FaGem, FaHeart } from "react-icons/fa";
 import { Toaster } from 'react-hot-toast';
 
 
@@ -32,15 +31,11 @@ const FeaturedSlider = () => {
 
         
           <div className="flex items-center gap-3 justify-center text-yellow-400 tracking-widest font-bold uppercase primary-font mb-4">
-            <span className="text-2xl md:text-xl animate-pulse">
-              <FaStar />
-            </span>
+           
             <h1 className="text-xl text-white sm:text-2xl md:text-2xl text-center w-full">
               Featured Products
             </h1>
-            <span className="text-2xl md:text-xl animate-pulse">
-              <FaStar />
-            </span>
+           
           </div>
 
           <div className="max-w-2xl mx-auto text-center">
@@ -50,12 +45,7 @@ const FeaturedSlider = () => {
           </div>
 
         
-          <div className="flex justify-center gap-6 mt-6 text-yellow-400 text-xl">
-            <FaBolt title="Power" className="hover:scale-110 transition" />
-            <FaGem title="Quality" className="hover:scale-110 transition" />
-            <FaHeart title="Favorite" className="hover:scale-110 transition" />
-            <FaStar title="Featured" className="hover:scale-110 transition" />
-          </div>
+       
         </div>
       </div>
 

@@ -2,6 +2,9 @@ import dotenv from "dotenv";
 import { connectDB } from "../config/db";
 import CarProduct from "../models/CarProductSchema";
 import { products, MakeGroup, ModelGroup, YearGroup, ProductItem } from "../data/carproducts";
+import dns from "node:dns";
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 dotenv.config();
 
