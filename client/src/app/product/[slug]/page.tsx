@@ -3,9 +3,9 @@ import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/api";
 import ProductClient from "@/components/shared/ProductClient/ProductClient";
 type Props = {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 };
 
 export default async function ProductDetailPage({ params }: Props) {
