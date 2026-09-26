@@ -45,10 +45,13 @@ export default function Brands() {
                     modules={[Pagination, Navigation, Autoplay]}
                     className="mySwiper"
                     loop={true}
+                    speed={2000}
                     autoplay={{
                         delay: 0,
                         disableOnInteraction: false,
+                        pauseOnMouseEnter: false,
                     }}
+                    allowTouchMove={true}
                     breakpoints={{
                         320: {
                             slidesPerView: 2,
