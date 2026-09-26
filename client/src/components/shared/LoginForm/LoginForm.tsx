@@ -25,11 +25,14 @@ const LoginForm = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const res = await fetch("http://localhost:3001/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+          }
+        );
 
         const data = await res.json();
 
@@ -41,7 +44,8 @@ const LoginForm = () => {
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("user", JSON.stringify(data.user));
 
-        router.push("/admin/dashboard");        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        router.push("/admin/dashboard");
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         setError("A server error occurred.");
       }

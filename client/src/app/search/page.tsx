@@ -45,7 +45,7 @@ const fetchCarProducts = async (params: {
     });
 
     const res = await fetch(
-        `http://localhost:3001/api/car-products?${queryParams.toString()}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/car-products?${queryParams.toString()}`,
         {
             cache: "no-store",
         }

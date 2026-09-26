@@ -5,8 +5,11 @@ import axios from "axios";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 
 const fetchFeaturedProducts = async (): Promise<FeaturedProduct[]> => {
-  const { data } = await axios.get("http://localhost:3001/api/products");
-  return data
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/products`
+  );
+
+  return data;
 };
 
 export const useFeaturedProducts = () => {

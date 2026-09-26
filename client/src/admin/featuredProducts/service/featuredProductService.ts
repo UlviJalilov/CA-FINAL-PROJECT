@@ -2,8 +2,7 @@
 import axios from "axios";
 import { FeaturedProduct } from "@/types/FeaturedProduct";
 
-const BASE_URL = "http://localhost:3001/api/featured-products";
-
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/featured-products`;
 export const fetchAllFeaturedProducts = async (isFeaturedOnly = false): Promise<FeaturedProduct[]> => {
   try {
     const url = isFeaturedOnly ? `${BASE_URL}?isFeatured=true` : BASE_URL;

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { CarProduct } from "@/types/CarProduct";
 
-const BASE_URL = "http://localhost:3001/api/car-products";
-
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/car-products`;
 export const fetchAllCarProducts = async (): Promise<CarProduct[]> => {
   const res = await axios.get(BASE_URL);
   return res.data;

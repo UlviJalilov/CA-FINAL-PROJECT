@@ -36,17 +36,17 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ setReviewData }) => {
         if (e.target.files) setPhotos(Array.from(e.target.files));
     };
 
-const stepVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-};
+    const stepVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -20 },
+    };
 
-const modalVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.8 },
-};
+    const modalVariants = {
+        hidden: { opacity: 0, scale: 0.8 },
+        visible: { opacity: 1, scale: 1 },
+        exit: { opacity: 0, scale: 0.8 },
+    };
 
     const handleDone = async () => {
         let uploadedImageUrl = "";
@@ -54,27 +54,33 @@ const modalVariants = {
             const formData = new FormData();
             formData.append("image", photos[0]);
 
-            const uploadRes = await fetch("http://localhost:3001/api/upload", {
-                method: "POST",
-                body: formData,
-            });
+            const uploadRes = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
             const uploadData = await uploadRes.json();
             uploadedImageUrl = uploadData.url;
         }
         try {
 
-            const res = await fetch("http://localhost:3001/api/reviews", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    stars: rating,
-                    experience: reviewText,
-                    image: uploadedImageUrl
-                })
-            });
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/reviews`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        stars: rating,
+                        experience: reviewText,
+                        image: uploadedImageUrl
+                    })
+                }
+            );
 
             const result = await res.json();
 
@@ -132,7 +138,7 @@ const modalVariants = {
             </Button>
 
 
-            <AnimatePresence  mode="wait">
+            <AnimatePresence mode="wait">
                 {open && (
                     <Modal open={open} onClose={() => setOpen(false)}>
                         <motion.div
@@ -288,7 +294,7 @@ const modalVariants = {
                                         </motion.div>
                                     )}
 
-                                   
+
                                     {activeStep === 2 && (
                                         <motion.div
                                             key="step2"
@@ -328,7 +334,7 @@ const modalVariants = {
                                         </motion.div>
                                     )}
 
-                                  
+
                                     {activeStep === 3 && (
                                         <motion.div
                                             key="step3"

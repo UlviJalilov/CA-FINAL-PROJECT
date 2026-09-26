@@ -25,11 +25,14 @@ const RegisterForm: FC = () => {
         }),
         onSubmit: async (values) => {
             try {
-                const res = await fetch("http://localhost:3001/api/auth/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(values),
-                });
+                const res = await fetch(
+                    `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(values),
+                    }
+                );
 
                 const data = await res.json();
 
@@ -38,7 +41,6 @@ const RegisterForm: FC = () => {
                     return;
                 }
 
-              
                 router.push("/login");
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (err) {
@@ -54,7 +56,7 @@ const RegisterForm: FC = () => {
             </h2>
 
             <form className="space-y-4" onSubmit={formik.handleSubmit}>
-            
+
                 <div className="grid grid-cols-[110px_1fr] items-center gap-4 w-full">
                     <label className="flex items-center gap-1">
                         <span className="text-red-600">*</span>
@@ -75,7 +77,7 @@ const RegisterForm: FC = () => {
                     )}
                 </div>
 
-              
+
                 <div className="grid grid-cols-[110px_1fr] items-center gap-4 w-full">
                     <label className="flex items-center gap-1">
                         <span className="text-red-600">*</span>
@@ -94,7 +96,7 @@ const RegisterForm: FC = () => {
                     )}
                 </div>
 
-              
+
                 <div className="grid grid-cols-[110px_1fr] items-center gap-4 w-full">
                     <label className="flex items-center gap-1">
                         <span className="text-red-600">*</span>
@@ -109,7 +111,7 @@ const RegisterForm: FC = () => {
                         value={formik.values.email}
                         className="w-full border placeholder:text-sm border-gray-300 rounded px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-black"
                     />
-                       {formik.touched.email && formik.errors.email && (
+                    {formik.touched.email && formik.errors.email && (
                         <p className="text-red-500 text-sm">{formik.errors.email}</p>
                     )}
                 </div>
@@ -127,12 +129,12 @@ const RegisterForm: FC = () => {
                         value={formik.values.password}
                         className="w-full border placeholder:text-sm border-gray-300 rounded px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-black"
                     />
-                       {formik.touched.password && formik.errors.password && (
+                    {formik.touched.password && formik.errors.password && (
                         <p className="text-red-500 text-sm">{formik.errors.password}</p>
                     )}
                 </div>
 
-              
+
                 {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
 
                 <div className="flex ml-0 md:-ml-10 items-center gap-4 mt-6">

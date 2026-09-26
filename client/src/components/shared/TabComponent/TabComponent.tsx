@@ -31,12 +31,12 @@ const tabs: Tab[] = [
 export default function TabComponent() {
     const [activeTab, setActiveTab] = useState<string>("description");
     const [reviewData, setReviewData] = useState<ReviewData[]>([]);
-    useEffect(() => {
-        fetch("http://localhost:3001/api/reviews")
-            .then(res => res.json())
-            .then(data => setReviewData(data))
-            .catch(err => console.error(err));
-    }, []);
+  useEffect(() => {
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews`)
+    .then(res => res.json())
+    .then(data => setReviewData(data))
+    .catch(err => console.error(err));
+}, []);
 
 
     return (

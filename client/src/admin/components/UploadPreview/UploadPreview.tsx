@@ -9,11 +9,11 @@ interface UploadPreviewProps {
 }
 
 const UploadPreview = ({ onMainImageUpload, onHoverImageUpload }: UploadPreviewProps) => {
-  const [preview, setPreview] = useState<string | null>(null); 
-  const [hoverPreview, setHoverPreview] = useState<string | null>(null); 
+  const [preview, setPreview] = useState<string | null>(null);
+  const [hoverPreview, setHoverPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
- 
+
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -23,10 +23,13 @@ const UploadPreview = ({ onMainImageUpload, onHoverImageUpload }: UploadPreviewP
     formData.append("image", file);
 
     try {
-      const res = await fetch("http://localhost:3001/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await res.json();
 
@@ -43,7 +46,7 @@ const UploadPreview = ({ onMainImageUpload, onHoverImageUpload }: UploadPreviewP
     }
   };
 
- 
+
   const handleHoverImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -52,27 +55,30 @@ const UploadPreview = ({ onMainImageUpload, onHoverImageUpload }: UploadPreviewP
     const formData = new FormData();
     formData.append("image", file);
 
-    try {
-      const res = await fetch("http://localhost:3001/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-      console.log("Upload cavabı:", data); 
-
-
-      if (res.ok) {
-        setHoverPreview(data.url);
-        onHoverImageUpload(data.url);
-      } else {
-        console.error("Hover yükləmə xətası:", data.message);
-      }
-    } catch (error) {
-      console.error("Hover şəkil yüklənmədi:", error);
-    } finally {
-      setLoading(false);
+  try {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+    {
+      method: "POST",
+      body: formData,
     }
+  );
+
+  const data = await res.json();
+
+  console.log("Upload cavabı:", data);
+
+  if (res.ok) {
+    setHoverPreview(data.url);
+    onHoverImageUpload(data.url);
+  } else {
+    console.error("Hover yükləmə xətası:", data.message);
+  }
+} catch (error) {
+  console.error("Hover şəkil yüklənmədi:", error);
+} finally {
+  setLoading(false);
+}
   };
 
   return (
