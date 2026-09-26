@@ -1,114 +1,173 @@
+
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+
 import { useQuery } from "@tanstack/react-query";
+
 import ShopGrid from "@/components/shop/ShopGrid/ShopGrid";
 import SearchForm from "@/components/home/SearchForm/SearchForm";
 import { CarProducts } from "@/components/home/CarProducts/CarProducts";
-import { FeaturedProduct } from "@/types/FeaturedProduct";
-import CategorySection from "@/components/shop/CategorySection/CategorySection";
-import ShopBanner from '@/components/shop/ShopBanner/ShopBanner';
 
+import { FeaturedProduct } from "@/types/FeaturedProduct";
+
+import CategorySection from "@/components/shop/CategorySection/CategorySection";
+import ShopBanner from "@/components/shop/ShopBanner/ShopBanner";
 
 interface CarProduct {
-  _id: string;
-  make: string;
-  carModel: string;
-  year: number;
-  image: string;
-  title: string;
-  price: number;
-  hoverImage?: string;
-  description?: string;
+    _id: string;
+    make: string;
+    carModel: string;
+    year: number;
+    image: string;
+    title: string;
+    price: number;
+    hoverImage?: string;
+    description?: string;
 }
 
-const fetchCarProducts = async (params: { make?: string; model?: string; year?: string; title?: string }) => {
-  const queryParams = new URLSearchParams();
-  Object.entries(params).forEach(([key, value]) => {
-    if (value && value.trim() !== "") {
-      queryParams.append(key === "model" ? "carModel" : key, value);
-    }
-  });
+const fetchCarProducts = async (params: {
+    make?: string;
+    model?: string;
+    year?: string;
+    title?: string;
+}) => {
+    const queryParams = new URLSearchParams();
 
-  const res = await fetch(`http://localhost:3001/api/car-products?${queryParams.toString()}`, { cache: "no-store" });
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || "Failed to fetch products");
-  }
-  return res.json();
+    Object.entries(params).forEach(([key, value]) => {
+        if (value && value.trim() !== "") {
+            queryParams.append(
+                key === "model" ? "carModel" : key,
+                value
+            );
+        }
+    });
+
+    const res = await fetch(
+        `http://localhost:3001/api/car-products?${queryParams.toString()}`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(
+            errorData.message || "Failed to fetch products"
+        );
+    }
+
+    return res.json();
 };
 
-export default function SearchPage() {
-  const searchParams = useSearchParams();
-  const source = searchParams.get("source");
+function SearchContent() {
+    const searchParams = useSearchParams();
 
+    const source = searchParams.get("source");
+    const from = searchParams.get("from");
 
-  const from = searchParams.get("from");
-  const make = searchParams.get("make") || "";
-  const model = searchParams.get("model") || "";
-  const year = searchParams.get("year") || "";
-  const title = searchParams.get("title") || "";
+    const make = searchParams.get("make") || "";
+    const model = searchParams.get("model") || "";
+    const year = searchParams.get("year") || "";
+    const title = searchParams.get("title") || "";
 
-  const { data: products = [], isLoading, error } = useQuery<CarProduct[]>({
-    queryKey: ["car-products", make, model, year, title],
-    queryFn: () => fetchCarProducts({ make, model, year, title }),
-    enabled: !!make || !!model || !!year || !!title,
-  });
+    const {
+        data: products = [],
+        isLoading,
+        error,
+    } = useQuery<CarProduct[]>({
+        queryKey: ["car-products", make, model, year, title],
+        queryFn: () =>
+            fetchCarProducts({
+                make,
+                model,
+                year,
+                title,
+            }),
+        enabled: !!make || !!model || !!year || !!title,
+    });
 
-  const mappedProducts: (FeaturedProduct & {
-    make?: string;
-    carModel?: string;
-    year?: string | number;
-  })[] = products.map((p) => ({
-    _id: p._id,
-    title: p.title,
-    price: p.price,
-    rating: 0,
-    image: p.image,
-    hoverImage: p.hoverImage,
-    isFeatured: false,
-    slug: p._id,
-    description: p.description,
-    oldPrice: 0,
-    discountBtn: "",
-    inStock: true,
-    make: p.make,
-    carModel: p.carModel,
-    type: "someDefaultValue",
-  }));
+    const mappedProducts: (FeaturedProduct & {
+        make?: string;
+        carModel?: string;
+        year?: string | number;
+    })[] = products.map((p) => ({
+        _id: p._id,
+        title: p.title,
+        price: p.price,
+        rating: 0,
+        image: p.image,
+        hoverImage: p.hoverImage,
+        isFeatured: false,
+        slug: p._id,
+        description: p.description,
+        oldPrice: 0,
+        discountBtn: "",
+        inStock: true,
+        make: p.make,
+        carModel: p.carModel,
+        type: "someDefaultValue",
+    }));
 
+    const images: string[] = products.map((p) => p.image);
 
-  const images: string[] = products.map((p) => p.image);
+    return (
+        <div
+            className={
+                from === "shop"
+                    ? "bg-white min-h-screen"
+                    : "bg-[#0F111A] min-h-screen"
+            }
+        >
+            {from === "shop" && <ShopBanner />}
 
+            {source === "home" && <SearchForm />}
 
-  return (
-    <div className={from === "shop" ? "bg-white min-h-screen" : "bg-[#0F111A] min-h-screen"}>
-      {from === "shop" && <ShopBanner />}
-      {source === "home" && <SearchForm />}
-      {from === "shop" && <CategorySection images={images} />}
-      {isLoading && <p className="p-10 text-center">Loading...</p>}
-      {error && <p className="p-10 text-center text-red-500">{error.message}</p>}
+            {from === "shop" && <CategorySection images={images} />}
 
-      {from === "home" && products.length > 0 && (
-        
-        <div className="grid grid-cols-1 py-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-10 xl:grid-cols-4 gap-5">
-          
-          {products.map((p) => (
-            <CarProducts key={p._id} product={p} />
-          ))}
+            {isLoading && (
+                <p className="p-10 text-center">
+                    Loading...
+                </p>
+            )}
+
+            {error && (
+                <p className="p-10 text-center text-red-500">
+                    {error.message}
+                </p>
+            )}
+
+            {from === "home" && products.length > 0 && (
+                <div className="grid grid-cols-1 py-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 p-10 xl:grid-cols-4 gap-5">
+                    {products.map((p) => (
+                        <CarProducts
+                            key={p._id}
+                            product={p}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {from === "shop" && mappedProducts.length > 0 && (
+                <ShopGrid
+                    products={[]}
+                    carProducts={mappedProducts}
+                    from={from}
+                    make={make}
+                    model={model}
+                    year={year}
+                />
+            )}
         </div>
-      )}
-
-      {from === "shop" && mappedProducts.length > 0 && (
-        <ShopGrid
-          products={[]}
-          carProducts={mappedProducts}
-          from={from}
-          make={make}
-          model={model}
-          year={year}
-        />
-      )}
-    </div>
-  );
+    );
 }
+
+export default function SearchPage() {
+    return (
+        <Suspense fallback={null}>
+            <SearchContent />
+        </Suspense>
+    );
+}
+
