@@ -94,6 +94,7 @@ export function CarProducts({ product }: { product: Product }) {
             fill
             sizes="(max-width: 768px) 100vw, 400px"
             priority
+            
           />
         </motion.div>
 

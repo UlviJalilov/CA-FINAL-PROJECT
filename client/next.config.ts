@@ -5,10 +5,23 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
+
     remotePatterns: [
       {
         protocol: "https",
         hostname: "example.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.drivespark.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "platform.cstatic-images.com",
         port: "",
         pathname: "/**",
       },
@@ -75,7 +88,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "tashdata.s3.me-south-1.amazonaws.com",
+        hostname: "s1.cdn.autoevolution.com",
         port: "",
         pathname: "/**",
       },
@@ -109,12 +122,7 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
-      {
-        protocol: "https",
-        hostname: "flagshipdrive.com",
-        port: "",
-        pathname: "/**",
-      },
+     
       {
         protocol: "https",
         hostname: "assets.autobuzz.my",
@@ -280,6 +288,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "jesmb.de",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.carexpert.com.au",
         port: "",
         pathname: "/**",
       }
